@@ -13,13 +13,39 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
+
+    //菜单部分
+    <LinearLayout
+        android:background="#FFFFFF"
+        android:layout_width="330dp"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer" />
+        android:orientation="vertical"
+        android:layout_gravity="start">
+
+        //头部头像部分
+        <include
+
+            layout="@layout/nav_header_main"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_weight="1"
+            />
+
+        //你自定义的菜单布局，具体里面你随意实现你自己需要的内容
+        <include
+            layout="@layout/nav_layout"
+            android:layout_width="match_parent"
+            android:layout_weight="3"
+            android:layout_height="0dp"
+            />
+    </LinearLayout>
+    <!--<android.support.design.widget.NavigationView-->
+        <!--android:id="@+id/nav_view"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="start"-->
+        <!--android:fitsSystemWindows="true"-->
+        <!--app:headerLayout="@layout/nav_header_main"-->
+        <!--app:menu="@menu/activity_main_drawer" />-->
 
 </android.support.v4.widget.DrawerLayout>

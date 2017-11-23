@@ -2,22 +2,41 @@ package com.jackpan.stockcomputer;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
 
+import com.adbert.AdbertListener;
+import com.adbert.AdbertLoopADView;
+import com.adbert.AdbertOrientation;
+import com.adbert.ExpandVideoPosition;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.vpadn.ads.VpadnAd;
+import com.vpadn.ads.VpadnAdListener;
+import com.vpadn.ads.VpadnAdRequest;
+import com.vpadn.ads.VpadnAdSize;
+import com.vpadn.ads.VpadnBanner;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private AdView mAdView;
+    private static final String TAG = "MainActivity";
+
+    private RelativeLayout adBannerLayout;
+    private VpadnBanner vponBanner = null;
+    //Vpon TODO:  Banner ID
+    private String bannerId = "8a8081824eb5519a014eca83ab981d91" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +61,13 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+        setAdmobBanner();
+        setVponBanner();
+        setAdbertBanner();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -84,23 +106,64 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-//        } else if (id == R.id.nav_send) {
 //
-        }
+//        if (id == R.id.nav_camera) {
+//            // Handle the camera action
+//        } else if (id == R.id.nav_gallery) {
+//
+//        } else if (id == R.id.nav_slideshow) {
+//
+//        } else if (id == R.id.nav_manage) {
+//
+//        } else if (id == R.id.nav_share) {
+//
+//        } else if (id == R.id.nav_send) {
+////
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    private  void setVponBanner(){
+
+
+        //get your layout view for Vpon banner
+        adBannerLayout = (RelativeLayout) findViewById(R.id.adLayout);
+        //create VpadnBanner instance
+        vponBanner = new VpadnBanner(this, bannerId, VpadnAdSize.SMART_BANNER, "TW");
+        VpadnAdRequest adRequest2 = new VpadnAdRequest();
+        //set auto refresh to get banner
+        adRequest2.setEnableAutoRefresh(true);
+        //load vpon banner
+        vponBanner.loadAd(adRequest2);
+        //add vpon banner to your layout view
+        adBannerLayout.addView(vponBanner);
+    }
+    private void setAdmobBanner() {
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+    }
+    private void setAdbertBanner(){
+        AdbertLoopADView adbertView =(AdbertLoopADView)findViewById(R.id.adbertADView);
+        adbertView.setMode(AdbertOrientation.NORMAL);
+        adbertView.setExpandVideo(ExpandVideoPosition.BOTTOM);
+        adbertView.setFullScreen(false);
+        adbertView.setBannerSize(AdSize.BANNER);
+        adbertView.setAPPID("20170619000001", "90cebe8ef120c8bb6ac2ce529dcb99af");
+        adbertView.setListener(new AdbertListener() {
+            @Override
+            public void onReceive(String msg) {
+                Log.d(TAG, "onReceive: " + msg);
+            }
+
+            @Override
+            public void onFailedReceive(String msg) {
+                Log.d(TAG, "onFailedReceive: " + msg);
+
+            }
+        });
+        adbertView.start();
     }
 }
