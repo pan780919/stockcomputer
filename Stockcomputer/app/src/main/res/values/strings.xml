@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">股票獲利計算機</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+
+    <string name="facebook_app_id">383959162037550</string>
+    <string name="fb_login_protocol_scheme">fb383959162037550</string>
+
+</resources>
