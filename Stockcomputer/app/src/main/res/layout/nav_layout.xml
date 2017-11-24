@@ -143,6 +143,14 @@
             </LinearLayout>
 
             <include layout="@layout/messenger_button_send_white_large" />
+
+            <com.clickforce.ad.AdView
+                android:id="@+id/ad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true">
+            </com.clickforce.ad.AdView>
         </LinearLayout>
 
 

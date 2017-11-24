@@ -1,5 +1,7 @@
 package com.jackpan.stockcomputer;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -17,13 +19,15 @@ import com.adbert.AdbertListener;
 import com.adbert.AdbertLoopADView;
 import com.adbert.AdbertOrientation;
 import com.adbert.ExpandVideoPosition;
+import com.clickforce.ad.Listener.AdViewLinstener;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.messenger.MessengerThreadParams;
+import com.facebook.messenger.MessengerUtils;
+import com.facebook.messenger.ShareToMessengerParams;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.vpadn.ads.VpadnAd;
-import com.vpadn.ads.VpadnAdListener;
 import com.vpadn.ads.VpadnAdRequest;
 import com.vpadn.ads.VpadnAdSize;
 import com.vpadn.ads.VpadnBanner;
@@ -37,6 +41,19 @@ public class MainActivity extends AppCompatActivity
     private VpadnBanner vponBanner = null;
     //Vpon TODO:  Banner ID
     private String bannerId = "8a8081824eb5519a014eca83ab981d91" ;
+    private  com.clickforce.ad.AdView clickforceAd;
+
+    private static final String EXTRA_PROTOCOL_VERSION = "com.facebook.orca.extra.PROTOCOL_VERSION";
+    private static final String EXTRA_APP_ID = "com.facebook.orca.extra.APPLICATION_ID";
+    private static final String EXTRA_IS_COMPOSE = "com.facebook.orca.extra.IS_COMPOSE";
+    private static final String EXTRA_IS_REPLY = "com.facebook.orca.extra.IS_REPLY";
+    private static final String EXTRA_THREAD_TOKEN = "com.facebook.orca.extra.THREAD_TOKEN";
+    private static final String YOUR_APP_ID = "383959162037550";
+    private MessengerThreadParams mThreadParams;
+    private boolean mPicking;
+    private static final int REQUEST_CODE_SHARE_TO_MESSENGER = 1;
+    private View mMessengerButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +81,22 @@ public class MainActivity extends AppCompatActivity
         setAdmobBanner();
         setVponBanner();
         setAdbertBanner();
+        setClickForce();
+        Intent intent = getIntent();
+        if (Intent.ACTION_PICK.equals(intent.getAction())) {
+            mThreadParams = MessengerUtils.getMessengerThreadParamsForIntent(intent);
+            mPicking = true;
 
+            // Note, if mThreadParams is non-null, it means the activity was launched from Messenger.
+            // It will contain the metadata associated with the original content, if there was content.
+        }
+        mMessengerButton = findViewById(R.id.messenger_send_button);
+        mMessengerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onMessengerButtonClicked();
+            }
+        });
     }
 
 
@@ -126,8 +158,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
     private  void setVponBanner(){
-
-
+        
         //get your layout view for Vpon banner
         adBannerLayout = (RelativeLayout) findViewById(R.id.adLayout);
         //create VpadnBanner instance
@@ -165,5 +196,57 @@ public class MainActivity extends AppCompatActivity
             }
         });
         adbertView.start();
+    }
+    private  void setClickForce(){
+
+        clickforceAd = (com.clickforce.ad.AdView)findViewById(R.id.ad);
+        clickforceAd.getAd(1300,320,50,0.8,30);
+
+
+
+        //Ad Load Callback
+        clickforceAd.setOnAdViewLoaded(new AdViewLinstener() {
+            @Override
+            public void OnAdViewLoadFail() {
+                Log.d(TAG, "請求廣告失敗");
+            }
+            @Override
+            public void OnAdViewLoadSuccess() {
+                Log.d(TAG, "成功請求廣告");
+
+                //顯示banner廣告
+                clickforceAd.show();
+            }
+        });
+
+        clickforceAd.outputDebugInfo = true;
+
+    }
+
+    private void onMessengerButtonClicked() {
+        // The URI can reference a file://, content://, or android.resource. Here we use
+        // android.resource for sample purposes.
+        Uri uri =
+                Uri.parse("android.resource://com.facebook.samples.messenger.send/" + R.drawable.ic_audiotrack);
+
+        // Create the parameters for what we want to send to Messenger.
+        ShareToMessengerParams shareToMessengerParams =
+                ShareToMessengerParams.newBuilder(uri, "image/jpeg")
+                        .setMetaData("{ \"image\" : \"tree\" }")
+                        .build();
+
+        if (mPicking) {
+            // If we were launched from Messenger, we call MessengerUtils.finishShareToMessenger to return
+            // the content to Messenger.
+            MessengerUtils.finishShareToMessenger(this, shareToMessengerParams);
+        } else {
+            // Otherwise, we were launched directly (for example, user clicked the launcher icon). We
+            // initiate the broadcast flow in Messenger. If Messenger is not installed or Messenger needs
+            // to be upgraded, this will direct the user to the play store.
+            MessengerUtils.shareToMessenger(
+                    this,
+                    REQUEST_CODE_SHARE_TO_MESSENGER,
+                    shareToMessengerParams);
+        }
     }
 }
