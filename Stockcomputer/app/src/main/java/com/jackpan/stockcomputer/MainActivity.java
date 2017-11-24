@@ -1,5 +1,6 @@
 package com.jackpan.stockcomputer;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.adbert.AdbertListener;
@@ -32,6 +35,13 @@ import com.vpadn.ads.VpadnAdRequest;
 import com.vpadn.ads.VpadnAdSize;
 import com.vpadn.ads.VpadnBanner;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private AdView mAdView;
@@ -42,17 +52,14 @@ public class MainActivity extends AppCompatActivity
     //Vpon TODO:  Banner ID
     private String bannerId = "8a8081824eb5519a014eca83ab981d91" ;
     private  com.clickforce.ad.AdView clickforceAd;
-
-    private static final String EXTRA_PROTOCOL_VERSION = "com.facebook.orca.extra.PROTOCOL_VERSION";
-    private static final String EXTRA_APP_ID = "com.facebook.orca.extra.APPLICATION_ID";
-    private static final String EXTRA_IS_COMPOSE = "com.facebook.orca.extra.IS_COMPOSE";
-    private static final String EXTRA_IS_REPLY = "com.facebook.orca.extra.IS_REPLY";
-    private static final String EXTRA_THREAD_TOKEN = "com.facebook.orca.extra.THREAD_TOKEN";
-    private static final String YOUR_APP_ID = "383959162037550";
     private MessengerThreadParams mThreadParams;
     private boolean mPicking;
     private static final int REQUEST_CODE_SHARE_TO_MESSENGER = 1;
     private View mMessengerButton;
+    private ProgressDialog mProgressDialog;
+     private ListView listView;
+    private ArrayList<String> newlist= new ArrayList<>();
+    private ArrayAdapter<String> listAdapter;
 
 
     @Override
@@ -97,6 +104,12 @@ public class MainActivity extends AppCompatActivity
                 onMessengerButtonClicked();
             }
         });
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.show();
+        setNewsData();
+         listView = (ListView)findViewById(R.id.newslistview);
+        listAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,newlist);
+        listView.setAdapter(listAdapter);
     }
 
 
@@ -158,7 +171,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
     private  void setVponBanner(){
-        
+
         //get your layout view for Vpon banner
         adBannerLayout = (RelativeLayout) findViewById(R.id.adLayout);
         //create VpadnBanner instance
@@ -248,5 +261,50 @@ public class MainActivity extends AppCompatActivity
                     REQUEST_CODE_SHARE_TO_MESSENGER,
                     shareToMessengerParams);
         }
+    }
+
+    private  void setNewsData(){
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Document doc = Jsoup.connect("https://tw.stock.yahoo.com/news_list/url/d/e/N3.html?q=&pg=1").get();
+                    for (Element table : doc.select("table#newListContainer")) {
+                        for (Element tbody : table.select("tbody")) {
+                            for (Element tr : tbody.select("tr")) {
+                                for (Element td : tr.select("td[valign=top]>a.mbody")) {
+                                    Log.d(TAG, "run: "+td.text());
+                                    Log.d(TAG, "run: "+td.getElementsByTag("a").attr("href").toString());
+//                                    Log.d(TAG, "run: "+td.html());
+//                                    Log.d(TAG, "run: "+td.toString());
+//                                    for (Element span : td.select("span")) {
+//                                        for (Element a : span.getElementsByTag("a")) {
+//                                        d    Log.d(TAG, "run: "+a.attr("href").toString());
+//                                        }
+//                                    }););
+                                    newlist.add(td.text());
+                                }
+                            }
+                        }
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.d(TAG, "run: "+e.getMessage());
+                }
+
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                                 listAdapter.notifyDataSetChanged();
+                                mProgressDialog.dismiss();
+
+
+                    }
+                });
+            }
+        }.start();
     }
 }
