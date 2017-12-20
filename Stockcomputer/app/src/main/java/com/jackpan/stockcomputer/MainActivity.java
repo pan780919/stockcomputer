@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.adbert.AdbertListener;
 import com.adbert.AdbertLoopADView;
@@ -42,8 +43,7 @@ import org.jsoup.nodes.Element;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity{
     private AdView mAdView;
     private static final String TAG = "MainActivity";
 
@@ -70,21 +70,46 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(getResources().getString(R.string.app_name));
+
+//        toolbar.setLogo(R.mipmap.ic_launcher);//设置logo
+        toolbar.setSubtitle("Sub title");
+
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-            }
-        });
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+//        FloatingActionButtonn fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+////                        .setAction("Action", null).show();
+//            }
+//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
+
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+        toolbar.setNavigationIcon(R.drawable.ic_media_play);;
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: "+"in");
+            }
+        });
+        toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("TOU AQUI", "TOU AQUI");
+            }
+        });
+
         setAdmobBanner();
         setVponBanner();
         setAdbertBanner();
@@ -107,7 +132,7 @@ public class MainActivity extends AppCompatActivity
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.show();
         setNewsData();
-         listView = (ListView)findViewById(R.id.newslistview);
+        listView = (ListView)findViewById(R.id.newslistview);
         listAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,newlist);
         listView.setAdapter(listAdapter);
     }
@@ -146,30 +171,30 @@ public class MainActivity extends AppCompatActivity
 //        return super.onOptionsItemSelected(item);
 //    }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-//
-//        if (id == R.id.nav_camera) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
+//    @SuppressWarnings("StatementWithEmptyBody")
+//    @Override
+//    public boolean onNavigationItemSelected(MenuItem item) {
+//        // Handle navigation view item clicks here.
+//        int id = item.getItemId();
 ////
-//        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
+////        if (id == R.id.nav_camera) {
+////            // Handle the camera action
+////        } else if (id == R.id.nav_gallery) {
+////
+////        } else if (id == R.id.nav_slideshow) {
+////
+////        } else if (id == R.id.nav_manage) {
+////
+////        } else if (id == R.id.nav_share) {
+////
+////        } else if (id == R.id.nav_send) {
+//////
+////        }
+//
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        drawer.closeDrawer(GravityCompat.START);
+//        return true;
+//    }
     private  void setVponBanner(){
 
         //get your layout view for Vpon banner
@@ -213,7 +238,7 @@ public class MainActivity extends AppCompatActivity
     private  void setClickForce(){
 
         clickforceAd = (com.clickforce.ad.AdView)findViewById(R.id.ad);
-        clickforceAd.getAd(1300,320,50,0.8,30);
+        clickforceAd.getAd(6120,320,50,0.8,30);
 
 
 
