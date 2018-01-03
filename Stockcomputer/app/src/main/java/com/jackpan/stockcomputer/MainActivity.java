@@ -39,6 +39,9 @@ import org.jsoup.nodes.Element;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class MainActivity extends AppCompatActivity{
     private AdView mAdView;
     private static final String TAG = "MainActivity";
@@ -64,6 +67,7 @@ public class MainActivity extends AppCompatActivity{
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(getResources().getString(R.string.app_name));
         setSupportActionBar(toolbar);
@@ -110,7 +114,10 @@ public class MainActivity extends AppCompatActivity{
         listAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,newlist);
         listView.setAdapter(listAdapter);
     }
-
+    @OnClick(R.id.nav_gallery)
+    public void Click(){
+        startActivity(new Intent(this,ProfitAndLossActvity.class));
+    }
 
 
     @Override

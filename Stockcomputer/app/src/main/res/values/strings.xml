@@ -9,7 +9,7 @@
 
     <string name="facebook_app_id">383959162037550</string>
     <string name="fb_login_protocol_scheme">fb383959162037550</string>
-    <string name="title_activity_profit_and_loss_actvity">ProfitAndLossActvity</string>
+    <string name="title_activity_profit_and_loss_actvity">買賣損益獲利率試算</string>
 
 
     <string name="activity_profit_and_loss_actvity_tittle">買賣損益獲利率試算</string>
@@ -18,11 +18,12 @@
     <string name="activity_profit_and_loss_actvity_input_buy_amount_all">輸入購買股數(一張為1000股)</string>
     <string name="activity_profit_and_loss_actvity_input_buy_payment">買入總付款$</string>
 
-
-
-
     <string name="activity_profit_and_loss_actvity_input_sell">請輸入\t賣出資料</string>
     <string name="activity_profit_and_loss_actvity_input_sell_amount">請輸入賣入個股成交價</string>
     <string name="activity_profit_and_loss_actvity_input_sell_amount_all">輸入購買股數(一張為1000股)</string>
     <string name="activity_profit_and_loss_actvity_input_sell_payment">賣出總收款$</string>
+    <string name="activity_profit_and_loss_actvity_input_sell_calculate">計算</string>
+    <string name="activity_profit_and_loss_actvity_input_sell_profit">獲利$</string>
+    <string name="activity_profit_and_loss_actvity_input_sell_profitability">獲利率 %</string>
+
 </resources>
