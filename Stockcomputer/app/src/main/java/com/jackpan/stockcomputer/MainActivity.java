@@ -10,7 +10,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -39,6 +38,7 @@ import org.jsoup.nodes.Element;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -54,13 +54,13 @@ public class MainActivity extends AppCompatActivity{
     private MessengerThreadParams mThreadParams;
     private boolean mPicking;
     private static final int REQUEST_CODE_SHARE_TO_MESSENGER = 1;
-    private View mMessengerButton;
     private ProgressDialog mProgressDialog;
-     private ListView listView;
     private ArrayList<String> newlist= new ArrayList<>();
     private ArrayAdapter<String> listAdapter;
 
-
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.newslistview) ListView listView;
+    @BindView(R.id.drawer_layout) DrawerLayout drawer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,26 +68,15 @@ public class MainActivity extends AppCompatActivity{
         AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(getResources().getString(R.string.app_name));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-
-        toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: "+"in");
-            }
-        });
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         setAdmobBanner();
         setVponBanner();
         setAdbertBanner();
@@ -96,27 +85,21 @@ public class MainActivity extends AppCompatActivity{
         if (Intent.ACTION_PICK.equals(intent.getAction())) {
             mThreadParams = MessengerUtils.getMessengerThreadParamsForIntent(intent);
             mPicking = true;
-
-            // Note, if mThreadParams is non-null, it means the activity was launched from Messenger.
-            // It will contain the metadata associated with the original content, if there was content.
         }
-        mMessengerButton = findViewById(R.id.messenger_send_button);
-        mMessengerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onMessengerButtonClicked();
-            }
-        });
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.show();
         setNewsData();
-        listView = (ListView)findViewById(R.id.newslistview);
         listAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,newlist);
         listView.setAdapter(listAdapter);
     }
     @OnClick(R.id.nav_gallery)
     public void Click(){
         startActivity(new Intent(this,ProfitAndLossActvity.class));
+    }
+    @OnClick(R.id.messenger_send_button)
+    public void sendMessageButton(){
+        onMessengerButtonClicked();
+
     }
 
 
