@@ -33,7 +33,6 @@ import com.vpadn.ads.VpadnBanner;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,14 +42,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity{
-    private AdView mAdView;
     private static final String TAG = "MainActivity";
-
-    private RelativeLayout adBannerLayout;
     private VpadnBanner vponBanner = null;
     //Vpon TODO:  Banner ID
     private String bannerId = "8a8081824eb5519a014eca83ab981d91" ;
-    private  com.clickforce.ad.AdView clickforceAd;
     private MessengerThreadParams mThreadParams;
     private boolean mPicking;
     private static final int REQUEST_CODE_SHARE_TO_MESSENGER = 1;
@@ -61,6 +56,10 @@ public class MainActivity extends AppCompatActivity{
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.newslistview) ListView listView;
     @BindView(R.id.drawer_layout) DrawerLayout drawer;
+    @BindView(R.id.adLayout)RelativeLayout adBannerLayout;
+    @BindView(R.id.adView)AdView mAdView;
+    @BindView(R.id.adbertADView)AdbertLoopADView adbertView;
+    @BindView(R.id.ad)com.clickforce.ad.AdView clickforceAd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +95,12 @@ public class MainActivity extends AppCompatActivity{
     public void Click(){
         startActivity(new Intent(this,ProfitAndLossActvity.class));
     }
+    @OnClick(R.id.nav_manage)
+    public  void PayActivity(){
+
+    }
+
+
     @OnClick(R.id.messenger_send_button)
     public void sendMessageButton(){
         onMessengerButtonClicked();
@@ -105,7 +110,6 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -114,9 +118,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private  void setVponBanner(){
-
         //get your layout view for Vpon banner
-        adBannerLayout = (RelativeLayout) findViewById(R.id.adLayout);
         //create VpadnBanner instance
         vponBanner = new VpadnBanner(this, bannerId, VpadnAdSize.SMART_BANNER, "TW");
         VpadnAdRequest adRequest2 = new VpadnAdRequest();
@@ -128,12 +130,10 @@ public class MainActivity extends AppCompatActivity{
         adBannerLayout.addView(vponBanner);
     }
     private void setAdmobBanner() {
-        mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
     }
     private void setAdbertBanner(){
-        AdbertLoopADView adbertView =(AdbertLoopADView)findViewById(R.id.adbertADView);
         adbertView.setMode(AdbertOrientation.NORMAL);
         adbertView.setExpandVideo(ExpandVideoPosition.BOTTOM);
         adbertView.setFullScreen(false);
@@ -155,10 +155,8 @@ public class MainActivity extends AppCompatActivity{
     }
     private  void setClickForce(){
 
-        clickforceAd = (com.clickforce.ad.AdView)findViewById(R.id.ad);
+
         clickforceAd.getAd(6120,320,50,0.8,30);
-
-
 
         //Ad Load Callback
         clickforceAd.setOnAdViewLoaded(new AdViewLinstener() {
@@ -168,8 +166,6 @@ public class MainActivity extends AppCompatActivity{
             }
             @Override
             public void OnAdViewLoadSuccess() {
-                Log.d(TAG, "成功請求廣告");
-
                 //顯示banner廣告
                 clickforceAd.show();
             }
@@ -205,32 +201,15 @@ public class MainActivity extends AppCompatActivity{
                     shareToMessengerParams);
         }
     }
-
     private  void setNewsData(){
         new Thread(){
             @Override
             public void run() {
                 super.run();
                 try {
-                    Document doc = Jsoup.connect("https://tw.stock.yahoo.com/news_list/url/d/e/N3.html?q=&pg=1").get();
-                    for (Element table : doc.select("table#newListContainer")) {
-                        for (Element tbody : table.select("tbody")) {
-                            for (Element tr : tbody.select("tr")) {
-                                for (Element td : tr.select("td[valign=top]>a.mbody")) {
-                                    Log.d(TAG, "run: "+td.text());
-                                    Log.d(TAG, "run: "+td.getElementsByTag("a").attr("href").toString());
-//                                    Log.d(TAG, "run: "+td.html());
-//                                    Log.d(TAG, "run: "+td.toString());
-//                                    for (Element span : td.select("span")) {
-//                                        for (Element a : span.getElementsByTag("a")) {
-//                                        d    Log.d(TAG, "run: "+a.attr("href").toString());
-//                                        }
-//                                    }););
-                                    newlist.add(td.text());
-                                }
-                            }
-                        }
-                    }
+
+                    Document doc = Jsoup.connect("http://pchome.megatime.com.tw/news/cat0").get();
+                    Log.d(TAG, "run: "+doc.toString());
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -241,8 +220,8 @@ public class MainActivity extends AppCompatActivity{
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                                 listAdapter.notifyDataSetChanged();
-                                mProgressDialog.dismiss();
+                        listAdapter.notifyDataSetChanged();
+                        mProgressDialog.dismiss();
 
 
                     }

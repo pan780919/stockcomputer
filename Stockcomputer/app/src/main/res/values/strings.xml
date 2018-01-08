@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">股票獲利計算機</string>
+    <string name="my_license_key">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl52KvbtkT+zi2HpRL7v1iJw3bRoqrNyz8QPzGXaXdtZe2loA+Ab9T7hcdvXvtgwChpouqvUS3MEl8zPH5lgctC6zzM3JGNGrvfJ0OyYvHPhPdBcx+uaESduqpXAuR2nptCZK5GhedclqQzqAnqqikcLPbe83NpothiqXI8olTcWkxBtDi1xEENY3wJWSP+MmFulhG9Cw1vjY3GEEOGdw17eUrut24f/nLshlUXShMiWKw43GWh0HJB2oVQ2LmqbCaoCAXWLr3DBpEYTJXx6JwqIcA+EwbRZWlH70XDImRXBcQG9mtrN2cSrT/LiwEQY7QVOU7e+67lgy1KBANSn+ZQIDAQAB</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
