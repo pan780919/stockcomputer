@@ -1,4 +1,4 @@
-package com.jackpan.stockcomputer.util;
+package com.jackpan.stockcomputer;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,8 +12,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.jackpan.stockcomputer.MySharedPrefernces;
-import com.jackpan.stockcomputer.R;
+import com.jackpan.stockcomputer.util.IabHelper;
+import com.jackpan.stockcomputer.util.IabResult;
+import com.jackpan.stockcomputer.util.Inventory;
+import com.jackpan.stockcomputer.util.Purchase;
 
 import java.util.ArrayList;
 import java.util.List;

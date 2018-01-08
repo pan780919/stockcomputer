@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity{
     }
     @OnClick(R.id.nav_manage)
     public  void PayActivity(){
-
+        startActivity(new Intent(this, InAppBillingActivity.class));
     }
 
 

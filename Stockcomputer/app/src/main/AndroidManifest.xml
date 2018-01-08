@@ -84,6 +84,7 @@
             android:name=".ProfitAndLossActvity"
             android:label="@string/title_activity_profit_and_loss_actvity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".InAppBillingActivity"></activity>
     </application>
 
 </manifest>

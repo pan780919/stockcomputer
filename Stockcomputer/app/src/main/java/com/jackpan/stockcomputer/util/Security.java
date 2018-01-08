@@ -18,7 +18,7 @@ package com.jackpan.stockcomputer.util;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.jackpan.TaiwanpetadoptionApp.BuildConfig;
+import com.jackpan.stockcomputer.BuildConfig;
 
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
