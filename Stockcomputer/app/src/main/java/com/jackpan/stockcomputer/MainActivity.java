@@ -33,6 +33,7 @@ import com.vpadn.ads.VpadnBanner;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -207,9 +208,18 @@ public class MainActivity extends AppCompatActivity{
             public void run() {
                 super.run();
                 try {
-
-                    Document doc = Jsoup.connect("http://pchome.megatime.com.tw/news/cat0").get();
-                    Log.d(TAG, "run: "+doc.toString());
+                    Document doc = Jsoup.connect("https://tw.stock.yahoo.com/news_list/url/d/e/N3.html?q=&pg=1").get();
+                    for (Element table : doc.select("table#newListContainer")) {
+                        for (Element tbody : table.select("tbody")) {
+                            for (Element tr : tbody.select("tr")) {
+                                for (Element td : tr.select("td[valign=top]>a.mbody")) {
+                                    Log.d(TAG, "run: "+td.text());
+                                    Log.d(TAG, "run: "+td.getElementsByTag("a").attr("href").toString());
+                                    newlist.add(td.text());
+                                }
+                            }
+                        }
+                    }
 
                 } catch (IOException e) {
                     e.printStackTrace();
