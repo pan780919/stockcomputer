@@ -27,6 +27,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity;
+import com.jackpan.stockcomputer.Activity.ShareStockNumberActivity;
 import com.vpadn.ads.VpadnAdRequest;
 import com.vpadn.ads.VpadnAdSize;
 import com.vpadn.ads.VpadnBanner;
@@ -93,9 +94,14 @@ public class MainActivity extends BaseAppCompatActivity{
         listAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,newlist);
         listView.setAdapter(listAdapter);
     }
+
     @OnClick(R.id.nav_gallery)
     public void Click(){
         startActivity(new Intent(this,ProfitAndLossActvity.class));
+    }
+    @OnClick(R.id.nav_stock_share)
+    public void shareStockActivity(){
+        startActivity(ShareStockNumberActivity.class);
     }
     @OnClick(R.id.nav_manage)
     public  void PayActivity(){

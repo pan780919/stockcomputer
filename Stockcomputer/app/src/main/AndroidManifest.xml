@@ -18,8 +18,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 打電話權限 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
-
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -75,7 +74,7 @@
             android:name="com.vpadn.widget.VpadnActivity"
             android:configChanges="orientation|keyboardHidden|navigation|keyboard|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:hardwareAccelerated="true"
-            android:theme="@android:style/Theme.Translucent"></activity>
+            android:theme="@android:style/Theme.Translucent" />
 
         <!-- 使用Google AD ID 增進廣告準確度 -->
         <meta-data
@@ -85,8 +84,12 @@
         <activity
             android:name=".ProfitAndLossActvity"
             android:label="@string/title_activity_profit_and_loss_actvity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".InAppBillingActivity" />
+        <activity
+            android:name=".Activity.ShareStockNumberActivity"
+            android:label="@string/title_activity_share_stock_number"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".InAppBillingActivity"></activity>
     </application>
 
 </manifest>

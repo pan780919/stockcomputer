@@ -8,8 +8,6 @@
     <string name="alertbutton_ok">確定</string>
 
 
-
-
     <string name="action_settings">Settings</string>
 
 
@@ -31,5 +29,6 @@
     <string name="activity_profit_and_loss_actvity_input_sell_calculate">計算</string>
     <string name="activity_profit_and_loss_actvity_input_sell_profit">獲利$</string>
     <string name="activity_profit_and_loss_actvity_input_sell_profitability">獲利率 %</string>
+    <string name="title_activity_share_stock_number">ShareStockNumberActivity</string>
 
 </resources>

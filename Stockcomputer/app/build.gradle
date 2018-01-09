@@ -38,11 +38,12 @@ dependencies {
     compile files('libs/qumi_banner_2.8.5.jar')
     compile files('libs/jsoup-1.10.3.jar')
     //design support library
-    compile 'com.google.firebase:firebase-auth:10.0.1'
     compile files('libs/vpadn-sdk-obf466-50907102-1709051709-67cc94a.jar')
     compile files('libs/admob-adapter-1.0.0-1505261651-830485e.jar')
     compile files('libs/adbert-sdk-320n.jar')
     compile files('libs/MFAD-1.2.4.jar')
+    compile 'com.google.firebase:firebase-auth:10.0.1'
+
     compile 'com.google.firebase:firebase-auth:10.0.1'
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.android.support:design:25.1.0'
@@ -65,9 +66,8 @@ dependencies {
     compile 'com.google.firebase:firebase-core:10.0.1'
     compile 'com.google.firebase:firebase-messaging:10.0.1'
     compile 'com.facebook.android:facebook-messenger:[4,5)'
-    testCompile 'junit:junit:4.12'
     compile 'com.jakewharton:butterknife:8.8.1'
+    testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-
 }
 apply plugin: 'com.google.gms.google-services'
