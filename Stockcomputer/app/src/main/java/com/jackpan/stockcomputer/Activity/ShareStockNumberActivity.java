@@ -77,7 +77,11 @@ public class ShareStockNumberActivity extends BaseAppCompatActivity {
             AdView adView = (AdView) convertView.findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().build();
             adView.loadAd(adRequest);
-            
+            adView.setVisibility(View.INVISIBLE);
+            if(position>=2&&position%2==0){
+                adView.setVisibility(View.VISIBLE);
+
+            }
 //            TextView textname = (TextView) convertView.findViewById(R.id.name);
 //            TextView list = (TextView) convertView.findViewById(R.id.txtengname);
 //            TextView bigtext= (TextView) convertView.findViewById(R.id.bigtext);
