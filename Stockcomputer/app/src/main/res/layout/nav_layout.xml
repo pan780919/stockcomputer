@@ -5,15 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <ScrollView
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        >
+        android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
+
             <LinearLayout
                 android:id="@+id/nav_camera"
                 android:layout_width="match_parent"
@@ -47,12 +48,12 @@
             </com.google.android.gms.ads.AdView>
 
             <LinearLayout
-                android:layout_marginTop="8dp"
-
                 android:id="@+id/nav_gallery"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -69,12 +70,12 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="8dp"
-
                 android:id="@+id/nav_slideshow"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -83,25 +84,50 @@
                     android:src="@mipmap/mo_comments"></ImageView>
 
                 <TextView
-                    android:layout_marginLeft="8dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="8dp"
                     android:text="經驗交流"></TextView>
 
             </LinearLayout>
-            <com.adbert.AdbertLoopADView
-                android:id="@+id/adbertADView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </com.adbert.AdbertLoopADView>
-            <LinearLayout
-                android:layout_marginTop="8dp"
 
-                android:id="@+id/nav_memberc"
+
+            <LinearLayout
+                android:id="@+id/nav_stock_share"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:src="@mipmap/mo_users"></ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="8dp"
+                    android:text="報明牌專區"></TextView>
+
+            </LinearLayout>
+
+            <com.adbert.AdbertLoopADView
+                android:id="@+id/adbertADView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></com.adbert.AdbertLoopADView>
+
+            <LinearLayout
+                android:id="@+id/nav_memberc"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -118,14 +144,13 @@
             </LinearLayout>
 
 
-
             <LinearLayout
-                android:layout_marginTop="8dp"
-
                 android:id="@+id/nav_manage"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -140,20 +165,20 @@
                     android:text="贊助本程式"></TextView>
 
             </LinearLayout>
+
             <RelativeLayout
                 android:id="@+id/adLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-            </RelativeLayout>
+                android:layout_height="wrap_content"></RelativeLayout>
 
 
             <LinearLayout
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
                 android:id="@+id/nav_share"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -176,8 +201,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true">
-            </com.clickforce.ad.AdView>
+                android:layout_centerHorizontal="true"></com.clickforce.ad.AdView>
         </LinearLayout>
 
 
