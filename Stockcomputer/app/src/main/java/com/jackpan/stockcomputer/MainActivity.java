@@ -212,9 +212,16 @@ public class MainActivity extends AppCompatActivity{
                     for (Element table : doc.select("table#newListContainer")) {
                         for (Element tbody : table.select("tbody")) {
                             for (Element tr : tbody.select("tr")) {
-                                for (Element td : tr.select("td[valign=top]>a.mbody")) {
+
+                                for (Element td : tr.select("td[valign=top]>a.mbody>div[align=center]")) {
                                     Log.d(TAG, "run: "+td.text());
-                                    Log.d(TAG, "run: "+td.getElementsByTag("a").attr("href").toString());
+                                    Log.d(TAG, "run: "+td.toString());
+//                                    for (Element td2 : td.select("div[align=center]")) {
+//                                        Log.d(TAG, "run: "+td2.text());
+//
+//                                    }
+//                                    Log.d(TAG, "run: "+td.text());
+//                                    Log.d(TAG, "run: "+td.getElementsByTag("a").attr("href").toString());
                                     newlist.add(td.text());
                                 }
                             }
