@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -27,6 +26,7 @@ import com.facebook.messenger.ShareToMessengerParams;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity;
 import com.vpadn.ads.VpadnAdRequest;
 import com.vpadn.ads.VpadnAdSize;
 import com.vpadn.ads.VpadnBanner;
@@ -42,7 +42,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends BaseAppCompatActivity{
     private static final String TAG = "MainActivity";
     private VpadnBanner vponBanner = null;
     //Vpon TODO:  Banner ID
@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity{
         AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        checkNetWork();
         toolbar.setTitle(getResources().getString(R.string.app_name));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

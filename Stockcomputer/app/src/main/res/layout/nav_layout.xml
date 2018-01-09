@@ -42,7 +42,9 @@
                 android:layout_marginBottom="4dp"
                 android:layout_marginTop="4dp"
                 ads:adSize="BANNER"
-                ads:adUnitId="ca-app-pub-7019441527375550/3182087426"></com.google.android.gms.ads.AdView>
+                ads:adUnitId="ca-app-pub-7019441527375550/3182087426">
+
+            </com.google.android.gms.ads.AdView>
 
             <LinearLayout
                 android:layout_marginTop="8dp"
