@@ -80,19 +80,29 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:text="第一行文字"
+                android:text="名字"
                 android:textColor="#0000CC"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
             <TextView
-                android:id="@+id/txtengname"
+                android:id="@+id/stockname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:text="第二行文字"
                 android:textColor="#FF0000"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/stocknumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="第二行文字"
+                android:textColor="#FF0000"
+                android:textSize="14dp" />
         </LinearLayout>
 
     </LinearLayout>
