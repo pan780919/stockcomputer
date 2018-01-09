@@ -89,6 +89,10 @@
         <activity
             android:name=".Activity.ShareStockNumberActivity"
             android:label="@string/title_activity_share_stock_number"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.ShareActivity"
+            android:label="@string/title_activity_share"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

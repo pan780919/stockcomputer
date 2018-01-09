@@ -1,8 +1,8 @@
 package com.jackpan.stockcomputer.Activity;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +29,12 @@ public class ShareStockNumberActivity extends BaseAppCompatActivity {
         ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
         petlist = (ListView) findViewById(R.id.listView1);
         ArrayList<String> mAllData = new ArrayList<>();
         mAllData.add("1");
@@ -73,7 +79,6 @@ public class ShareStockNumberActivity extends BaseAppCompatActivity {
             if (convertView == null)
                 convertView = LayoutInflater.from(ShareStockNumberActivity.this).inflate(
                         R.layout.layout_report, null);
-            Log.d(TAG, "getView: "+position);
             AdView adView = (AdView) convertView.findViewById(R.id.adView);
             AdRequest adRequest = new AdRequest.Builder().build();
             adView.loadAd(adRequest);
