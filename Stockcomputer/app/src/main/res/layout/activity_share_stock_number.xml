@@ -30,5 +30,5 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="24dp"
         android:src="@mipmap/mo_plus_o"
-        app:backgroundTint="@drawable/cast_abc_scrubber_control_off_mtrl_alpha" />
+        app:backgroundTint="#ffffff" />
 </android.support.design.widget.CoordinatorLayout>
