@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -39,6 +40,7 @@
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
+                android:orientation="vertical"
                 >
                 <TextView
                     android:layout_marginLeft="8dp"
@@ -48,11 +50,58 @@
                     android:text="@string/activity_profit_and_loss_actvity_input_buy"
                     >
                 </TextView>
+                <TextView
+                    android:layout_marginLeft="8dp"
+                    android:textSize="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_profit_and_loss_actvity_input_buy_amount"
+                    >
+                </TextView>
+                <EditText
+                    android:id="@+id/edt_input_buy_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    ></EditText>
+                <TextView
+                    android:layout_marginLeft="8dp"
+                    android:textSize="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_profit_and_loss_actvity_input_buy_amount_all"
+                    >
+                </TextView>
+                <EditText
+                    android:id="@+id/edt_input_buy_amount_all"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    ></EditText>
+                <TextView
+                    android:layout_marginLeft="8dp"
+                    android:textSize="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_profit_and_loss_actvity_input_buy_payment"
+                    >
+                </TextView>
+                <TextView
+                    android:id="@+id/textView_input_buy_payment"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="18dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                </TextView>
+
             </LinearLayout>
             <LinearLayout
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
+                android:orientation="vertical"
                 >
                 <TextView
                     android:layout_marginLeft="8dp"
@@ -62,6 +111,51 @@
                     android:text="@string/activity_profit_and_loss_actvity_input_sell"
                     >
                 </TextView>
+                <TextView
+                    android:layout_marginLeft="8dp"
+                    android:textSize="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_profit_and_loss_actvity_input_sell_amount"
+                    >
+                </TextView>
+                <EditText
+                    android:id="@+id/textView_input_sell_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    ></EditText>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/activity_profit_and_loss_actvity_input_sell_amount_all"
+                    android:textSize="14dp"></TextView>
+                <EditText
+                    android:id="@+id/edt_sell_amount_all"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    ></EditText>
+                <TextView
+                    android:layout_marginLeft="8dp"
+                    android:textSize="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_profit_and_loss_actvity_input_sell_payment"
+                    >
+                </TextView>
+                <TextView
+                    android:id="@+id/textView_sell_payment"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="18dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                </TextView>
+
             </LinearLayout>
         </LinearLayout>
 
@@ -72,7 +166,68 @@
             android:orientation="vertical"
 
             >
+            <Button
+                android:id="@+id/button_calculate"
+                android:textSize="16dp"
+                android:text="@string/activity_profit_and_loss_actvity_input_sell_calculate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                ></Button>
+            <TextView
+                android:layout_gravity="center"
+
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:textSize="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_profit_and_loss_actvity_input_sell_profit"
+                >
+            </TextView>
+            <TextView
+                android:id="@+id/textView_profit"
+                android:layout_gravity="center"
+
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="8dp"
+                android:textSize="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+            </TextView>
+            <TextView
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="8dp"
+                android:textSize="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_profit_and_loss_actvity_input_sell_profitability"
+                >
+            </TextView>
+            <TextView
+                android:id="@+id/textView_profitability"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="8dp"
+                android:textSize="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+            </TextView>
+            <com.google.android.gms.ads.AdView
+                android:layout_marginTop="4dp"
+                android:id="@+id/adView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                ads:adSize="BANNER"
+                ads:adUnitId="ca-app-pub-7019441527375550/3182087426">
+
+            </com.google.android.gms.ads.AdView>
         </LinearLayout>
+
     </LinearLayout>
 
 
