@@ -15,27 +15,21 @@ import com.jackpan.stockcomputer.R;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ShareStockNumberActivity extends BaseAppCompatActivity {
     private MyAdapter mAdapter;
-    private ListView petlist;
     private static final String TAG = "ShareStockNumberActivit";
-
+    @BindView(R.id.toolbar)Toolbar toolbar;
+    @BindView(R.id.fab) FloatingActionButton fab;
+    @BindView(R.id.listView1) ListView mListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share_stock_number);
         ButterKnife.bind(this);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
-        petlist = (ListView) findViewById(R.id.listView1);
         ArrayList<String> mAllData = new ArrayList<>();
         mAllData.add("1");
         mAllData.add("2");
@@ -43,10 +37,9 @@ public class ShareStockNumberActivity extends BaseAppCompatActivity {
         mAllData.add("4");
         mAllData.add("5");
         mAllData.add("6");
-
         mAdapter = new MyAdapter(mAllData);
 
-        petlist.setAdapter(mAdapter);
+        mListView.setAdapter(mAdapter);
 
     }
     public class MyAdapter extends BaseAdapter {
