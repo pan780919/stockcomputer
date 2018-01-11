@@ -1,5 +1,6 @@
 package com.jackpan.stockcomputer.Activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -132,13 +133,18 @@ public class CalculateActivity extends BaseAppCompatActivity {
             viewHolder.adView.loadAd(adRequest);
             if(data.state==1){
                viewHolder.mStateTextView.setText("賺");
+                viewHolder.mStateTextView.setTextColor(Color.RED);
+                viewHolder.mSellPayment.setText("賺到:"+data.price+"");
+                viewHolder.mSellPayment.setTextColor(Color.RED);
             }else {
                 viewHolder.mStateTextView.setText("賠");
-
+                viewHolder.mStateTextView.setTextColor(Color.GREEN);
+                viewHolder.mSellPayment.setText("賠了:"+data.price+"");
+                viewHolder.mSellPayment.setTextColor(Color.GREEN);
             }
-            viewHolder.mSellPrice.setText(data.stockPrice+"");
-            viewHolder.mPriceToatal.setText(data.stockTotal+"");
-            viewHolder.mSellPayment.setText(data.price+"");
+            viewHolder.mSellPrice.setText("股價："+data.stockPrice+"");
+            viewHolder.mPriceToatal.setText("賣價:"+data.stockTotal+"");
+
             return convertView;
         }
 
