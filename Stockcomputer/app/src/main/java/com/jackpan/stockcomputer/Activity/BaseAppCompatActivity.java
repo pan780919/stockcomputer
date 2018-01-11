@@ -7,14 +7,14 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.jackpan.stockcomputer.R;
 
 public class BaseAppCompatActivity extends AppCompatActivity {
     private static Toast toast = null;
-
-
+    private  String TAG = this.getClass().getSimpleName();
     public void startActivity(Class<?> clas) {
 
         startActivity(new Intent(this, clas));
@@ -75,7 +75,9 @@ public class BaseAppCompatActivity extends AppCompatActivity {
         }
         return false;
     }
-
+    public  void  setLogger(String s){
+        Log.d(TAG, "setLogger: "+s);
+    }
 }
 
 

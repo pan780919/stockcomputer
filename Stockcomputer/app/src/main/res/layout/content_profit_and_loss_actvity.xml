@@ -61,6 +61,7 @@
                     >
                 </TextView>
                 <EditText
+                    android:imeOptions="actionDone"
                     android:inputType="numberDecimal"
                     android:singleLine="true"
                     android:ellipsize="end"
@@ -78,6 +79,8 @@
                     >
                 </TextView>
                 <EditText
+                    android:imeOptions="actionDone"
+
                     android:inputType="numberDecimal"
                     android:singleLine="true"
                     android:ellipsize="end"
@@ -128,6 +131,8 @@
                     >
                 </TextView>
                 <EditText
+                    android:imeOptions="actionDone"
+
                     android:inputType="numberDecimal"
                     android:singleLine="true"
                     android:ellipsize="end"
@@ -144,6 +149,8 @@
                     android:text="@string/activity_profit_and_loss_actvity_input_sell_amount_all"
                     android:textSize="14dp"></TextView>
                 <EditText
+                    android:imeOptions="actionDone"
+
                     android:inputType="numberDecimal"
                     android:singleLine="true"
                     android:ellipsize="end"
@@ -211,7 +218,7 @@
                 android:id="@+id/textView_profit"
                 android:layout_gravity="center"
 
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginLeft="8dp"
                 android:textSize="18dp"
                 android:layout_width="wrap_content"
@@ -220,7 +227,7 @@
             </TextView>
             <TextView
                 android:layout_gravity="center"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginLeft="8dp"
                 android:textSize="18dp"
                 android:layout_width="wrap_content"
