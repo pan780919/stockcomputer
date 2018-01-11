@@ -224,17 +224,22 @@ public class MainActivity extends BaseAppCompatActivity{
                     for (Element table : doc.select("table#newListContainer")) {
                         for (Element tbody : table.select("tbody")) {
                             for (Element tr : tbody.select("tr")) {
-
-                                for (Element td : tr.select("td[valign=top]>a.mbody>div[align=center]")) {
+                                for (Element td : tr.select("td[valign=top]>a.mbody")) {
                                     Log.d(TAG, "run: "+td.text());
-                                    Log.d(TAG, "run: "+td.toString());
-//                                    for (Element td2 : td.select("div[align=center]")) {
-//                                        Log.d(TAG, "run: "+td2.text());
-//
-//                                    }
-//                                    Log.d(TAG, "run: "+td.text());
-//                                    Log.d(TAG, "run: "+td.getElementsByTag("a").attr("href").toString());
+                                    Log.d(TAG, "run: "+td.getElementsByTag("a").attr("href").toString());
                                     newlist.add(td.text());
+                                    if(newlist.size()>=10){
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                listAdapter.notifyDataSetChanged();
+                                                mProgressDialog.dismiss();
+
+
+                                            }
+                                        });
+                                        return;
+                                    }
                                 }
                             }
                         }
@@ -246,15 +251,7 @@ public class MainActivity extends BaseAppCompatActivity{
                 }
 
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        listAdapter.notifyDataSetChanged();
-                        mProgressDialog.dismiss();
 
-
-                    }
-                });
             }
         }.start();
     }
