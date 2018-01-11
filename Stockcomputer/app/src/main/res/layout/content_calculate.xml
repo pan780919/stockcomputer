@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.jackpan.stockcomputer.ProfitAndLossActvity"
+    tools:showIn="@layout/activity_profit_and_loss_actvity">
+
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            >
+            <TextView
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/activity_profit_and_loss_actvity_tittle"
+                android:textSize="20dp"
+                ></TextView>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="horizontal"
+            >
+            <LinearLayout
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:layout_marginLeft="8dp"
+                    android:textSize="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_profit_and_loss_actvity_input_buy"
+                    >
+                </TextView>
+                <TextView
+                    android:layout_marginLeft="8dp"
+                    android:textSize="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_profit_and_loss_actvity_input_buy_amount"
+                    >
+                </TextView>
+                <EditText
+                    android:imeOptions="actionDone"
+                    android:inputType="numberDecimal"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:id="@+id/cal_edt_input_buy_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    ></EditText>
+                <TextView
+                    android:layout_marginLeft="8dp"
+                    android:textSize="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_profit_and_loss_actvity_input_buy_amount_all"
+                    >
+                </TextView>
+                <EditText
+                    android:imeOptions="actionDone"
+
+                    android:inputType="numberDecimal"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:id="@+id/cal_edt_input_buy_amount_all"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    ></EditText>
+                <TextView
+                    android:layout_marginLeft="8dp"
+                    android:textSize="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_profit_and_loss_actvity_input_buy_payment"
+                    >
+                </TextView>
+                <TextView
+                    android:id="@+id/cal_textView_input_buy_payment"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="18dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                </TextView>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical"
+
+            >
+            <Button
+                android:id="@+id/cal_button_calculate"
+                android:textSize="16dp"
+                android:text="@string/activity_profit_and_loss_actvity_input_sell_calculate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                ></Button>
+            <ListView
+                android:id="@+id/listView_cal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                ></ListView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

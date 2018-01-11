@@ -43,6 +43,7 @@ dependencies {
     compile files('libs/adbert-sdk-320n.jar')
     compile files('libs/MFAD-1.2.4.jar')
     compile 'com.google.firebase:firebase-auth:10.0.1'
+
     compile 'com.google.firebase:firebase-auth:10.0.1'
     compile 'com.android.support:appcompat-v7:26.0.0'
     compile 'com.android.support:design:26.0.0'
@@ -66,9 +67,8 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:10.0.1'
     compile 'com.facebook.android:facebook-messenger:[4,5)'
     compile 'com.jakewharton:butterknife:8.8.1'
+    compile 'com.adlocus:library:3.5.7@aar'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    compile 'com.adlocus:library:3.5.7@aar'
-
 }
 apply plugin: 'com.google.gms.google-services'

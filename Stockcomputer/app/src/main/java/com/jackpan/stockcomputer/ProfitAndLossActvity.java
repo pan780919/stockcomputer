@@ -84,7 +84,7 @@ public class ProfitAndLossActvity extends BaseAppCompatActivity {
         long sellPrice = Math.round((mSellPrice * mSellAmount) - sellProcedures - taxPayment);
         long price = sellPrice - buyPrice;
 
-        for(int i = 0; i<10;i++){
+        for(double i = 0; i<5;i=i+0.1){
             Log.d(TAG, "buyPrice: "+(mBuyPrice));
             Log.d(TAG, "i: "+(i));
             Log.d(TAG, "buyPrice+i: "+(mBuyPrice+i));

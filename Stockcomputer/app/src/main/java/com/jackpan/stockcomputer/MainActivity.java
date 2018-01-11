@@ -17,7 +17,6 @@ import com.adbert.AdbertListener;
 import com.adbert.AdbertLoopADView;
 import com.adbert.AdbertOrientation;
 import com.adbert.ExpandVideoPosition;
-import com.adlocus.PushAd;
 import com.clickforce.ad.Listener.AdViewLinstener;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -28,8 +27,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity;
+import com.jackpan.stockcomputer.Activity.CalculateActivity;
 import com.jackpan.stockcomputer.Activity.ShareStockNumberActivity;
-import com.jackpan.stockcomputer.Data.MyApi;
 import com.vpadn.ads.VpadnAdRequest;
 import com.vpadn.ads.VpadnAdSize;
 import com.vpadn.ads.VpadnBanner;
@@ -110,7 +109,10 @@ public class MainActivity extends BaseAppCompatActivity{
     public  void PayActivity(){
         startActivity(new Intent(this, InAppBillingActivity.class));
     }
-
+    @OnClick(R.id.nav_calculate)
+    public void calculateActivity(){
+        startActivity(CalculateActivity.class);
+    }
 
     @OnClick(R.id.messenger_send_button)
     public void sendMessageButton(){
