@@ -59,7 +59,7 @@ public class CalculateActivity extends BaseAppCompatActivity {
         long BuyAmount = Integer.parseInt(mBuyTotal.getText().toString().trim());
         long buyProcedures = Math.round((BuyPrice * BuyAmount) * 0.001425);
         long sellProcedures = Math.round((BuyPrice * BuyAmount) * 0.001425);
-        long taxPayment = Math.round((BuyAmount * BuyAmount) * 0.003);
+        long taxPayment = Math.round((BuyPrice * BuyAmount) * 0.003);
 
         if (buyProcedures < 20) {
             buyProcedures = 20;
