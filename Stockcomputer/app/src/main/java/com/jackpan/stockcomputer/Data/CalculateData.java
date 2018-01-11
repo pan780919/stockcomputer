@@ -3,7 +3,7 @@ package com.jackpan.stockcomputer.Data;
 public class CalculateData {
 
     public double stockPrice;
-    public int stockTotal;
+    public long stockTotal;
     public long price;
     public int state;
 
@@ -16,7 +16,7 @@ public class CalculateData {
         this.stockPrice = stockPrice;
     }
 
-    public void setStockTotal(int stockTotal) {
+    public void setStockTotal(long stockTotal) {
         this.stockTotal = stockTotal;
     }
 

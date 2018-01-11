@@ -15,7 +15,7 @@
         <TextView
             android:gravity="center"
             android:text="賠"
-            android:id="@+id/photoimg"
+            android:id="@+id/text_state"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginBottom="4dp"
@@ -30,7 +30,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/textView_sell_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -40,7 +40,8 @@
                 android:textSize="16dp" />
 
             <TextView
-                android:id="@+id/stockname"
+                android:id="@+id/textView_sell_pricetotal"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -50,7 +51,7 @@
                 android:textSize="14dp" />
 
             <TextView
-                android:id="@+id/stocknumber"
+                android:id="@+id/textView_sell_payment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"

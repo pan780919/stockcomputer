@@ -2,7 +2,6 @@ package com.jackpan.stockcomputer.Activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +32,7 @@ public class CalculateActivity extends BaseAppCompatActivity {
     @BindView(R.id.listView_cal)
     ListView mListView;
     private static final String TAG = "CalculateActivity";
-    CalculateData cal = new CalculateData();
+
     ArrayList<CalculateData>calList = new ArrayList<>();
     private MyAdapter mAdapter;
 
@@ -43,15 +42,14 @@ public class CalculateActivity extends BaseAppCompatActivity {
         setContentView(R.layout.activity_calculate);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-
         mAdapter = new MyAdapter(calList);
-
         mListView.setAdapter(mAdapter);
 
 
     }
     @OnClick(R.id.cal_button_calculate)
     public void calculate(){
+
         if(mBuyPrice.getText().toString().trim().isEmpty()||
                 mBuyTotal.getText().toString().trim().isEmpty()){
             showToast("請檢查是否尚未輸入數值！！");
@@ -70,36 +68,26 @@ public class CalculateActivity extends BaseAppCompatActivity {
             sellProcedures = 20;
         }
         long buyPrice = Math.round((BuyPrice * BuyAmount) + buyProcedures);
-
+        mPrice.setText(buyPrice+"");
         for(double i = 0; i<5;i=i+0.1){
-            Log.d(TAG, "buyPrice: "+(BuyPrice));
-
-            Log.d(TAG, "i: "+(i));
-            Log.d(TAG, "buyPrice+i: "+(BuyPrice+i));
-            Log.d(TAG, "mBuyAmount: "+BuyAmount);
-            Log.d(TAG, "(buyPrice+i) * mBuyAmount: "+(BuyPrice+i) * BuyAmount);
+            CalculateData cal = new CalculateData();
             long n =  Math.round(((BuyPrice+i) * BuyAmount) - sellProcedures - taxPayment);
-            cal.setStockPrice(n);
-            Log.d(TAG, "n: "+n);
+            cal.setStockPrice((BuyPrice+i));
+            cal.setStockTotal(n);
             long n1 =n-buyPrice;
             cal.setPrice(n1);
-
-            Log.d(TAG, "n1: "+n1);
-            Log.d(TAG, "calculate: "+"===========");
             if(n1>0){
                 cal.setState(1);
-                Log.d(TAG, "calculate: "+"開始賺錢"+i);
-                Log.d(TAG, "calculate: "+(buyPrice+i));
-                Log.d(TAG, "calculate: "+"===========");
             }else {
                 cal.setState(0);
-                Log.d(TAG, "calculate: "+"會賠錢"+i);
-                Log.d(TAG, "calculate: "+(buyPrice+i));
-                Log.d(TAG, "calculate: "+"===========");
 
             }
+
+
             calList.add(cal);
         }
+
+
         mAdapter.notifyDataSetChanged();
 
     }
@@ -130,15 +118,44 @@ public class CalculateActivity extends BaseAppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null)
+            ViewHolder viewHolder;
+            CalculateData data = mDatas.get(position);
+            if(convertView!=null){
+                viewHolder = (ViewHolder)convertView.getTag();
+            }else {
                 convertView = LayoutInflater.from(CalculateActivity.this).inflate(
                         R.layout.layout_calculate, null);
-            AdView adView = (AdView) convertView.findViewById(R.id.adView);
+                viewHolder = new ViewHolder(convertView);
+                convertView.setTag(viewHolder);
+            }
             AdRequest adRequest = new AdRequest.Builder().build();
-            adView.loadAd(adRequest);
+            viewHolder.adView.loadAd(adRequest);
+            if(data.state==1){
+               viewHolder.mStateTextView.setText("賺");
+            }else {
+                viewHolder.mStateTextView.setText("賠");
 
+            }
+            viewHolder.mSellPrice.setText(data.stockPrice+"");
+            viewHolder.mPriceToatal.setText(data.stockTotal+"");
+            viewHolder.mSellPayment.setText(data.price+"");
             return convertView;
         }
 
+    }
+    static class  ViewHolder{
+        @BindView(R.id.adView) AdView adView;
+        @BindView(R.id.text_state)
+        TextView mStateTextView;
+        @BindView(R.id.textView_sell_price)
+        TextView mSellPrice;
+        @BindView(R.id.textView_sell_payment)
+        TextView mSellPayment;
+        @BindView(R.id.textView_sell_pricetotal)
+        TextView mPriceToatal;
+
+        public ViewHolder(View v){
+            ButterKnife.bind(this,v);
+        }
     }
 }
