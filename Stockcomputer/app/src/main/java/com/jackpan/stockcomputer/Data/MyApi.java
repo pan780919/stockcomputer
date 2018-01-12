@@ -1,12 +1,21 @@
 package com.jackpan.stockcomputer.Data;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.ImageView;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.regex.Pattern;
@@ -35,6 +44,45 @@ public class MyApi {
         } catch (Exception e) {
             Log.d(TAG, "printHashKey()", e);
         }
+    }
+
+
+    public static void loadImage(final String path,
+                                 final ImageView imageView, final Context context) {
+
+        new Thread() {
+
+            @Override
+            public void run() {
+
+                try {
+                    URL imageUrl = new URL(path);
+                    HttpURLConnection httpCon =
+                            (HttpURLConnection) imageUrl.openConnection();
+                    InputStream imageStr = httpCon.getInputStream();
+                    final Bitmap bitmap = BitmapFactory.decodeStream(imageStr);
+                    ((Activity)context).runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            // TODO Auto-generated method stub
+                            imageView.setImageBitmap(bitmap);
+                        }
+                    });
+
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+
+        }.start();
+
     }
 
 }

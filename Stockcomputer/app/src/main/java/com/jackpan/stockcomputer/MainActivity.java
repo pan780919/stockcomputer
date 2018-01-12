@@ -1,7 +1,7 @@
 package com.jackpan.stockcomputer;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.adbert.AdbertListener;
 import com.adbert.AdbertLoopADView;
@@ -47,19 +46,25 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.jackpan.libs.mfirebaselib.MfiebaselibsClass;
+import com.jackpan.libs.mfirebaselib.MfirebaeCallback;
 import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity;
 import com.jackpan.stockcomputer.Activity.CalculateActivity;
 import com.jackpan.stockcomputer.Activity.ShareStockNumberActivity;
+import com.jackpan.stockcomputer.Data.MyApi;
 import com.vpadn.ads.VpadnAdRequest;
 import com.vpadn.ads.VpadnAdSize;
 import com.vpadn.ads.VpadnBanner;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -68,38 +73,54 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseAppCompatActivity{
+public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallback {
     private static final String TAG = "MainActivity";
     private VpadnBanner vponBanner = null;
     //Vpon TODO:  Banner ID
-    private String bannerId = "8a8081824eb5519a014eca83ab981d91" ;
+    private String bannerId = "8a8081824eb5519a014eca83ab981d91";
     private MessengerThreadParams mThreadParams;
     private boolean mPicking;
     private static final int REQUEST_CODE_SHARE_TO_MESSENGER = 1;
     private ProgressDialog mProgressDialog;
-    private ArrayList<String> newlist= new ArrayList<>();
+    private ArrayList<String> newlist = new ArrayList<>();
     private ArrayAdapter<String> listAdapter;
     private CallbackManager callbackManager;
     private AccessTokenTracker accessTokenTracker;
-    ProfileTracker profileTracker;
-    @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.newslistview) ListView listView;
-    @BindView(R.id.drawer_layout) DrawerLayout drawer;
-    @BindView(R.id.adLayout)RelativeLayout adBannerLayout;
-    @BindView(R.id.adView)AdView mAdView;
-    @BindView(R.id.adbertADView)AdbertLoopADView adbertView;
-    @BindView(R.id.ad)com.clickforce.ad.AdView clickforceAd;
+    private MfiebaselibsClass mfiebaselibsClass;
+    private ProfileTracker profileTracker;
+    private FirebaseAuth auth;
+    private FirebaseAuth.AuthStateListener authListener;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.newslistview)
+    ListView listView;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawer;
+    @BindView(R.id.adLayout)
+    RelativeLayout adBannerLayout;
+    @BindView(R.id.adView)
+    AdView mAdView;
+    @BindView(R.id.adbertADView)
+    AdbertLoopADView adbertView;
+    @BindView(R.id.ad)
+    com.clickforce.ad.AdView clickforceAd;
     @BindView(R.id.fbImg)
     ImageView mFbImageView;
     @BindView(R.id.fbloginbutton)
     LoginButton mFbLoginButton;
+    private Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         AppEventsLogger.activateApp(this);
+        context = this;
+        mfiebaselibsClass = new MfiebaselibsClass(this, MainActivity.this);
+        mfiebaselibsClass.userLoginCheck();
         setContentView(R.layout.activity_main);
+
         ButterKnife.bind(this);
         checkNetWork();
         toolbar.setTitle(getResources().getString(R.string.app_name));
@@ -123,7 +144,7 @@ public class MainActivity extends BaseAppCompatActivity{
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.show();
         setNewsData();
-        listAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,newlist);
+        listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, newlist);
         listView.setAdapter(listAdapter);
         fbLogin();
 
@@ -158,17 +179,16 @@ public class MainActivity extends BaseAppCompatActivity{
 
             @Override
             public void onCancel() {
-                Log.d(TAG, "onCancel: ");
+
             }
 
             @Override
             public void onError(FacebookException error) {
-                Log.d(TAG, "onError: ");
+
 
             }
 
         });
-
 
 
     }
@@ -216,15 +236,14 @@ public class MainActivity extends BaseAppCompatActivity{
                 if (oldProfile != null) {
                     //登出後
 //                    fbName.setText("");
-                    fbImg.setImageBitmap(null);
+                    mFbImageView.setImageBitmap(null);
 
                 }
 
                 if (currentProfile != null) {
                     //登入
 //                    fbName.setText(currentProfile.getName());
-                    loadImage(String.valueOf(currentProfile.getProfilePictureUri(150, 150)), fbImg, LoginActivity.this);
-                    MySharedPrefernces.saveUserPic(LoginActivity.this,String.valueOf(currentProfile.getProfilePictureUri(150, 150)));
+                    MyApi.loadImage(String.valueOf(currentProfile.getProfilePictureUri(150, 150)), mFbImageView,context);
 
                 }
 
@@ -232,12 +251,12 @@ public class MainActivity extends BaseAppCompatActivity{
         };
         profileTracker.startTracking();
         if (profileTracker.isTracking()) {
-            Log.d(getClass().getSimpleName(), "profile currentProfile Tracking: " + "yes");
             if (Profile.getCurrentProfile() == null) return;
+            if (Profile.getCurrentProfile().getProfilePictureUri(150, 150) != null) {
+                MyApi.loadImage(String.valueOf(Profile.getCurrentProfile().getProfilePictureUri(150, 150)), mFbImageView, context);
 
-//            if(Profile.getCurrentProfile().getName()!=null)	fbName.setText(Profile.getCurrentProfile().getName());
-            if (Profile.getCurrentProfile().getProfilePictureUri(150, 150) != null)
-                loadImage(String.valueOf(Profile.getCurrentProfile().getProfilePictureUri(150, 150)), fbImg, LoginActivity.this);
+            }
+
         } else
             Log.d(getClass().getSimpleName(), "profile currentProfile Tracking: " + "no");
 
@@ -245,24 +264,27 @@ public class MainActivity extends BaseAppCompatActivity{
 
 
     @OnClick(R.id.nav_gallery)
-    public void Click(){
-        startActivity(new Intent(this,ProfitAndLossActvity.class));
+    public void Click() {
+        startActivity(new Intent(this, ProfitAndLossActvity.class));
     }
+
     @OnClick(R.id.nav_stock_share)
-    public void shareStockActivity(){
+    public void shareStockActivity() {
         startActivity(ShareStockNumberActivity.class);
     }
+
     @OnClick(R.id.nav_manage)
-    public  void PayActivity(){
+    public void PayActivity() {
         startActivity(new Intent(this, InAppBillingActivity.class));
     }
+
     @OnClick(R.id.nav_calculate)
-    public void calculateActivity(){
+    public void calculateActivity() {
         startActivity(CalculateActivity.class);
     }
 
     @OnClick(R.id.messenger_send_button)
-    public void sendMessageButton(){
+    public void sendMessageButton() {
         onMessengerButtonClicked();
 
     }
@@ -277,7 +299,7 @@ public class MainActivity extends BaseAppCompatActivity{
         }
     }
 
-    private  void setVponBanner(){
+    private void setVponBanner() {
         //get your layout view for Vpon banner
         //create VpadnBanner instance
         vponBanner = new VpadnBanner(this, bannerId, VpadnAdSize.SMART_BANNER, "TW");
@@ -289,11 +311,13 @@ public class MainActivity extends BaseAppCompatActivity{
         //add vpon banner to your layout view
         adBannerLayout.addView(vponBanner);
     }
+
     private void setAdmobBanner() {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
     }
-    private void setAdbertBanner(){
+
+    private void setAdbertBanner() {
         adbertView.setMode(AdbertOrientation.NORMAL);
         adbertView.setExpandVideo(ExpandVideoPosition.BOTTOM);
         adbertView.setFullScreen(false);
@@ -313,10 +337,11 @@ public class MainActivity extends BaseAppCompatActivity{
         });
         adbertView.start();
     }
-    private  void setClickForce(){
+
+    private void setClickForce() {
 
 
-        clickforceAd.getAd(6120,320,50,0.8,30);
+        clickforceAd.getAd(6120, 320, 50, 0.8, 30);
 
         //Ad Load Callback
         clickforceAd.setOnAdViewLoaded(new AdViewLinstener() {
@@ -324,6 +349,7 @@ public class MainActivity extends BaseAppCompatActivity{
             public void OnAdViewLoadFail() {
                 Log.d(TAG, "請求廣告失敗");
             }
+
             @Override
             public void OnAdViewLoadSuccess() {
                 //顯示banner廣告
@@ -361,8 +387,9 @@ public class MainActivity extends BaseAppCompatActivity{
                     shareToMessengerParams);
         }
     }
-    private  void setNewsData(){
-        new Thread(){
+
+    private void setNewsData() {
+        new Thread() {
             @Override
             public void run() {
                 super.run();
@@ -372,10 +399,10 @@ public class MainActivity extends BaseAppCompatActivity{
                         for (Element tbody : table.select("tbody")) {
                             for (Element tr : tbody.select("tr")) {
                                 for (Element td : tr.select("td[valign=top]>a.mbody")) {
-                                    Log.d(TAG, "run: "+td.text());
-                                    Log.d(TAG, "run: "+td.getElementsByTag("a").attr("href").toString());
+                                    Log.d(TAG, "run: " + td.text());
+                                    Log.d(TAG, "run: " + td.getElementsByTag("a").attr("href").toString());
                                     newlist.add(td.text());
-                                    if(newlist.size()>=10){
+                                    if (newlist.size() >= 10) {
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
@@ -394,12 +421,120 @@ public class MainActivity extends BaseAppCompatActivity{
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.d(TAG, "run: "+e.getMessage());
+                    Log.d(TAG, "run: " + e.getMessage());
                 }
-
 
 
             }
         }.start();
+    }
+
+
+    private Bundle getFacebookData(JSONObject object) {
+
+        try {
+            Bundle bundle = new Bundle();
+            String id = object.getString("id");
+
+            try {
+                URL profile_pic = new URL("https://graph.facebook.com/" + id + "/picture?width=200&height=150");
+                Log.i("profile_pic", profile_pic + "");
+                bundle.putString("profile_pic", profile_pic.toString());
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                return null;
+            }
+
+            bundle.putString("idFacebook", id);
+            if (object.has("first_name"))
+                bundle.putString("first_name", object.getString("first_name"));
+            if (object.has("last_name"))
+                bundle.putString("last_name", object.getString("last_name"));
+            if (object.has("email"))
+                bundle.putString("email", object.getString("email"));
+            if (object.has("gender"))
+                bundle.putString("gender", object.getString("gender"));
+            if (object.has("birthday"))
+                bundle.putString("birthday", object.getString("birthday"));
+            if (object.has("location"))
+                bundle.putString("location", object.getJSONObject("location").getString("name"));
+            return bundle;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private void updateWithToken(AccessToken currentAccessToken) {
+
+        if (currentAccessToken != null) {
+        } else {
+        }
+    }
+
+    @Override
+    public void getDatabaseData(Object o) {
+        
+    }
+
+    @Override
+    public void getDeleteState(boolean b, String s, Object o) {
+
+    }
+
+    @Override
+    public void createUserState(boolean b) {
+
+    }
+
+    @Override
+    public void useLognState(boolean b) {
+
+    }
+
+    @Override
+    public void getuseLoginId(String s) {
+
+    }
+
+    @Override
+    public void getuserLoginEmail(String s) {
+
+    }
+
+    @Override
+    public void resetPassWordState(boolean b) {
+
+    }
+
+    @Override
+    public void getFireBaseDBState(boolean b, String s) {
+
+    }
+
+    @Override
+    public void getFirebaseStorageState(boolean b) {
+
+    }
+
+    @Override
+    public void getFirebaseStorageType(String s, String s1) {
+
+    }
+
+    @Override
+    public void getsSndPasswordResetEmailState(boolean b) {
+
+    }
+
+    @Override
+    public void getUpdateUserName(boolean b) {
+
+    }
+
+    @Override
+    public void getUserLogoutState(boolean b) {
+
     }
 }
