@@ -1,31 +1,52 @@
 package com.jackpan.stockcomputer;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.adbert.AdbertListener;
 import com.adbert.AdbertLoopADView;
 import com.adbert.AdbertOrientation;
 import com.adbert.ExpandVideoPosition;
 import com.clickforce.ad.Listener.AdViewLinstener;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.facebook.messenger.MessengerThreadParams;
 import com.facebook.messenger.MessengerUtils;
 import com.facebook.messenger.ShareToMessengerParams;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
 import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity;
 import com.jackpan.stockcomputer.Activity.CalculateActivity;
 import com.jackpan.stockcomputer.Activity.ShareStockNumberActivity;
@@ -33,12 +54,15 @@ import com.vpadn.ads.VpadnAdRequest;
 import com.vpadn.ads.VpadnAdSize;
 import com.vpadn.ads.VpadnBanner;
 
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,7 +79,9 @@ public class MainActivity extends BaseAppCompatActivity{
     private ProgressDialog mProgressDialog;
     private ArrayList<String> newlist= new ArrayList<>();
     private ArrayAdapter<String> listAdapter;
-
+    private CallbackManager callbackManager;
+    private AccessTokenTracker accessTokenTracker;
+    ProfileTracker profileTracker;
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.newslistview) ListView listView;
     @BindView(R.id.drawer_layout) DrawerLayout drawer;
@@ -63,10 +89,15 @@ public class MainActivity extends BaseAppCompatActivity{
     @BindView(R.id.adView)AdView mAdView;
     @BindView(R.id.adbertADView)AdbertLoopADView adbertView;
     @BindView(R.id.ad)com.clickforce.ad.AdView clickforceAd;
+    @BindView(R.id.fbImg)
+    ImageView mFbImageView;
+    @BindView(R.id.fbloginbutton)
+    LoginButton mFbLoginButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
         AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -94,8 +125,124 @@ public class MainActivity extends BaseAppCompatActivity{
         setNewsData();
         listAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,newlist);
         listView.setAdapter(listAdapter);
+        fbLogin();
+
 
     }
+
+    //臉書登入
+    private void fbLogin() {
+        List<String> PERMISSIONS_PUBLISH = Arrays.asList("public_profile", "email", "user_friends");
+        mFbLoginButton.setReadPermissions(PERMISSIONS_PUBLISH);
+        mFbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d(TAG, "onSuccess: " + loginResult.getAccessToken());
+                handleFacebookAccessToken(loginResult.getAccessToken());
+                setUsetProfile();
+
+                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        Log.i("LoginActivity", response.toString());
+                        // Get facebook data from login
+                        Bundle bFacebookData = getFacebookData(object);
+                    }
+                });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(TAG, "onCancel: ");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(TAG, "onError: ");
+
+            }
+
+        });
+
+
+
+    }
+
+    private void handleFacebookAccessToken(AccessToken token) {
+
+
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
+                updateWithToken(newAccessToken);
+            }
+        };
+
+        // [START_EXCLUDE silent]
+
+        // [END_EXCLUDE]
+        auth = FirebaseAuth.getInstance();
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithCredential", task.getException());
+
+                        }
+
+                        // [START_EXCLUDE]
+
+                        // [END_EXCLUDE]
+                    }
+                });
+    }
+
+    private void setUsetProfile() {
+        profileTracker = new ProfileTracker() {
+            @Override
+            protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
+                if (oldProfile != null) {
+                    //登出後
+//                    fbName.setText("");
+                    fbImg.setImageBitmap(null);
+
+                }
+
+                if (currentProfile != null) {
+                    //登入
+//                    fbName.setText(currentProfile.getName());
+                    loadImage(String.valueOf(currentProfile.getProfilePictureUri(150, 150)), fbImg, LoginActivity.this);
+                    MySharedPrefernces.saveUserPic(LoginActivity.this,String.valueOf(currentProfile.getProfilePictureUri(150, 150)));
+
+                }
+
+            }
+        };
+        profileTracker.startTracking();
+        if (profileTracker.isTracking()) {
+            Log.d(getClass().getSimpleName(), "profile currentProfile Tracking: " + "yes");
+            if (Profile.getCurrentProfile() == null) return;
+
+//            if(Profile.getCurrentProfile().getName()!=null)	fbName.setText(Profile.getCurrentProfile().getName());
+            if (Profile.getCurrentProfile().getProfilePictureUri(150, 150) != null)
+                loadImage(String.valueOf(Profile.getCurrentProfile().getProfilePictureUri(150, 150)), fbImg, LoginActivity.this);
+        } else
+            Log.d(getClass().getSimpleName(), "profile currentProfile Tracking: " + "no");
+
+    }
+
 
     @OnClick(R.id.nav_gallery)
     public void Click(){
