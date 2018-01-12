@@ -147,7 +147,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, newlist);
         listView.setAdapter(listAdapter);
         fbLogin();
-        test("2344");
+//        test("2344");
+        test2("2344");
 
     }
     @Override
@@ -394,6 +395,36 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                     shareToMessengerParams);
         }
     }
+    private void test2(String number){
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                try {
+//                    Log.d(TAG, "run: "+" "+number+".htm");
+                    Document doc = Jsoup.connect("http://pchome.megatime.com.tw/stock/sid2344.html").get();
+//                    Log.d(TAG, "run: "+doc.toString());
+                    for (Element element : doc.select("div#bttb")) {
+                        Log.d(TAG, "run: "+element.text());
+//                        for (Element element1 : element.select("table[class=tb-stock]")) {
+//                            Log.d(TAG, "run: "+element1.text());
+//                        }
+
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }.start();
+
+
+
+
+    }
+
+
     private void test(String number){
         new Thread(){
             @Override
