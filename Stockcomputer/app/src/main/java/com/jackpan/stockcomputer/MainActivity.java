@@ -150,6 +150,11 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
 
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
 
     //臉書登入
     private void fbLogin() {
@@ -184,6 +189,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
             @Override
             public void onError(FacebookException error) {
+                error.printStackTrace();
+                setLogger(error.getMessage());
 
 
             }
