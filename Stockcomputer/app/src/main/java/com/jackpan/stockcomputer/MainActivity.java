@@ -147,7 +147,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, newlist);
         listView.setAdapter(listAdapter);
         fbLogin();
-        test();
+        test("2344");
 
     }
     @Override
@@ -394,14 +394,15 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                     shareToMessengerParams);
         }
     }
-    private void test(){
+    private void test(String number){
         new Thread(){
             @Override
             public void run() {
                 super.run();
                 ArrayList<String> price = new ArrayList<String>();
                 try {
-                    Document doc = Jsoup.connect("https://tw.stock.yahoo.com/d/s/dividend_2330.html").get();
+                    Log.d(TAG, "run: "+"https://tw.stock.yahoo.com/d/s/dividend_"+number+".html");
+                    Document doc = Jsoup.connect("https://tw.stock.yahoo.com/d/s/dividend_"+number+".html").get();
                     for (Element table : doc.select("table[width=630][align=center]>tbody")) {
 
                         for (Element element : table.select("table[cellspacing=1]")) {
