@@ -475,7 +475,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     @Override
     public void getDatabaseData(Object o) {
-        
+
     }
 
     @Override
