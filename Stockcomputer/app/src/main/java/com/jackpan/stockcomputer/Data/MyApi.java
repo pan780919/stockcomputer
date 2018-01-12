@@ -18,6 +18,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 
@@ -82,6 +85,41 @@ public class MyApi {
 
 
         }.start();
+
+    }
+
+    public  static long  birthdayToTimeStamp(String bir){
+        SimpleDateFormat simpleDateFormat =  new  SimpleDateFormat("yyyy/MM/dd");
+        Date date =  null ;
+        try  {
+            date = (Date) simpleDateFormat.parse(changeBirthday(bir));
+            Log.d(TAG, "birthdayToTimeStamp: "+date.toString());
+            long  timeStamp = date.getTime();
+            Log.d(TAG, "birthdayToTimeStamp: "+timeStamp);
+            return  timeStamp;
+        }  catch  (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0 ;
+    }
+
+    private  static  String  changeBirthday(String s){
+        String [] stringArray = s.split("/");
+        String birthdayString = stringArray[2]+"/"+stringArray[0]+"/"+stringArray[1];
+        Log.d(TAG, "changeBirthday: "+birthdayString);
+        return birthdayString;
+
+    }
+    public static void DateComparison(long userBirthday, long nowTime){
+        long birthayTime = userBirthday;
+        long todayTime = nowTime;
+        if(birthayTime==todayTime){
+            Log.d(TAG, "DateComparison: "+"yes");
+        }else {
+            Log.d(TAG, "DateComparison: "+"no");
+
+        }
+
 
     }
 

@@ -19,5 +19,6 @@ public class MyApplication extends Application {
         Intent promotionIntent = new Intent(this, MainActivity.class);
         PushAd.enablePush(this, MyApi.AdLocusKey, promotionIntent );
         MyApi.getKeyHash(myApplication);
+
     }
 }

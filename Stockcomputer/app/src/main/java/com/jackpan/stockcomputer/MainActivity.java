@@ -158,7 +158,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     //臉書登入
     private void fbLogin() {
-        List<String> PERMISSIONS_PUBLISH = Arrays.asList("public_profile", "email", "user_friends");
+        List<String> PERMISSIONS_PUBLISH = Arrays.asList("public_profile", "email", "user_friends","user_location","user_birthday", "user_likes");
         mFbLoginButton.setReadPermissions(PERMISSIONS_PUBLISH);
         mFbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -171,7 +171,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
-                        Log.i("LoginActivity", response.toString());
+                        Log.d("LoginActivity", object.toString());
                         // Get facebook data from login
                         Bundle bFacebookData = getFacebookData(object);
                     }
@@ -445,7 +445,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
             try {
                 URL profile_pic = new URL("https://graph.facebook.com/" + id + "/picture?width=200&height=150");
-                Log.i("profile_pic", profile_pic + "");
+                Log.d(TAG, profile_pic + "");
                 bundle.putString("profile_pic", profile_pic.toString());
 
             } catch (MalformedURLException e) {
@@ -456,16 +456,25 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             bundle.putString("idFacebook", id);
             if (object.has("first_name"))
                 bundle.putString("first_name", object.getString("first_name"));
+            Log.d(TAG, "getFacebookData: "+object.getString("first_name"));
             if (object.has("last_name"))
                 bundle.putString("last_name", object.getString("last_name"));
+            Log.d(TAG, "getFacebookData: "+object.getString("last_name"));
             if (object.has("email"))
                 bundle.putString("email", object.getString("email"));
+            Log.d(TAG, "getFacebookData: "+object.getString("email"));
+
             if (object.has("gender"))
                 bundle.putString("gender", object.getString("gender"));
+            Log.d(TAG, "getFacebookData: "+object.getString("gender"));
             if (object.has("birthday"))
                 bundle.putString("birthday", object.getString("birthday"));
+            Log.d(TAG, "getFacebookData: "+MyApi.birthdayToTimeStamp(object.getString("birthday")));
+            MyApi.DateComparison(System.currentTimeMillis(),System.currentTimeMillis());
+
             if (object.has("location"))
                 bundle.putString("location", object.getJSONObject("location").getString("name"));
+            Log.d(TAG, "getFacebookData: "+object.getJSONObject("location").getString("name"));
             return bundle;
         } catch (JSONException e) {
             e.printStackTrace();
