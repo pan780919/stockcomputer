@@ -159,7 +159,7 @@ public class CalculateActivity extends BaseAppCompatActivity {
         TextView mSellPayment;
         @BindView(R.id.textView_sell_pricetotal)
         TextView mPriceToatal;
-
+        
         public ViewHolder(View v){
             ButterKnife.bind(this,v);
         }
