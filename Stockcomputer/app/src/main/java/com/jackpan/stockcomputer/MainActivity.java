@@ -404,12 +404,12 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //                    Log.d(TAG, "run: "+" "+number+".htm");
                     Document doc = Jsoup.connect("https://goodinfo.tw/StockInfo/StockDetail.asp?STOCK_ID=2344").get();
                     Element t = doc.select("tr[align=center][height=26px][bgcolor=#e7f3ff]").get(0);
-                    Log.d(TAG, "run: "+ t.select("td").get(0).text());
+//                    Log.d(TAG, "run: "+ t.select("td").get(0).text());
 //                    for (Element td : t.select("td")) {
 //                        Log.d(TAG, "run: "+td.text());
 //                    }
                     Element e = doc.select("tr[align=center][height=26px][bgcolor=white]").get(0);
-                    Log.d(TAG, "run: "+ e.select("td").get(0).text());
+//                    Log.d(TAG, "run: "+ e.select("td").get(0).text());
 //                    for (Element td : e.select("td")) {
 //
 //                        Log.d(TAG, "run: "+td.text());
@@ -461,7 +461,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                             }
                         }
                     }
-                    Log.d(TAG, "run: "+price.get(1));
+//                    Log.d(TAG, "run: "+price.get(1));
 //                    for (String s : price) {
 //                        Log.d(TAG, "run: "+s);
 //                    }
@@ -484,11 +484,22 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             public void run() {
                 super.run();
                 try {
+                    ArrayList<String> s = new ArrayList<String>();
                     Document doc = Jsoup.connect("https://tw.stock.yahoo.com/news_list/url/d/e/N3.html?q=&pg=1").get();
+                    Log.d(TAG, "run: "+doc.getElementsByClass("mtext").size());
+                    for (Element mtext : doc.getElementsByClass("mtext")) {
+                        s.clear();
+                        s.add(mtext.attr("onClick").toString());
+                        Log.d(TAG, "run: "+mtext.toString());
+                        Log.d(TAG, "run: "+mtext.attr("onClick").toString());
+
+                    }
                     for (Element table : doc.select("table#newListContainer")) {
+
                         for (Element tbody : table.select("tbody")) {
                             for (Element tr : tbody.select("tr")) {
                                 for (Element td : tr.select("td[valign=top]>a.mbody")) {
+
 //                                    Log.d(TAG, "run: " + td.text());
 //                                    Log.d(TAG, "run: " + td.getElementsByTag("a").attr("href").toString());
                                     newlist.add(td.text());
@@ -496,6 +507,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                                         runOnUiThread(new Runnable() {
                                             @Override
                                             public void run() {
+
                                                 listAdapter.notifyDataSetChanged();
                                                 mProgressDialog.dismiss();
 
@@ -505,6 +517,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                                         return;
                                     }
                                 }
+
                             }
                         }
                     }
