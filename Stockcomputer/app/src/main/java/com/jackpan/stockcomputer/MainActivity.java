@@ -402,13 +402,15 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                 super.run();
                 try {
 //                    Log.d(TAG, "run: "+" "+number+".htm");
-                    Document doc = Jsoup.connect("http://pchome.megatime.com.tw/stock/sid2344.html").get();
-//                    Log.d(TAG, "run: "+doc.toString());
-                    for (Element element : doc.select("div#bttb")) {
-                        Log.d(TAG, "run: "+element.text());
-//                        for (Element element1 : element.select("table[class=tb-stock]")) {
-//                            Log.d(TAG, "run: "+element1.text());
-//                        }
+                    Document doc = Jsoup.connect("https://goodinfo.tw/StockInfo/StockDetail.asp?STOCK_ID=2334").get();
+                    Element t = doc.select("tr[align=center][height=26px][bgcolor=#e7f3ff]").get(0);
+                    for (Element td : t.select("td")) {
+                        Log.d(TAG, "run: "+td.text());
+                    }
+                    Element e = doc.select("tr[align=center][height=26px][bgcolor=white]").get(0);
+
+                    for (Element td : e.select("td")) {
+                        Log.d(TAG, "run: "+td.text());
 
                     }
                 } catch (IOException e) {
