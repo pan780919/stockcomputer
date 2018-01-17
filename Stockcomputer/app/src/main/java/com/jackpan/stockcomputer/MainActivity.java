@@ -52,6 +52,7 @@ import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity;
 import com.jackpan.stockcomputer.Activity.CalculateActivity;
 import com.jackpan.stockcomputer.Activity.ShareStockNumberActivity;
 import com.jackpan.stockcomputer.Data.MyApi;
+import com.jackpan.stockcomputer.Kotlin.BuyAndSellActivity;
 import com.vpadn.ads.VpadnAdRequest;
 import com.vpadn.ads.VpadnAdSize;
 import com.vpadn.ads.VpadnBanner;
@@ -269,7 +270,10 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             Log.d(getClass().getSimpleName(), "profile currentProfile Tracking: " + "no");
 
     }
-
+    @OnClick(R.id.nav_camera)
+    public  void setBuyAndSellActivity(){
+        startActivity(BuyAndSellActivity.class);
+    }
 
     @OnClick(R.id.nav_gallery)
     public void Click() {
