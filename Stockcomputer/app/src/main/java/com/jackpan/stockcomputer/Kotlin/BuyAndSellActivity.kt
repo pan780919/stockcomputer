@@ -20,9 +20,12 @@ class BuyAndSellActivity : BaseAppCompatActivity() {
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
         mButton = findViewById(R.id.button)
-        mButton.setOnClickListener(View.OnClickListener {showToast("1111") })
+        mButton.setOnClickListener(View.OnClickListener {setOnClick("111") })
 
 
+    }
+    fun  setOnClick(s :String){
+        showToast(s);
     }
 
 }
