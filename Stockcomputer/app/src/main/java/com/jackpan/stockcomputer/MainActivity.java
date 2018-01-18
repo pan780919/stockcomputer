@@ -11,6 +11,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -53,6 +55,7 @@ import com.jackpan.stockcomputer.Activity.CalculateActivity;
 import com.jackpan.stockcomputer.Activity.ShareStockNumberActivity;
 import com.jackpan.stockcomputer.Data.MyApi;
 import com.jackpan.stockcomputer.Kotlin.BuyAndSellActivity;
+import com.jackpan.stockcomputer.Kotlin.NewDetailActivity;
 import com.vpadn.ads.VpadnAdRequest;
 import com.vpadn.ads.VpadnAdSize;
 import com.vpadn.ads.VpadnBanner;
@@ -73,6 +76,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
 
 public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallback {
     private static final String TAG = "MainActivity";
@@ -153,17 +157,25 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
         listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,  newlist);
         mListview.setAdapter(listAdapter);
+        mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                startActivity(NewDetailActivity.class);
+            }
+        });
         fbLogin();
 //        test("2344");
 //        test2("2344");
-        getNewDetil();
+//        getNewDetil();
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
+
 
     //臉書登入
     private void fbLogin() {

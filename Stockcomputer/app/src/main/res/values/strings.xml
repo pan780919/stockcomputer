@@ -7,7 +7,7 @@
 
     <string name="alertbutton_ok">確定</string>
 
-    <string name="activty_main_title">個股新聞</string>
+    <string name="activty_main_title">個股動態</string>
     <string name="action_settings">Settings</string>
 
 
@@ -33,5 +33,6 @@
     <string name="title_activity_share">ShareActivity</string>
     <string name="title_activity_calculate">CalculateActivity</string>
     <string name="title_activity_buy_and_sell">買入賣出金額試算</string>
+    <string name="title_activity_news_detail">個股新聞</string>
 
 </resources>
