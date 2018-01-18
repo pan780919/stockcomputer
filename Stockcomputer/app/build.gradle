@@ -76,6 +76,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    compile 'com.github.nuptboyzhb.lib.uikit:superswiperefreshlayout:1.0.0'
+
 }
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'me.tatarka.retrolambda'

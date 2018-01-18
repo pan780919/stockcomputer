@@ -25,7 +25,7 @@ class BuyAndSellActivity : BaseAppCompatActivity() {
 
     }
     fun  setOnClick(s :String){
-        showToast(s);
+        showToast(s)
     }
 
 }

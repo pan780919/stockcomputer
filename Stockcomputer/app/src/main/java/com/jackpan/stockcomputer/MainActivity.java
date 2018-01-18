@@ -91,10 +91,11 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     private ProfileTracker profileTracker;
     private FirebaseAuth auth;
     private FirebaseAuth.AuthStateListener authListener;
+    private  ArrayList<String> nextPage = new ArrayList<>();
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.newslistview)
-    ListView listView;
+    @BindView(R.id.listView)
+    ListView mListview;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
     @BindView(R.id.adLayout)
@@ -142,14 +143,14 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             mThreadParams = MessengerUtils.getMessengerThreadParamsForIntent(intent);
             mPicking = true;
         }
-        mProgressDialog = new ProgressDialog(this);
-        mProgressDialog.show();
+
         setNewsData();
-        listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, newlist);
-        listView.setAdapter(listAdapter);
+
+        listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,  newlist);
+        mListview.setAdapter(listAdapter);
         fbLogin();
 //        test("2344");
-        test2("2344");
+//        test2("2344");
 
     }
     @Override
@@ -299,6 +300,30 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     public void sendMessageButton() {
         onMessengerButtonClicked();
 
+    }
+    @OnClick(R.id.rightbutton)
+    public void nextPageButton(){
+        if(nextPage.size()>=2){
+            setNewsData(nextPage.get(1),true);
+        }else {
+            setNewsData(nextPage.get(0),true);
+
+        }
+    }
+    @OnClick(R.id.liftbutton)
+    public void returnButton(){
+        Log.d(TAG, "returnButton: "+nextPage.size());
+
+        if(nextPage.size()>=2){
+            Log.d(TAG, "returnButton: "+nextPage.get(0));
+            Log.d(TAG, "returnButton: "+nextPage.get(1));
+            setNewsData(nextPage.get(1),false);
+        }else {
+
+            showToast("NO");
+            return;
+
+        }
     }
 
 
@@ -483,48 +508,124 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
 
     private void setNewsData() {
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.show();
         new Thread() {
             @Override
             public void run() {
                 super.run();
                 try {
-                    ArrayList<String> s = new ArrayList<String>();
                     Document doc = Jsoup.connect("https://tw.stock.yahoo.com/news_list/url/d/e/N3.html?q=&pg=1").get();
                     Log.d(TAG, "run: "+doc.getElementsByClass("mtext").size());
                     for (Element mtext : doc.getElementsByClass("mtext")) {
-                        s.clear();
-                        s.add(mtext.attr("onClick").toString());
-                        Log.d(TAG, "run: "+mtext.toString());
-                        Log.d(TAG, "run: "+mtext.attr("onClick").toString());
-
+                        nextPage.add(mtext.attr("onClick").toString());
                     }
-                    for (Element table : doc.select("table#newListContainer")) {
+                    if(!nextPage.get(0).equals("")){
+                        for (Element table : doc.select("table#newListContainer")) {
 
-                        for (Element tbody : table.select("tbody")) {
-                            for (Element tr : tbody.select("tr")) {
-                                for (Element td : tr.select("td[valign=top]>a.mbody")) {
+                            for (Element tbody : table.select("tbody")) {
+                                for (Element tr : tbody.select("tr")) {
+                                    for (Element td : tr.select("td[valign=top]>a.mbody")) {
 
 //                                    Log.d(TAG, "run: " + td.text());
 //                                    Log.d(TAG, "run: " + td.getElementsByTag("a").attr("href").toString());
-                                    newlist.add(td.text());
-                                    if (newlist.size() >= 10) {
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
+                                        newlist.add(td.text());
+                                        if (newlist.size() >= 10) {
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
 
-                                                listAdapter.notifyDataSetChanged();
-                                                mProgressDialog.dismiss();
+                                                    listAdapter.notifyDataSetChanged();
+                                                    mProgressDialog.dismiss();
 
 
-                                            }
-                                        });
+                                                }
+                                            });
 
-                                        return;
+                                            return;
+                                        }
                                     }
-                                }
 
+                                }
                             }
                         }
+                    }
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.d(TAG, "run: " + e.getMessage());
+                }
+
+
+            }
+        }.start();
+    }
+    String next;
+     String ntx;
+    private void setNewsData(String s,boolean isNextPage) {
+        newlist.clear();
+
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    
+                    if(nextPage.size()>=2){
+                        if(isNextPage ==true){
+                            next = nextPage.get(1).replace("location=","");
+                            ntx = next.replace("\'","");
+                        }else {
+                            next = nextPage.get(0).replace("location=","");
+                            ntx = next.replace("\'","");
+                        }
+
+
+                    }else {
+                        next = nextPage.get(0).replace("location=","");
+                        ntx = next.replace("\'","");
+                    }
+
+                    Log.d(TAG, "run: "+"https://tw.stock.yahoo.com/news_list/url/d/e/N3.html"+ntx+"");
+
+                    Document doc = Jsoup.connect("https://tw.stock.yahoo.com/news_list/url/d/e/N3.html"+ntx+"").get();
+
+                    nextPage.clear();
+                    for (Element mtext : doc.getElementsByClass("mtext")) {
+                        nextPage.add(mtext.attr("onClick").toString());
+
+
+                    }
+
+                    if(!nextPage.get(0).equals("")){
+                        for (Element table : doc.select("table#newListContainer")) {
+
+                            for (Element tbody : table.select("tbody")) {
+                                for (Element tr : tbody.select("tr")) {
+                                    Log.d(TAG, "run: "+tr.select("td[valign=top]>a.mbody").size());
+                                    for (int i = 0; i < tr.select("td[valign=top]>a.mbody").size(); i++) {
+                                        newlist.add(tr.select("td[valign=top]>a.mbody").get(i).text());
+                                        if (newlist.size() >= 10) {
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+
+                                                    listAdapter.notifyDataSetChanged();
+
+
+                                                }
+                                            });
+
+                                            return;
+                                        }
+                                    }
+
+
+                                }
+                            }
+                        }
+
                     }
 
                 } catch (IOException e) {
@@ -536,7 +637,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             }
         }.start();
     }
-
 
     private Bundle getFacebookData(JSONObject object) {
 
