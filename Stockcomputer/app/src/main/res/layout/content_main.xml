@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,15 +9,26 @@
     tools:context="com.jackpan.stockcomputer.MainActivity"
     tools:showIn="@layout/app_bar_main">
     <RelativeLayout
-        android:layout_width="368dp"
-        android:layout_height="495dp"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <ListView
-            android:layout_above="@+id/layout"
+            android:layout_above="@+id/adView_page"
             android:id="@+id/listView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
+        <com.google.android.gms.ads.AdView
+
+            android:layout_above="@+id/layout"
+            android:id="@+id/adView_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-7019441527375550/3182087426">
+
+        </com.google.android.gms.ads.AdView>
         <RelativeLayout
             android:id="@+id/layout"
             android:layout_alignParentBottom="true"

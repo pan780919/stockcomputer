@@ -116,7 +116,8 @@
             android:name=".Activity.CalculateActivity"
             android:label="@string/title_activity_calculate"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Kotlin.BuyAndSellActivity"></activity>
+        <activity android:name=".Kotlin.BuyAndSellActivity" />
+        <activity android:name=".Kotlin.NewDetailActivity"></activity>
     </application>
 
 </manifest>

@@ -11,6 +11,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -53,6 +55,7 @@ import com.jackpan.stockcomputer.Activity.CalculateActivity;
 import com.jackpan.stockcomputer.Activity.ShareStockNumberActivity;
 import com.jackpan.stockcomputer.Data.MyApi;
 import com.jackpan.stockcomputer.Kotlin.BuyAndSellActivity;
+import com.jackpan.stockcomputer.Kotlin.NewDetailActivity;
 import com.vpadn.ads.VpadnAdRequest;
 import com.vpadn.ads.VpadnAdSize;
 import com.vpadn.ads.VpadnBanner;
@@ -73,6 +76,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
 
 public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallback {
     private static final String TAG = "MainActivity";
@@ -109,7 +113,11 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     @BindView(R.id.fbImg)
     ImageView mFbImageView;
     @BindView(R.id.fbloginbutton)
+
     LoginButton mFbLoginButton;
+    @BindView(R.id.adView_page)
+    AdView mPageAdView;
+
     private Context context;
 
     @Override
@@ -125,7 +133,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
         ButterKnife.bind(this);
         checkNetWork();
-        toolbar.setTitle(getResources().getString(R.string.app_name));
+        toolbar.setTitle(getResources().getString(R.string.activty_main_title));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -135,6 +143,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         setAdmobBanner();
+        setPageAdView();
         setVponBanner();
         setAdbertBanner();
         setClickForce();
@@ -148,16 +157,25 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
         listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,  newlist);
         mListview.setAdapter(listAdapter);
+        mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                startActivity(NewDetailActivity.class);
+            }
+        });
         fbLogin();
 //        test("2344");
 //        test2("2344");
+//        getNewDetil();
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
+
 
     //臉書登入
     private void fbLogin() {
@@ -352,6 +370,10 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     private void setAdmobBanner() {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+    }
+    private  void setPageAdView(){
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mPageAdView.loadAd(adRequest);
     }
 
     private void setAdbertBanner() {
@@ -636,6 +658,36 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
             }
         }.start();
+    }
+    private  void getNewDetil(){
+        ArrayList<String> n = new ArrayList<>();
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                try {
+
+                    Document doc = Jsoup.connect("https://tw.finance.yahoo.com/news_content/url/d/a/20180118/%E7%A8%85%E6%94%B9%E4%B8%89%E8%AE%80%E9%81%8E%E9%97%9C-%E6%9C%83%E8%A8%88%E5%B8%AB%E8%AE%9A%E8%AA%A0%E6%84%8F%E5%8D%81%E8%B6%B3-%E7%9C%8B%E5%A5%BD%E8%82%A1%E5%88%A9%E6%89%80%E5%BE%97%E5%88%86%E9%9B%A2%E8%AA%B2%E7%A8%85%E5%B8%B6%E4%BE%864%E5%88%A9%E5%A4%9A-121341195.html").get();
+                    for (Element element : doc.select("table[class=yui-text-left yui-table-wfix ynwsart]>tbody>tr>td>span")) {
+//                        Log.d(TAG, "getNewDetil: "+element.text());
+                    }
+                    for (Element element : doc.select("p")) {
+//                        Log.d(TAG, "getNewDetil: "+element.toString());
+//                        Log.d(TAG, "getNewDetil: "+element.text());
+                        if(!element.text().equals("")){
+                            n.add(element.text());
+                        }
+
+                    }
+
+                    Log.d(TAG, "run: "+n.toString());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
+
     }
 
     private Bundle getFacebookData(JSONObject object) {
