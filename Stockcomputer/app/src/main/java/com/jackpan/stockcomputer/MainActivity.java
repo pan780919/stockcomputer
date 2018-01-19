@@ -528,7 +528,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                                     for (Element td : tr.select("td[valign=top]>a.mbody")) {
 
 //                                    Log.d(TAG, "run: " + td.text());
-//                                    Log.d(TAG, "run: " + td.getElementsByTag("a").attr("href").toString());
+                                    Log.d(TAG, "run: " + td.getElementsByTag("a").attr("href").toString());
                                         newlist.add(td.text());
                                         if (newlist.size() >= 10) {
                                             runOnUiThread(new Runnable() {
@@ -571,7 +571,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             public void run() {
                 super.run();
                 try {
-                    
+
                     if(nextPage.size()>=2){
                         if(isNextPage ==true){
                             next = nextPage.get(1).replace("location=","");
