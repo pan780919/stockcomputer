@@ -1,8 +1,9 @@
 package com.jackpan.stockcomputer.Kotlin
 import android.app.ProgressDialog
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity
 import com.jackpan.stockcomputer.R
 import org.jsoup.Jsoup
@@ -10,16 +11,18 @@ import java.io.IOException
 import kotlin.concurrent.thread
 
 class NewDetailActivity : BaseAppCompatActivity() {
-    var mTitleList =ArrayList<String>();
-    lateinit var mTitleTextView:TextView;
+    var mTitleList =ArrayList<String>()
+    lateinit var mTitleTextView:TextView
+    lateinit var mAdView : AdView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_detail)
         setTitle(getString(R.string.title_activity_news_detail))
         checkNetWork()
-        mTitleTextView = findViewById(R.id.newsdetail);
-
-
+        mTitleTextView = findViewById(R.id.newsdetail)
+        mAdView = findViewById(R.id.adView)
+        var adRequset = AdRequest.Builder().build()
+        mAdView.loadAd(adRequset)
         setLogger(intent.getStringExtra("url"))
         getNewsDetail(intent.getStringExtra("url"))
 
@@ -38,16 +41,8 @@ class NewDetailActivity : BaseAppCompatActivity() {
                      * 抓標題
                      */
                     mTitleList.add(element.text())
-
-
-
-
-
-                                            Log.d("test", "getNewDetil: "+element.text());
                 }
                 for (element in doc.select("p")) {
-//                                            Log.d("test", "getNewDetil: "+element.toString());
-                                            Log.d("test", "getNewDetil: "+element.text());
                     if (element.text() != "") {
                         /**
                          * 抓內容
