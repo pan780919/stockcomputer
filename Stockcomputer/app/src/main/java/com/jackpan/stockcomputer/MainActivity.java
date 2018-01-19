@@ -329,14 +329,11 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     }
     @OnClick(R.id.liftbutton)
     public void returnButton(){
-        Log.d(TAG, "returnButton: "+nextPage.size());
-
         if(nextPage.size()>=2){
             Log.d(TAG, "returnButton: "+nextPage.get(0));
             Log.d(TAG, "returnButton: "+nextPage.get(1));
             setNewsData(nextPage.get(1),false);
         }else {
-
             showToast("已經是最後一頁！！");
             return;
 
@@ -344,8 +341,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     }
     @OnItemClick(R.id.listView)
     public void listViewOnItemClick(int i){
-        Log.d(TAG, "listViewOnItemClick: "+i);
-        Log.d(TAG, "listViewOnItemClick: "+ newlist.get(i).getNewsDetail());
         Bundle b = new Bundle();
         b.putString("url",newlist.get(i).getNewsDetail());
 
@@ -522,12 +517,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                             }
                         }
                     }
-//                    Log.d(TAG, "run: "+price.get(1));
-//                    for (String s : price) {
-//                        Log.d(TAG, "run: "+s);
-//                    }
-
-
 
                 } catch (IOException e) {
                     e.printStackTrace();
