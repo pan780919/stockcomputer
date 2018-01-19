@@ -12,12 +12,43 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.jackpan.stockcomputer.Kotlin.NewDetailActivity">
     <TextView
+        android:id="@+id/newstile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+
+        ></TextView>
+    <TextView
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/newstile"
+        android:id="@+id/newstime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+
+        ></TextView>
+    <TextView
+        android:layout_marginTop="12dp"
+
+        android:layout_below="@+id/newstime"
+
+        android:id="@+id/newsfrom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+
+        ></TextView>
+    <TextView
+        android:layout_marginTop="12dp"
+
+        android:layout_below="@+id/newsfrom"
+
         android:id="@+id/newsdetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="20dp"
 
         ></TextView>
-
     <com.google.android.gms.ads.AdView
         android:layout_alignParentBottom="true"
         android:id="@+id/adView"

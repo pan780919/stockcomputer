@@ -13,13 +13,19 @@ import kotlin.concurrent.thread
 class NewDetailActivity : BaseAppCompatActivity() {
     var mTitleList =ArrayList<String>()
     lateinit var mTitleTextView:TextView
+    lateinit var mTimeTextView :TextView
+    lateinit var mFormTextView :TextView
+    lateinit var mDetailTextView : TextView
     lateinit var mAdView : AdView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_detail)
         setTitle(getString(R.string.title_activity_news_detail))
         checkNetWork()
-        mTitleTextView = findViewById(R.id.newsdetail)
+        mTitleTextView = findViewById(R.id.newstile)
+        mTimeTextView = findViewById(R.id.newstime)
+        mFormTextView = findViewById(R.id.newsfrom)
+        mDetailTextView = findViewById(R.id.newsdetail)
         mAdView = findViewById(R.id.adView)
         var adRequset = AdRequest.Builder().build()
         mAdView.loadAd(adRequset)
@@ -57,12 +63,12 @@ class NewDetailActivity : BaseAppCompatActivity() {
             } catch (e: IOException) {
                 e.printStackTrace()
             }
-            runOnUiThread(){
+            runOnUiThread{
+                mTitleTextView.text= mTitleList[0]
+                mTimeTextView.text = mTitleList[1]
+                mFormTextView.text = mTitleList[2]
+                mDetailTextView.text = mTitleList[3]
 
-                mTitleList.forEach {
-                    mTitleTextView.setText(it)
-
-                }
             }
         }
 

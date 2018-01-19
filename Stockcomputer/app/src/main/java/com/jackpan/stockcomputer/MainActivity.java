@@ -337,7 +337,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             setNewsData(nextPage.get(1),false);
         }else {
 
-            showToast("NO");
+            showToast("已經是最後一頁！！");
             return;
 
         }
