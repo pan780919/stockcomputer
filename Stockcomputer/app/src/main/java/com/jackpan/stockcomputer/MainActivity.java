@@ -58,6 +58,7 @@ import com.jackpan.stockcomputer.Activity.ShareStockNumberActivity;
 import com.jackpan.stockcomputer.Data.MyApi;
 import com.jackpan.stockcomputer.Data.NewsData;
 import com.jackpan.stockcomputer.Kotlin.BuyAndSellActivity;
+import com.jackpan.stockcomputer.Kotlin.NewDetailActivity;
 import com.vpadn.ads.VpadnAdRequest;
 import com.vpadn.ads.VpadnAdSize;
 import com.vpadn.ads.VpadnBanner;
@@ -345,9 +346,10 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     public void listViewOnItemClick(int i){
         Log.d(TAG, "listViewOnItemClick: "+i);
         Log.d(TAG, "listViewOnItemClick: "+ newlist.get(i).getNewsDetail());
+        Bundle b = new Bundle();
+        b.putString("url",newlist.get(i).getNewsDetail());
 
-
-//        startActivity(NewDetailActivity.class);
+        startActivity(NewDetailActivity.class,b);
 
 
     }
