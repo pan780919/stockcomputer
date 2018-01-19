@@ -11,8 +11,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -157,18 +155,14 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
         listAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,  newlist);
         mListview.setAdapter(listAdapter);
-        mListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                startActivity(NewDetailActivity.class);
-            }
-        });
+   ;
         fbLogin();
 //        test("2344");
 //        test2("2344");
 //        getNewDetil();
 
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -342,6 +336,14 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             return;
 
         }
+    }
+    @OnItemClick(R.id.listView)
+    public void listViewOnItemClick(int i){
+        Log.d(TAG, "listViewOnItemClick: "+i);
+
+        startActivity(NewDetailActivity.class);
+
+
     }
 
 
