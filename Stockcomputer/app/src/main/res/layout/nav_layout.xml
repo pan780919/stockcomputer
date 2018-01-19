@@ -90,7 +90,27 @@
                     android:text="現股當沖計算機"></TextView>
 
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/expensive_and_cheaper"
 
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:src="@drawable/ic_menu_gallery"></ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="零股試算精靈"></TextView>
+
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/nav_slideshow"
 
