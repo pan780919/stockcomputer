@@ -409,13 +409,15 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         // The URI can reference a file://, content://, or android.resource. Here we use
         // android.resource for sample purposes.
         Uri uri =
-                Uri.parse("android.resource://com.facebook.samples.messenger.send/" + R.drawable.ic_audiotrack);
+                Uri.parse("android.resource://com.jackpan.stockcomputer/" + R.drawable.tree);
+        Log.d(TAG, "onMessengerButtonClicked: "+uri);
 
         // Create the parameters for what we want to send to Messenger.
         ShareToMessengerParams shareToMessengerParams =
                 ShareToMessengerParams.newBuilder(uri, "image/jpeg")
                         .setMetaData("{ \"image\" : \"tree\" }")
                         .build();
+        Log.d(TAG, "onMessengerButtonClicked: "+mPicking);
 
         if (mPicking) {
             // If we were launched from Messenger, we call MessengerUtils.finishShareToMessenger to return
