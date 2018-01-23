@@ -1,5 +1,5 @@
 package com.jackpan.stockcomputer.Kotlin
-import android.app.ProgressDialog
+//import android.app.ProgressDialog
 import android.os.Bundle
 import android.widget.TextView
 import com.google.android.gms.ads.AdRequest
@@ -34,10 +34,10 @@ class NewDetailActivity : BaseAppCompatActivity() {
 
     }
     fun getNewsDetail(s:String){
-        var mProgress =ProgressDialog(this)
-        mProgress.setMessage("資料讀取中")
-        mProgress.setTitle("請稍等片刻！！")
-        mProgress.show()
+//        var mProgress = ProgressDialog(this)
+//        mProgress.setMessage("資料讀取中")
+//        mProgress.setTitle("請稍等片刻！！")
+//        mProgress.show()
         thread {
             try {
 
@@ -58,7 +58,7 @@ class NewDetailActivity : BaseAppCompatActivity() {
                     }
 
                 }
-                mProgress.dismiss()
+//                mProgress.dismiss()
 
             } catch (e: IOException) {
                 e.printStackTrace()

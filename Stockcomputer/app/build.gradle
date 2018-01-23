@@ -18,8 +18,8 @@ android {
         applicationId "com.jackpan.stockcomputer"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0.0"
+        versionCode 5
+        versionName "1.0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -32,6 +32,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
 }
 
 
@@ -40,18 +43,9 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:multidex:1.0.0'
-
     compile files('libs/glide-3.6.1.jar')
     compile files('libs/mFirebaseLibs.jar')
-    compile files('libs/qumi_banner_2.8.5.jar')
     compile files('libs/jsoup-1.10.3.jar')
-    //design support library
-    compile files('libs/vpadn-sdk-obf466-50907102-1709051709-67cc94a.jar')
-    compile files('libs/admob-adapter-1.0.0-1505261651-830485e.jar')
-    compile files('libs/adbert-sdk-320n.jar')
-    compile files('libs/MFAD-1.2.4.jar')
-
     compile 'com.google.firebase:firebase-auth:10.0.1'
     compile 'com.google.firebase:firebase-auth:10.0.1'
     compile 'com.android.support:appcompat-v7:26.0.0'
@@ -76,12 +70,13 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:10.0.1'
     compile 'com.facebook.android:facebook-messenger:[4,5)'
     compile 'com.jakewharton:butterknife:8.8.1'
-    compile 'com.adlocus:library:3.5.7@aar'
+    compile 'com.adlocus:library:3.5.2@aar'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     compile 'com.github.nuptboyzhb.lib.uikit:superswiperefreshlayout:1.0.0'
-
+    compile files('libs/adbert-sdk-320n.jar')
+    compile files('libs/vpadn-sdk-obf470-81217102-1712181548-f6c5e3e.jar')
 }
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'me.tatarka.retrolambda'

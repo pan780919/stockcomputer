@@ -20,10 +20,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.adbert.AdbertListener;
 import com.adbert.AdbertLoopADView;
-import com.adbert.AdbertOrientation;
-import com.adbert.ExpandVideoPosition;
 import com.clickforce.ad.Listener.AdViewLinstener;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -42,7 +39,6 @@ import com.facebook.messenger.MessengerThreadParams;
 import com.facebook.messenger.MessengerUtils;
 import com.facebook.messenger.ShareToMessengerParams;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -59,8 +55,6 @@ import com.jackpan.stockcomputer.Data.MyApi;
 import com.jackpan.stockcomputer.Data.NewsData;
 import com.jackpan.stockcomputer.Kotlin.BuyAndSellActivity;
 import com.jackpan.stockcomputer.Kotlin.NewDetailActivity;
-import com.vpadn.ads.VpadnAdRequest;
-import com.vpadn.ads.VpadnAdSize;
 import com.vpadn.ads.VpadnBanner;
 
 import org.json.JSONException;
@@ -148,8 +142,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         toggle.syncState();
         setAdmobBanner();
         setPageAdView();
-        setVponBanner();
-        setAdbertBanner();
+//        setVponBanner();
+//        setAdbertBanner();
         setClickForce();
         Intent intent = getIntent();
         if (Intent.ACTION_PICK.equals(intent.getAction())) {
@@ -330,8 +324,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     @OnClick(R.id.liftbutton)
     public void returnButton(){
         if(nextPage.size()>=2){
-            Log.d(TAG, "returnButton: "+nextPage.get(0));
-            Log.d(TAG, "returnButton: "+nextPage.get(1));
             setNewsData(nextPage.get(1),false);
         }else {
             showToast("已經是最後一頁！！");
@@ -359,18 +351,18 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         }
     }
 
-    private void setVponBanner() {
-        //get your layout view for Vpon banner
-        //create VpadnBanner instance
-        vponBanner = new VpadnBanner(this, bannerId, VpadnAdSize.SMART_BANNER, "TW");
-        VpadnAdRequest adRequest2 = new VpadnAdRequest();
-        //set auto refresh to get banner
-        adRequest2.setEnableAutoRefresh(true);
-        //load vpon banner
-        vponBanner.loadAd(adRequest2);
-        //add vpon banner to your layout view
-        adBannerLayout.addView(vponBanner);
-    }
+//    private void setVponBanner() {
+//        //get your layout view for Vpon banner
+//        //create VpadnBanner instance
+//        vponBanner = new VpadnBanner(this, bannerId, VpadnAdSize.SMART_BANNER, "TW");
+//        VpadnAdRequest adRequest2 = new VpadnAdRequest();
+//        //set auto refresh to get banner
+//        adRequest2.setEnableAutoRefresh(true);
+//        //load vpon banner
+//        vponBanner.loadAd(adRequest2);
+//        //add vpon banner to your layout view
+//        adBannerLayout.addView(vponBanner);
+//    }
 
     private void setAdmobBanner() {
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -381,26 +373,14 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         mPageAdView.loadAd(adRequest);
     }
 
-    private void setAdbertBanner() {
-        adbertView.setMode(AdbertOrientation.NORMAL);
-        adbertView.setExpandVideo(ExpandVideoPosition.BOTTOM);
-        adbertView.setFullScreen(false);
-        adbertView.setBannerSize(AdSize.BANNER);
-        adbertView.setAPPID("20170619000001", "90cebe8ef120c8bb6ac2ce529dcb99af");
-        adbertView.setListener(new AdbertListener() {
-            @Override
-            public void onReceive(String msg) {
-                Log.d(TAG, "onReceive: " + msg);
-            }
-
-            @Override
-            public void onFailedReceive(String msg) {
-                Log.d(TAG, "onFailedReceive: " + msg);
-
-            }
-        });
-        adbertView.start();
-    }
+//    private void setAdbertBanner() {
+//        adbertView.setMode(AdbertOrientation.NORMAL);
+//        adbertView.setExpandVideo(ExpandVideoPosition.BOTTOM);
+//        adbertView.setFullScreen(false);
+//        adbertView.setBannerSize(AdSize.BANNER);
+//        adbertView.setAPPID("20170619000001", "90cebe8ef120c8bb6ac2ce529dcb99af");
+//        adbertView.start();
+//    }
 
     private void setClickForce() {
 
