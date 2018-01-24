@@ -23,5 +23,17 @@ public class MySharedPrefernces {
         SharedPreferences sp = context.getSharedPreferences(NAME, Activity.MODE_PRIVATE);
         return sp.getBoolean(KEY_IS_BUY, false);
     }
+    public static  final  String KEY_UESR_PHOTO = "user_photo";
+
+    public static  void saveUserPhoto(Context context,String photo){
+        SharedPreferences sp = context.getSharedPreferences(NAME, Activity.MODE_PRIVATE);
+        sp.edit().putString(KEY_UESR_PHOTO, photo).apply();
+    }
+
+    public static String getUserPhoto(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(NAME, Activity.MODE_PRIVATE);
+        return sp.getString(KEY_UESR_PHOTO, "");
+    }
+
 
 }

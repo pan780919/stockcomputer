@@ -33,6 +33,7 @@ import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.messenger.MessengerThreadParams;
@@ -90,6 +91,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     private MyAdapter mAdapter;
     private CallbackManager callbackManager;
     private AccessTokenTracker accessTokenTracker;
+    private LoginManager loginManager;
+
     private MfiebaselibsClass mfiebaselibsClass;
     private ProfileTracker profileTracker;
     private FirebaseAuth auth;
@@ -116,6 +119,10 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     LoginButton mFbLoginButton;
     @BindView(R.id.adView_page)
     AdView mPageAdView;
+    @BindView(R.id.useraccount)
+    TextView mUserAccountTextView;
+    @BindView(R.id.userid)
+    TextView mUserIdTextView;
 
     private Context context;
 
@@ -125,6 +132,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
+        loginManager = LoginManager.getInstance();
         AppEventsLogger.activateApp(this);
         context = this;
         mfiebaselibsClass = new MfiebaselibsClass(this, MainActivity.this);
@@ -179,10 +187,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         mFbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "onSuccess: " + loginResult.getAccessToken());
                 handleFacebookAccessToken(loginResult.getAccessToken());
                 setUsetProfile();
-
                 GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
 
                     @Override
@@ -212,7 +218,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             }
 
         });
-
 
     }
 
@@ -252,6 +257,30 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                 });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkFbState();
+
+    }
+
+    private void checkFbState(){
+        if (Profile.getCurrentProfile() != null) {
+            Profile profile = Profile.getCurrentProfile();
+            // 取得用戶大頭照
+            Uri userPhoto = profile.getProfilePictureUri(300, 300);
+            String id = profile.getId();
+            String name = profile.getName();
+            mUserAccountTextView.setText(name);
+            mUserIdTextView.setText(id);
+            MyApi.loadImage(String.valueOf(userPhoto), mFbImageView,context);
+        }else {
+            mFbImageView.setImageDrawable(null);
+            mUserAccountTextView.setText("");
+            mUserIdTextView.setText("");
+        }
+
+    }
     private void setUsetProfile() {
         profileTracker = new ProfileTracker() {
             @Override
@@ -266,7 +295,12 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                 if (currentProfile != null) {
                     //登入
 //                    fbName.setText(currentProfile.getName());
+                    MySharedPrefernces.saveUserPhoto(context, String.valueOf(currentProfile.getProfilePictureUri(150, 150)));
                     MyApi.loadImage(String.valueOf(currentProfile.getProfilePictureUri(150, 150)), mFbImageView,context);
+                    String id = currentProfile.getId();
+                    String name = currentProfile.getName();
+                    mUserIdTextView.setText(id);
+                    mUserAccountTextView.setText(name);
 
                 }
 
@@ -277,6 +311,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             if (Profile.getCurrentProfile() == null) return;
             if (Profile.getCurrentProfile().getProfilePictureUri(150, 150) != null) {
                 MyApi.loadImage(String.valueOf(Profile.getCurrentProfile().getProfilePictureUri(150, 150)), mFbImageView, context);
+
 
             }
 
@@ -767,11 +802,13 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     @Override
     public void useLognState(boolean b) {
+        Log.d(TAG, "useLognState: "+b);
 
     }
 
     @Override
     public void getuseLoginId(String s) {
+        Log.d(TAG, "getuseLoginId: "+s);
 
     }
 
