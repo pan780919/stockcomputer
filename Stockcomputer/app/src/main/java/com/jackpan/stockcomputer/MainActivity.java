@@ -55,6 +55,8 @@ import com.jackpan.stockcomputer.Data.MyApi;
 import com.jackpan.stockcomputer.Data.NewsData;
 import com.jackpan.stockcomputer.Kotlin.BuyAndSellActivity;
 import com.jackpan.stockcomputer.Kotlin.NewDetailActivity;
+import com.vpadn.ads.VpadnAdRequest;
+import com.vpadn.ads.VpadnAdSize;
 import com.vpadn.ads.VpadnBanner;
 
 import org.json.JSONException;
@@ -142,7 +144,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         toggle.syncState();
         setAdmobBanner();
         setPageAdView();
-//        setVponBanner();
+        setVponBanner();
 //        setAdbertBanner();
         setClickForce();
         Intent intent = getIntent();
@@ -351,18 +353,18 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         }
     }
 
-//    private void setVponBanner() {
-//        //get your layout view for Vpon banner
-//        //create VpadnBanner instance
-//        vponBanner = new VpadnBanner(this, bannerId, VpadnAdSize.SMART_BANNER, "TW");
-//        VpadnAdRequest adRequest2 = new VpadnAdRequest();
-//        //set auto refresh to get banner
-//        adRequest2.setEnableAutoRefresh(true);
-//        //load vpon banner
-//        vponBanner.loadAd(adRequest2);
-//        //add vpon banner to your layout view
-//        adBannerLayout.addView(vponBanner);
-//    }
+    private void setVponBanner() {
+        //get your layout view for Vpon banner
+        //create VpadnBanner instance
+        vponBanner = new VpadnBanner(this, bannerId, VpadnAdSize.SMART_BANNER, "TW");
+        VpadnAdRequest adRequest2 = new VpadnAdRequest();
+        //set auto refresh to get banner
+        adRequest2.setEnableAutoRefresh(true);
+        //load vpon banner
+        vponBanner.loadAd(adRequest2);
+        //add vpon banner to your layout view
+        adBannerLayout.addView(vponBanner);
+    }
 
     private void setAdmobBanner() {
         AdRequest adRequest = new AdRequest.Builder().build();

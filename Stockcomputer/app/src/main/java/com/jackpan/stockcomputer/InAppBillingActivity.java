@@ -29,7 +29,11 @@ public class InAppBillingActivity extends Activity {
 //    static final String ITEM_1000 = "1000";
 //    static final String ITEM_100 = "100";
     static final String DONAYE_30 = "donate_30";
+
     static final String DONAYE_300 = "donate_300";
+    static final String DONAYE_150 ="donate_150";
+    static final String DONAYE_MONTH_300 = "donate_month_300";
+
     private Button mUpLoad;
     private ListView mListView;
     IabHelper mHelper;
@@ -82,25 +86,16 @@ public class InAppBillingActivity extends Activity {
             } else if (purchase.getSku().equals(DONAYE_300)) {
                 showDilog();
                 MySharedPrefernces.saveIsBuyed(InAppBillingActivity.this, true);
+
+            } else if (purchase.getSku().equals(DONAYE_150)) {
+                showDilog();
+                MySharedPrefernces.saveIsBuyed(InAppBillingActivity.this, true);
+
+            } else if (purchase.getSku().equals(DONAYE_MONTH_300)) {
+                showDilog();
+                consumeItem();
+
             }
-//            } else if (purchase.getSku().equals(ITEM_SPONSOR_YEARS)) {
-//                showDilog();
-//                MySharedPrefernces.saveIsBuyed(InAppBillingActivity.this, true);
-//
-//            } else if (purchase.getSku().equals(ITEM_MY_VIP)) {
-//                showDilog();
-//                consumeItem();
-//
-//            } else if (purchase.getSku().equals(ITEM_1000)) {
-//                showDilog();
-//                MySharedPrefernces.saveIsBuyed(InAppBillingActivity.this, true);
-//            } else if (purchase.getSku().equals(ITEM_100)) {
-//                showDilog();
-//                MySharedPrefernces.saveIsBuyed(InAppBillingActivity.this, true);
-//            } else if (purchase.getSku().equals(ITEM_SPOMSOR_OTHER)) {
-//                showDilog();
-//                MySharedPrefernces.saveIsBuyed(InAppBillingActivity.this, true);
-//            }
 
         }
     };
@@ -144,21 +139,23 @@ public class InAppBillingActivity extends Activity {
 
                 String myfree =
                         inventory.getSkuDetails(DONAYE_30).getTitle();
+                String other = inventory.getSkuDetails(DONAYE_150).getTitle();
+
                 String month =
                         inventory.getSkuDetails(DONAYE_300).getTitle();
-//                String other = inventory.getSkuDetails(ITEM_SPOMSOR_OTHER).getTitle();
-//                String years = inventory.getSkuDetails(ITEM_SPONSOR_YEARS).getTitle();
+                String years = inventory.getSkuDetails(DONAYE_MONTH_300).getTitle();
 //                String vip = inventory.getSkuDetails(ITEM_MY_VIP).getTitle();
 //                String vip_1000 = inventory.getSkuDetails(ITEM_1000).getTitle();
 //                String vip_100 = inventory.getSkuDetails(ITEM_100).getTitle();
                 ArrayList<String> mylist = new ArrayList<>();
                 mylist.add(myfree);
+                mylist.add(other);
                 mylist.add(month);
-//                mylist.add(years);
+                mylist.add(years);
 //                mylist.add(vip);
 //                mylist.add(vip_1000);
 //                mylist.add(vip_100);
-//                mylist.add(other);
+
 
                 ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(InAppBillingActivity.this, android.R.layout.simple_list_item_1, mylist);
                 mListView.setAdapter(myAdapter);
@@ -171,15 +168,15 @@ public class InAppBillingActivity extends Activity {
 
                                 break;
                             case 1:
-                                ShowBuyDilog(inventory.getSkuDetails(DONAYE_300).getTitle(), inventory.getSkuDetails(DONAYE_300).getDescription(), inventory.getSkuDetails(DONAYE_300).getPrice(), DONAYE_300);
+                                ShowBuyDilog(inventory.getSkuDetails(DONAYE_150).getTitle(), inventory.getSkuDetails(DONAYE_150).getDescription(), inventory.getSkuDetails(DONAYE_300).getPrice(), DONAYE_150);
 
                                 break;
-//                            case 2:
-//                                ShowBuyDilog(inventory.getSkuDetails(ITEM_SPONSOR_YEARS).getTitle(), inventory.getSkuDetails(ITEM_SPONSOR_YEARS).getDescription(), inventory.getSkuDetails(ITEM_SPONSOR_YEARS).getPrice(), ITEM_SPONSOR_YEARS);
-//                                break;
-//                            case 3:
-//                                ShowBuyDilog(inventory.getSkuDetails(ITEM_MY_VIP).getTitle(), inventory.getSkuDetails(ITEM_MY_VIP).getDescription(), inventory.getSkuDetails(ITEM_MY_VIP).getPrice(), ITEM_MY_VIP);
-//                                break;
+                            case 2:
+                                ShowBuyDilog(inventory.getSkuDetails(DONAYE_300).getTitle(), inventory.getSkuDetails(DONAYE_300).getDescription(), inventory.getSkuDetails(DONAYE_300).getPrice(), DONAYE_300);
+                                break;
+                            case 3:
+                                ShowBuyDilog(inventory.getSkuDetails(DONAYE_MONTH_300).getTitle(), inventory.getSkuDetails(DONAYE_MONTH_300).getDescription(), inventory.getSkuDetails(DONAYE_MONTH_300).getPrice(),DONAYE_MONTH_300);
+                                break;
 //                            case 4:
 //                                ShowBuyDilog(inventory.getSkuDetails(ITEM_1000).getTitle(), inventory.getSkuDetails(ITEM_1000).getDescription(), inventory.getSkuDetails(ITEM_1000).getPrice(), ITEM_1000);
 //                                break;
