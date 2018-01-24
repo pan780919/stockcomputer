@@ -30,7 +30,15 @@ class ZeroStockActivity : BaseAppCompatActivity() {
         price = mPrcieEditText.text.toString().trim()
         total = mTotalEditText.text.toString().trim()
         if (!price.isEmpty()||!total.isEmpty()){
-            
+            if(!price.isEmpty()){
+
+                var priceLong :Long  = 14035/price.toLong()
+                setLogger(priceLong.toString())
+
+            }
+            if (!total.isEmpty()){
+
+            }
 
         }else{
             setLogger("至少輸入一項才能試算唷！！")
