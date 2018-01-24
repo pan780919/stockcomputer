@@ -91,7 +91,7 @@
 
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/expensive_and_cheaper"
+                android:id="@+id/zerostock"
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

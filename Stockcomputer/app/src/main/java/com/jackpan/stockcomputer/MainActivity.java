@@ -56,6 +56,7 @@ import com.jackpan.stockcomputer.Data.MyApi;
 import com.jackpan.stockcomputer.Data.NewsData;
 import com.jackpan.stockcomputer.Kotlin.BuyAndSellActivity;
 import com.jackpan.stockcomputer.Kotlin.NewDetailActivity;
+import com.jackpan.stockcomputer.Kotlin.ZeroStockActivity;
 import com.vpadn.ads.VpadnAdRequest;
 import com.vpadn.ads.VpadnAdSize;
 import com.vpadn.ads.VpadnBanner;
@@ -348,6 +349,10 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     public void sendMessageButton() {
         onMessengerButtonClicked();
 
+    }
+    @OnClick(R.id.zerostock)
+    public void zeroStockActivity(){
+        startActivity(ZeroStockActivity.class);
     }
     @OnClick(R.id.rightbutton)
     public void nextPageButton(){

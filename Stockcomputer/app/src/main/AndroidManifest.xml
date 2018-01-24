@@ -45,7 +45,6 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-
             </intent-filter>
             <!-- Intent filter used for Messenger protocol version 20150311 -->
             <intent-filter>
@@ -121,7 +120,8 @@
             android:label="@string/title_activity_calculate"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Kotlin.BuyAndSellActivity" />
-        <activity android:name=".Kotlin.NewDetailActivity"></activity>
+        <activity android:name=".Kotlin.NewDetailActivity" />
+        <activity android:name=".Kotlin.ZeroStockActivity"></activity>
     </application>
 
 </manifest>

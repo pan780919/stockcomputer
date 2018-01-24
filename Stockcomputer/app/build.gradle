@@ -47,6 +47,9 @@ dependencies {
     compile files('libs/mFirebaseLibs.jar')
     compile files('libs/jsoup-1.10.3.jar')
     compile 'com.google.firebase:firebase-auth:10.0.1'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    compile files('libs/adbert-sdk-320n.jar')
+    compile files('libs/vpadn-sdk-obf470-81217102-1712181548-f6c5e3e.jar')
     compile 'com.google.firebase:firebase-auth:10.0.1'
     compile 'com.android.support:appcompat-v7:26.0.0'
     compile 'com.android.support:design:26.0.0'
@@ -71,12 +74,9 @@ dependencies {
     compile 'com.facebook.android:facebook-messenger:[4,5)'
     compile 'com.jakewharton:butterknife:8.8.1'
     compile 'com.adlocus:library:3.5.2@aar'
+    compile 'com.github.nuptboyzhb.lib.uikit:superswiperefreshlayout:1.0.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    compile 'com.github.nuptboyzhb.lib.uikit:superswiperefreshlayout:1.0.0'
-    compile files('libs/adbert-sdk-320n.jar')
-    compile files('libs/vpadn-sdk-obf470-81217102-1712181548-f6c5e3e.jar')
 }
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'me.tatarka.retrolambda'
