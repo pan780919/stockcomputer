@@ -1,5 +1,7 @@
 package com.jackpan.stockcomputer.Kotlin
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -45,6 +47,17 @@ class ZeroStockActivity : BaseAppCompatActivity() {
 
             return
         }
+
+    }
+    fun setAlertDilog(title:String,message:String){
+        val mAlertDilog = AlertDialog.Builder(this).create()
+        mAlertDilog.setTitle("")
+        mAlertDilog.setMessage("")
+        mAlertDilog.setButton(AlertDialog.BUTTON_POSITIVE,"", DialogInterface.OnClickListener { dialogInterface, i ->
+
+        })
+        mAlertDilog.show()
+
 
     }
 }
