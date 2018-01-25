@@ -83,12 +83,14 @@ public class BaseAppCompatActivity extends AppCompatActivity {
     /**
      * 檢查  userid
      */
-    public boolean checkUserId(Context context){
+    public void checkUserId(Context context){
         if(!MySharedPrefernces.getUserId(context).equals("")){
-            return true;
+
 
         }else {
-           return false;
+            showBaseAlertDilog("尚未登入","請先登入才能使用此功能喔");
+            return;
+
         }
 
 
