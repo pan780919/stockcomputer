@@ -15,6 +15,8 @@ class ZeroStockActivity : BaseAppCompatActivity() {
     lateinit var mTotalEditText :EditText
     lateinit var mStockTotalText :TextView
     lateinit var mStockPriceText :TextView
+    lateinit var mStockTotal :TextView
+    lateinit var mStockIdeaText :TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +26,8 @@ class ZeroStockActivity : BaseAppCompatActivity() {
         mTotalEditText = findViewById(R.id.total_edittext)
         mStockTotalText = findViewById(R.id.stocktotal_text)
         mStockPriceText = findViewById(R.id.stockpricet_text)
+        mStockTotal = findViewById(R.id.stocktotal)
+        mStockIdeaText = findViewById(R.id.stockidea_text)
         var mCalculate :Button = findViewById(R.id.button_calculate)
         mTitleTextView.text = getString(R.string.activity_zerostock_title)
 
@@ -40,13 +44,38 @@ class ZeroStockActivity : BaseAppCompatActivity() {
 
                 var priceDouble :Double  = Math.round(14035/price.toDouble()).toDouble()
                 mStockTotalText.text =priceDouble.toString()
-                var priceString :String = Math.round(((priceDouble * price.toDouble())+ (priceDouble * 0.001425 * price.toDouble()))).toString()
-                mStockPriceText.text = priceString
+                var sellPrice :Double =(priceDouble * 0.001425 * price.toDouble())
+                if(sellPrice<20){
+                    sellPrice = 20.0
+                }
+                var priceString :String = Math.round(((priceDouble * price.toDouble())+sellPrice)).toString()
+                mStockPriceText.text = priceString+"(股價:"+Math.round(((priceDouble * price.toDouble()))).toString()+"手續費："+sellPrice+")"
 
             }
-            if (!total.isEmpty()){
+            if(!price.isEmpty()&&!total.isEmpty()){
+
+
+                var priceDouble :Double  = Math.round(14035/price.toDouble()).toDouble()
+                mStockTotalText.text =priceDouble.toString()
+                var sellPrice :Double = (total.toDouble() * 0.001425 * price.toDouble())
+                if(sellPrice<=20){
+                    sellPrice = 20.0
+                }
+                var priceString :String = Math.round(((total.toDouble() * price.toDouble())+ sellPrice)).toString()
+                mStockPriceText.text = priceString+"(股價:"+Math.round(((total.toDouble() * price.toDouble()))).toString()+"手續費："+sellPrice+")"
+                mStockTotal.text = total
+                if(total>=priceDouble.toString()){
+                    mStockIdeaText.text = "合理股數"
+
+                }else{
+                    mStockIdeaText.text = "不划算股數"
+
+                }
 
             }
+
+
+
 
         }else{
             setAlertDilog("提示","至少輸入一項才能試算唷！！")
