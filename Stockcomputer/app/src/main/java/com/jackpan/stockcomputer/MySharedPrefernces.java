@@ -34,6 +34,18 @@ public class MySharedPrefernces {
         SharedPreferences sp = context.getSharedPreferences(NAME, Activity.MODE_PRIVATE);
         return sp.getString(KEY_UESR_PHOTO, "");
     }
+    public static final String KEY_USER_ID = "userid";
+
+
+    public static  void saveUserId(Context context,String id){
+        SharedPreferences sp = context.getSharedPreferences(NAME, Activity.MODE_PRIVATE);
+        sp.edit().putString(KEY_USER_ID, id).apply();
+    }
+
+    public static String getUserId(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(NAME, Activity.MODE_PRIVATE);
+        return sp.getString(KEY_USER_ID, "");
+    }
 
 
 }
