@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.jackpan.stockcomputer.MySharedPrefernces;
 import com.jackpan.stockcomputer.R;
 
 public class BaseAppCompatActivity extends AppCompatActivity {
@@ -77,6 +78,20 @@ public class BaseAppCompatActivity extends AppCompatActivity {
     }
     public  void  setLogger(String s){
         Log.d(TAG, "setLogger: "+s);
+
+    }
+    /**
+     * 檢查  userid
+     */
+    public boolean checkUserId(Context context){
+        if(!MySharedPrefernces.getUserId(context).equals("")){
+            return true;
+
+        }else {
+           return false;
+        }
+
+
     }
 }
 

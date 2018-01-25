@@ -278,10 +278,12 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             mUserAccountTextView.setText(name);
             mUserIdTextView.setText(id);
             MyApi.loadImage(String.valueOf(userPhoto), mFbImageView,context);
+            MySharedPrefernces.saveUserId(context,id);
         }else {
             mFbImageView.setImageDrawable(null);
             mUserAccountTextView.setText("");
             mUserIdTextView.setText("");
+            MySharedPrefernces.saveUserId(context,"");
         }
 
     }
@@ -746,6 +748,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         try {
             Bundle bundle = new Bundle();
             String id = object.getString("id");
+            MySharedPrefernces.saveUserId(context,id);
 
             try {
                 URL profile_pic = new URL("https://graph.facebook.com/" + id + "/picture?width=200&height=150");
