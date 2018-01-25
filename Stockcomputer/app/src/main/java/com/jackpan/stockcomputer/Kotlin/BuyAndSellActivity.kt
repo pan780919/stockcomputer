@@ -14,7 +14,9 @@ class BuyAndSellActivity : BaseAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_buy_and_sell)
-        checkNetWork()
+        if(!checkNetWork()){
+            return
+        }
         setTitle(getString(R.string.title_activity_buy_and_sell))
         mAdView = findViewById(R.id.adView)
         val adRequest = AdRequest.Builder().build()

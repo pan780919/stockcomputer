@@ -57,13 +57,14 @@ public class BaseAppCompatActivity extends AppCompatActivity {
     /**
      * 檢查網路
      */
-    public  void checkNetWork(){
+    public  boolean checkNetWork(){
         if (isConnected()) {
             //執行下載任務
+            return true;
         }else{
             //告訴使用者網路無法使用
             showToast("網路無開啟！！");
-            return;
+            return false;
         }
 
     }
@@ -83,13 +84,13 @@ public class BaseAppCompatActivity extends AppCompatActivity {
     /**
      * 檢查  userid
      */
-    public void checkUserId(Context context){
+    public boolean checkUserId(Context context){
         if(!MySharedPrefernces.getUserId(context).equals("")){
-
+            return true;
 
         }else {
             showBaseAlertDilog("尚未登入","請先登入才能使用此功能喔");
-            return;
+            return false;
 
         }
 

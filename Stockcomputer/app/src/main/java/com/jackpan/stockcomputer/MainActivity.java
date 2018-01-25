@@ -331,7 +331,11 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     }
 
     @OnClick(R.id.nav_gallery)
-    public void Click() {
+    public void Click()
+    {
+        if(!checkUserId(context)){
+            return;
+        };
         startActivity(new Intent(this, ProfitAndLossActvity.class));
     }
 
