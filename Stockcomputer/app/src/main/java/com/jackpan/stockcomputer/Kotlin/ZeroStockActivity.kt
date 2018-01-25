@@ -13,6 +13,8 @@ import com.jackpan.stockcomputer.R
 class ZeroStockActivity : BaseAppCompatActivity() {
     lateinit var mPrcieEditText :EditText
     lateinit var mTotalEditText :EditText
+    lateinit var mStockTotalText :TextView
+    lateinit var mStockPriceText :TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +22,8 @@ class ZeroStockActivity : BaseAppCompatActivity() {
         var mTitleTextView :TextView = findViewById(R.id.titletextview)
         mPrcieEditText = findViewById(R.id.price_edittext)
         mTotalEditText = findViewById(R.id.total_edittext)
+        mStockTotalText = findViewById(R.id.stocktotal_text)
+        mStockPriceText = findViewById(R.id.stockpricet_text)
         var mCalculate :Button = findViewById(R.id.button_calculate)
         mTitleTextView.text = getString(R.string.activity_zerostock_title)
 
@@ -34,8 +38,10 @@ class ZeroStockActivity : BaseAppCompatActivity() {
         if (!price.isEmpty()||!total.isEmpty()){
             if(!price.isEmpty()){
 
-                var priceLong :Long  = 14035/price.toLong()
-                setLogger(priceLong.toString())
+                var priceDouble :Double  = Math.round(14035/price.toDouble()).toDouble()
+                mStockTotalText.text =priceDouble.toString()
+                var priceString :String = Math.round(((priceDouble * price.toDouble())+ (priceDouble * 0.001425 * price.toDouble()))).toString()
+                mStockPriceText.text = priceString
 
             }
             if (!total.isEmpty()){
@@ -43,7 +49,7 @@ class ZeroStockActivity : BaseAppCompatActivity() {
             }
 
         }else{
-            setLogger("至少輸入一項才能試算唷！！")
+            setAlertDilog("提示","至少輸入一項才能試算唷！！")
 
             return
         }
@@ -51,10 +57,10 @@ class ZeroStockActivity : BaseAppCompatActivity() {
     }
     fun setAlertDilog(title:String,message:String){
         val mAlertDilog = AlertDialog.Builder(this).create()
-        mAlertDilog.setTitle("")
-        mAlertDilog.setMessage("")
-        mAlertDilog.setButton(AlertDialog.BUTTON_POSITIVE,"", DialogInterface.OnClickListener { dialogInterface, i ->
-
+        mAlertDilog.setTitle(title)
+        mAlertDilog.setMessage(message)
+        mAlertDilog.setButton(AlertDialog.BUTTON_POSITIVE,"確定", DialogInterface.OnClickListener { dialogInterface, i ->
+            mAlertDilog.dismiss()
         })
         mAlertDilog.show()
 

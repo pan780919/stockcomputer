@@ -83,22 +83,71 @@
                     android:hint="輸入股數"
                     ></EditText>
 
+
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
+            android:orientation="vertical"
             >
             <Button
                 android:id="@+id/button_calculate"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="4dp"
                 android:text="開始計算"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 ></Button>
+            <TextView
+                android:layout_marginTop="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="合理股數："
+                android:textSize="20dp"
+                ></TextView>
+            <TextView
+                android:id="@+id/stocktotal_text"
+                android:textColor="@color/color_bigview_setting_text_red"
+                android:layout_marginTop="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="20dp"
+                ></TextView>
+            <TextView
+                android:layout_marginTop="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="價錢："
+                android:textSize="20dp"
+                ></TextView>
+            <TextView
+                android:id="@+id/stockpricet_text"
+                android:textColor="@color/color_bigview_setting_text_red"
+                android:layout_marginTop="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="20dp"
+                ></TextView>
 
-
+            <TextView
+                android:layout_marginTop="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="建議："
+                android:textSize="20dp"
+                ></TextView>
+            <TextView
+                android:id="@+id/stockidea_text"
+                android:textColor="@color/color_bigview_setting_text_red"
+                android:layout_marginTop="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="20dp"
+                ></TextView>
         </LinearLayout>
 
     </LinearLayout>

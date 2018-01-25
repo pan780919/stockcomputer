@@ -21,6 +21,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.adbert.AdbertLoopADView;
+import com.adbert.AdbertOrientation;
+import com.adbert.ExpandVideoPosition;
 import com.clickforce.ad.Listener.AdViewLinstener;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -40,6 +42,7 @@ import com.facebook.messenger.MessengerThreadParams;
 import com.facebook.messenger.MessengerUtils;
 import com.facebook.messenger.ShareToMessengerParams;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -154,7 +157,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         setAdmobBanner();
         setPageAdView();
         setVponBanner();
-//        setAdbertBanner();
+        setAdbertBanner();
         setClickForce();
         Intent intent = getIntent();
         if (Intent.ACTION_PICK.equals(intent.getAction())) {
@@ -415,14 +418,14 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         mPageAdView.loadAd(adRequest);
     }
 
-//    private void setAdbertBanner() {
-//        adbertView.setMode(AdbertOrientation.NORMAL);
-//        adbertView.setExpandVideo(ExpandVideoPosition.BOTTOM);
-//        adbertView.setFullScreen(false);
-//        adbertView.setBannerSize(AdSize.BANNER);
-//        adbertView.setAPPID("20170619000001", "90cebe8ef120c8bb6ac2ce529dcb99af");
-//        adbertView.start();
-//    }
+    private void setAdbertBanner() {
+        adbertView.setMode(AdbertOrientation.NORMAL);
+        adbertView.setExpandVideo(ExpandVideoPosition.BOTTOM);
+        adbertView.setFullScreen(false);
+        adbertView.setBannerSize(AdSize.BANNER);
+        adbertView.setAPPID("20170619000001", "90cebe8ef120c8bb6ac2ce529dcb99af");
+        adbertView.start();
+    }
 
     private void setClickForce() {
 
