@@ -55,6 +55,7 @@ import com.jackpan.libs.mfirebaselib.MfirebaeCallback;
 import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity;
 import com.jackpan.stockcomputer.Activity.CalculateActivity;
 import com.jackpan.stockcomputer.Activity.ShareStockNumberActivity;
+import com.jackpan.stockcomputer.Data.MemberData;
 import com.jackpan.stockcomputer.Data.MyApi;
 import com.jackpan.stockcomputer.Data.NewsData;
 import com.jackpan.stockcomputer.Kotlin.BuyAndSellActivity;
@@ -75,6 +76,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -182,6 +184,35 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
+
+    /**
+     * 設定 會員中心資料
+     */
+
+    private  void setMemberData(String Key,String firstname,String lastname,
+                                String email,String birthday,String gender,
+                                String memberlv,String photo,String location){
+        HashMap<String,String> memberMap =new HashMap<>();
+        memberMap.put(MemberData.KEY_ID,Key);
+        memberMap.put(MemberData.KEY_FIRST_NAME, firstname);
+        memberMap.put(MemberData.KEY_LAST_NAME,lastname);
+        memberMap.put(MemberData.KEY_EMAIL,email);
+        memberMap.put(MemberData.KEY_BIRTHDAY,birthday);
+        memberMap.put(MemberData.KEY_GENDER,gender);
+        memberMap.put(MemberData.KEY_MEMBERLV,memberlv);
+        memberMap.put(MemberData.KEY_PHOTO,photo);
+        memberMap.put(MemberData.KEY_LOCATION,location);
+
+
+
+        mfiebaselibsClass.setFireBaseDB(MemberData.KEY_URL+Key,Key,memberMap);
+
+
+
+    }
+
+
+
 
 
     //臉書登入
