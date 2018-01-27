@@ -6,16 +6,49 @@
     android:layout_height="match_parent"
     tools:context="com.jackpan.stockcomputer.Kotlin.BuyAndSellActivity">
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="584dp"
+        android:layout_height="896dp"
         tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp">
+        tools:layout_editor_absoluteX="8dp"
+        tools:ignore="MissingConstraints">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                >
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    ></LinearLayout>
+                <LinearLayout
+                    android:layout_weight="1"
+
+                    android:orientation="vertical"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    ></LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
         <Button
+            android:gravity="center"
+            android:layout_above="@+id/adView"
+            android:text="試算"
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
             ></Button>
-
 
         <com.google.android.gms.ads.AdView
             android:layout_alignParentBottom="true"

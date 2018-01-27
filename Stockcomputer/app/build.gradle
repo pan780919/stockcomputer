@@ -10,7 +10,7 @@ android {
         exclude 'META-INF/LICENSE.txt'
     }
     compileSdkVersion 26
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "26"
 
     defaultConfig {
         multiDexEnabled true
