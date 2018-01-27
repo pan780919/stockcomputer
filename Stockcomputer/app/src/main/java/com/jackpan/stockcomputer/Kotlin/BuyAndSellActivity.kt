@@ -3,6 +3,7 @@ package com.jackpan.stockcomputer.Kotlin
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -44,10 +45,18 @@ class BuyAndSellActivity : BaseAppCompatActivity() {
         var mPriceString :String = mPriceEditText.text.toString().trim()
         var mTotalString :String  = mTotalEditText.text.toString().trim()
         if(!mPriceString.isEmpty()&&!mTotalString.isEmpty()){
-            var transactionFree :Long  = Math.round(mPriceString.toDouble()* mTotalString.toDouble() * 0.001425)
-            var free :Long= Math.round(mPriceString.toDouble()* mTotalString.toDouble() * 0.003)
+            var transactionFree :Double  = Math.round(mPriceString.toDouble()* mTotalString.toDouble() * 0.001425).toDouble()
+            var free :Double=mPriceString.toDouble()* mTotalString.toDouble() * 0.003
+            setLogger(free.toString())
+            if(transactionFree<20){
+                transactionFree = 20.0
+            }
+            var buyprice :Double = (mPriceString.toDouble() * mTotalString.toDouble())+transactionFree
+            var sellPrice :Double = (mPriceString.toDouble() * mTotalString.toDouble())+transactionFree+free
 
-            
+            mBuyPriceText.text = buyprice.toString()+"(金額："+(mPriceString.toDouble() * mTotalString.toDouble())+"手續費："+transactionFree+")"
+            mSellPriceText.text = sellPrice.toString()+
+            "(金額："+(mPriceString.toDouble() * mTotalString.toDouble())+"手續費："+transactionFree+"證交稅:"+free+")"
 
 
 
