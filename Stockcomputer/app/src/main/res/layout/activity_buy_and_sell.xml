@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context="com.jackpan.stockcomputer.Kotlin.BuyAndSellActivity">
     <RelativeLayout
-        android:layout_width="584dp"
-        android:layout_height="896dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         tools:layout_editor_absoluteY="8dp"
         tools:layout_editor_absoluteX="8dp"
         tools:ignore="MissingConstraints">
@@ -26,18 +26,85 @@
                     android:orientation="vertical"
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"
-                    ></LinearLayout>
+                    >
+                    <TextView
+                        android:layout_marginLeft="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="股價："
+                        android:textSize="18dp"
+                        ></TextView>
+                    <EditText
+                        android:hint="輸入股價金額"
+                        android:layout_marginTop="20dp"
+
+                        android:imeOptions="actionDone"
+                        android:inputType="numberDecimal"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        ></EditText>
+                </LinearLayout>
                 <LinearLayout
                     android:layout_weight="1"
-
                     android:orientation="vertical"
                     android:layout_height="match_parent"
                     android:layout_width="match_parent"
-                    ></LinearLayout>
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="股數："
+                        android:textSize="18dp"
+                        ></TextView>
+                    <EditText
+                        android:hint="輸入股數（一張1000股）"
+                        android:layout_marginTop="20dp"
+                        android:imeOptions="actionDone"
+                        android:inputType="numberDecimal"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        ></EditText>
+                </LinearLayout>
 
             </LinearLayout>
-        </LinearLayout>
 
+        </LinearLayout>
+        <TextView
+            android:layout_above="@+id/buytext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="買入金額:"
+            ></TextView>
+        <TextView
+            android:id="@+id/buytext"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:layout_above="@+id/selltitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ></TextView>
+
+        <TextView
+            android:id="@+id/selltitle"
+            android:layout_marginBottom="8dp"
+            android:layout_above="@+id/selltext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="賣出金額:"
+            ></TextView>
+        <TextView
+            android:id="@+id/selltext"
+            android:layout_marginBottom="50dp"
+            android:layout_above="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ></TextView>
         <Button
             android:gravity="center"
             android:layout_above="@+id/adView"
@@ -53,7 +120,7 @@
         <com.google.android.gms.ads.AdView
             android:layout_alignParentBottom="true"
             android:id="@+id/adView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="4dp"
