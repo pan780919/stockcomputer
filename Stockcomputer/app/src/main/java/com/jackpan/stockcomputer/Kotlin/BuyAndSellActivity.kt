@@ -1,5 +1,7 @@
 package com.jackpan.stockcomputer.Kotlin
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -34,12 +36,33 @@ class BuyAndSellActivity : BaseAppCompatActivity() {
         mSellPriceText = findViewById(R.id.selltext)
 
 
-        mButton.setOnClickListener(View.OnClickListener {setOnClick("111") })
+        mButton.setOnClickListener(View.OnClickListener {setCalculate() })
 
 
     }
-    fun  setOnClick(s :String){
-        showToast(s)
+    fun  setCalculate(){
+        var mPriceString :String = mPriceEditText.text.toString().trim()
+        var mTotalString :String  = mTotalEditText.text.toString().trim()
+        if(!mPriceString.isEmpty()&&!mTotalString.isEmpty()){
+
+            
+
+        }else{
+            var dilog =AlertDialog.Builder(this).create()
+            dilog.setTitle("提示")
+            dilog.setMessage("請輸入數量與價錢唷！！")
+            dilog.setButton(AlertDialog.BUTTON_POSITIVE,"", DialogInterface.OnClickListener { dialogInterface, i ->
+                dilog.dismiss()
+            })
+            dilog.show()
+
+
+
+
+        }
+
+
+
     }
 
 }
