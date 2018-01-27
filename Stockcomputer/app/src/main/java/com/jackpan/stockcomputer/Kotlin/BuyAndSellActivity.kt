@@ -44,14 +44,18 @@ class BuyAndSellActivity : BaseAppCompatActivity() {
         var mPriceString :String = mPriceEditText.text.toString().trim()
         var mTotalString :String  = mTotalEditText.text.toString().trim()
         if(!mPriceString.isEmpty()&&!mTotalString.isEmpty()){
+            var transactionFree :Long  = Math.round(mPriceString.toDouble()* mTotalString.toDouble() * 0.001425)
+            var free :Long= Math.round(mPriceString.toDouble()* mTotalString.toDouble() * 0.003)
 
             
+
+
 
         }else{
             var dilog =AlertDialog.Builder(this).create()
             dilog.setTitle("提示")
             dilog.setMessage("請輸入數量與價錢唷！！")
-            dilog.setButton(AlertDialog.BUTTON_POSITIVE,"", DialogInterface.OnClickListener { dialogInterface, i ->
+            dilog.setButton(AlertDialog.BUTTON_POSITIVE,"確定", DialogInterface.OnClickListener { dialogInterface, i ->
                 dilog.dismiss()
             })
             dilog.show()
