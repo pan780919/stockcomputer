@@ -553,50 +553,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     }
 
-
-    private void test(String number){
-        new Thread(){
-            @Override
-            public void run() {
-                super.run();
-                ArrayList<String> price = new ArrayList<String>();
-                try {
-                    Log.d(TAG, "run: "+"https://tw.stock.yahoo.com/d/s/dividend_"+number+".html");
-                    Document doc = Jsoup.connect("https://tw.stock.yahoo.com/d/s/dividend_"+number+".html").get();
-                    for (Element table : doc.select("table[width=630][align=center]>tbody")) {
-
-                        for (Element element : table.select("table[cellspacing=1]")) {
-                            for (Element element1 : element.select("tbody")) {
-                                // 抓抬頭
-//                                Log.d(TAG, "run: "+element1.select("tr>td.ttt").size());
-                                for (Element element2 : element1.select("tr>td.ttt")) {
-//                                    Log.d(TAG, "run: "+element2.text());
-
-                                }
-                                // 抓內容
-                                for (Element element2 : element1.select("tr[bgcolor=#FFFFFF]")) {
-//                                    Log.d(TAG, "run: "+element2.select("td").size());
-                                    for (Element td : element2.select("td")) {
-//                                        Log.d(TAG, "run: "+td.text());
-                                        price.add(td.text());
-                                    }
-                                }
-
-
-                            }
-                        }
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-        }.start();
-    }
-
-
     private void setNewsData() {
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.show();
