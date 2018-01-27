@@ -111,6 +111,30 @@
                     android:text="零股試算精靈"></TextView>
 
             </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/nav_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:src="@drawable/ic_menu_share"></ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="股票殖利率試算"></TextView>
+
+            </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/nav_slideshow"
 
@@ -236,7 +260,7 @@
 
             </LinearLayout>
 
-            <include layout="@layout/messenger_button_send_white_large" />
+            <!--<include layout="@layout/messenger_button_send_white_large" />-->
 
             <com.clickforce.ad.AdView
                 android:id="@+id/ad"
