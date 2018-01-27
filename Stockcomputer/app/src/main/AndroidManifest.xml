@@ -121,7 +121,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Kotlin.BuyAndSellActivity" />
         <activity android:name=".Kotlin.NewDetailActivity" />
-        <activity android:name=".Kotlin.ZeroStockActivity"></activity>
+        <activity android:name=".Kotlin.ZeroStockActivity" />
+        <activity android:name=".Kotlin.StockValueAddedRateActivity"></activity>
     </application>
 
 </manifest>

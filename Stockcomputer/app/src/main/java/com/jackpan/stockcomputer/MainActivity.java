@@ -60,6 +60,7 @@ import com.jackpan.stockcomputer.Data.MyApi;
 import com.jackpan.stockcomputer.Data.NewsData;
 import com.jackpan.stockcomputer.Kotlin.BuyAndSellActivity;
 import com.jackpan.stockcomputer.Kotlin.NewDetailActivity;
+import com.jackpan.stockcomputer.Kotlin.StockValueAddedRateActivity;
 import com.jackpan.stockcomputer.Kotlin.ZeroStockActivity;
 import com.vpadn.ads.VpadnAdRequest;
 import com.vpadn.ads.VpadnAdSize;
@@ -385,10 +386,14 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         startActivity(CalculateActivity.class);
     }
 
-    @OnClick(R.id.messenger_send_button)
-    public void sendMessageButton() {
-        onMessengerButtonClicked();
-
+//    @OnClick(R.id.messenger_send_button)
+//    public void sendMessageButton() {
+//        onMessengerButtonClicked();
+//
+//    }
+    @OnClick(R.id.nav_price)
+    public void setStockPriceActivity(){
+        startActivity(StockValueAddedRateActivity.class);
     }
     @OnClick(R.id.zerostock)
     public void zeroStockActivity(){
@@ -486,35 +491,35 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         clickforceAd.outputDebugInfo = true;
 
     }
-
-    private void onMessengerButtonClicked() {
-        // The URI can reference a file://, content://, or android.resource. Here we use
-        // android.resource for sample purposes.
-        Uri uri =
-                Uri.parse("android.resource://com.jackpan.stockcomputer/" + R.drawable.tree);
-        Log.d(TAG, "onMessengerButtonClicked: "+uri);
-
-        // Create the parameters for what we want to send to Messenger.
-        ShareToMessengerParams shareToMessengerParams =
-                ShareToMessengerParams.newBuilder(uri, "image/jpeg")
-                        .setMetaData("{ \"image\" : \"tree\" }")
-                        .build();
-        Log.d(TAG, "onMessengerButtonClicked: "+mPicking);
-
-        if (mPicking) {
-            // If we were launched from Messenger, we call MessengerUtils.finishShareToMessenger to return
-            // the content to Messenger.
-            MessengerUtils.finishShareToMessenger(this, shareToMessengerParams);
-        } else {
-            // Otherwise, we were launched directly (for example, user clicked the launcher icon). We
-            // initiate the broadcast flow in Messenger. If Messenger is not installed or Messenger needs
-            // to be upgraded, this will direct the user to the play store.
-            MessengerUtils.shareToMessenger(
-                    this,
-                    REQUEST_CODE_SHARE_TO_MESSENGER,
-                    shareToMessengerParams);
-        }
-    }
+//
+//    private void onMessengerButtonClicked() {
+//        // The URI can reference a file://, content://, or android.resource. Here we use
+//        // android.resource for sample purposes.
+//        Uri uri =
+//                Uri.parse("android.resource://com.jackpan.stockcomputer/" + R.drawable.tree);
+//        Log.d(TAG, "onMessengerButtonClicked: "+uri);
+//
+//        // Create the parameters for what we want to send to Messenger.
+//        ShareToMessengerParams shareToMessengerParams =
+//                ShareToMessengerParams.newBuilder(uri, "image/jpeg")
+//                        .setMetaData("{ \"image\" : \"tree\" }")
+//                        .build();
+//        Log.d(TAG, "onMessengerButtonClicked: "+mPicking);
+//
+//        if (mPicking) {
+//            // If we were launched from Messenger, we call MessengerUtils.finishShareToMessenger to return
+//            // the content to Messenger.
+//            MessengerUtils.finishShareToMessenger(this, shareToMessengerParams);
+//        } else {
+//            // Otherwise, we were launched directly (for example, user clicked the launcher icon). We
+//            // initiate the broadcast flow in Messenger. If Messenger is not installed or Messenger needs
+//            // to be upgraded, this will direct the user to the play store.
+//            MessengerUtils.shareToMessenger(
+//                    this,
+//                    REQUEST_CODE_SHARE_TO_MESSENGER,
+//                    shareToMessengerParams);
+//        }
+//    }
     private void test2(String number){
         new Thread(){
             @Override
