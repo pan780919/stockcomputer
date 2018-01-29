@@ -37,4 +37,8 @@
 
     <string name="activity_zerostock_title">計算個股買入多少才划算,此計算多少會有落差,僅供參考用,使用方法：如果只輸入股價就會幫您計算出多少股數才合理,如果輸入兩個 就會幫你計算出當下價錢並且看是否合理！</string>
 
+
+    <string name="title_activity_querystockprice">歷史股價查詢</string>
+
+
 </resources>

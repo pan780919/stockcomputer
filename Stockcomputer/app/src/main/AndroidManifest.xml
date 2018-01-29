@@ -122,7 +122,8 @@
         <activity android:name=".Kotlin.BuyAndSellActivity" />
         <activity android:name=".Kotlin.NewDetailActivity" />
         <activity android:name=".Kotlin.ZeroStockActivity" />
-        <activity android:name=".Kotlin.StockValueAddedRateActivity"></activity>
+        <activity android:name=".Kotlin.StockValueAddedRateActivity" />
+        <activity android:name=".Kotlin.QueryStockPriceActivity"></activity>
     </application>
 
 </manifest>
