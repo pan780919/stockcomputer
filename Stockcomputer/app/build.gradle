@@ -77,6 +77,11 @@ dependencies {
     compile 'com.github.nuptboyzhb.lib.uikit:superswiperefreshlayout:1.0.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile "com.android.support:customtabs:26.0.0"
+    compile(name:'line-sdk-4.0.6', ext:'aar')
+
+
+
 }
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'me.tatarka.retrolambda'

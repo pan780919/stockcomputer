@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -27,27 +26,16 @@ import com.clickforce.ad.Listener.AdViewLinstener;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.facebook.messenger.MessengerThreadParams;
 import com.facebook.messenger.MessengerUtils;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.jackpan.libs.mfirebaselib.MfiebaselibsClass;
 import com.jackpan.libs.mfirebaselib.MfirebaeCallback;
@@ -76,9 +64,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -121,9 +107,9 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     com.clickforce.ad.AdView clickforceAd;
     @BindView(R.id.fbImg)
     ImageView mFbImageView;
-    @BindView(R.id.fbloginbutton)
-
-    LoginButton mFbLoginButton;
+//    @BindView(R.id.fbloginbutton)
+//
+//    LoginButton mFbLoginButton;
     @BindView(R.id.adView_page)
     AdView mPageAdView;
     @BindView(R.id.useraccount)
@@ -172,7 +158,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
              mAdapter= new MyAdapter(newlist);
         mListview.setAdapter(mAdapter);
    ;
-        fbLogin();
+//        fbLogin();
 //        test("2344");
 //        test2("2344");
 //        getNewDetil();
@@ -218,81 +204,81 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
 
     //臉書登入
-    private void fbLogin() {
-        List<String> PERMISSIONS_PUBLISH = Arrays.asList("public_profile", "email", "user_friends","user_location","user_birthday", "user_likes");
-        mFbLoginButton.setReadPermissions(PERMISSIONS_PUBLISH);
-        mFbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                handleFacebookAccessToken(loginResult.getAccessToken());
-                setUsetProfile();
-                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+//    private void fbLogin() {
+//        List<String> PERMISSIONS_PUBLISH = Arrays.asList("public_profile", "email", "user_friends","user_location","user_birthday", "user_likes");
+//        mFbLoginButton.setReadPermissions(PERMISSIONS_PUBLISH);
+//        mFbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+//                handleFacebookAccessToken(loginResult.getAccessToken());
+//                setUsetProfile();
+//                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+//
+//                    @Override
+//                    public void onCompleted(JSONObject object, GraphResponse response) {
+//                        Log.d("LoginActivity", object.toString());
+//                        // Get facebook data from login
+//                        Bundle bFacebookData = getFacebookData(object);
+//                    }
+//                });
+//                Bundle parameters = new Bundle();
+//                parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
+//                request.setParameters(parameters);
+//                request.executeAsync();
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//
+//            }
+//
+//            @Override
+//            public void onError(FacebookException error) {
+//                error.printStackTrace();
+//                setLogger(error.getMessage());
+//
+//
+//            }
+//
+//        });
+//
+//    }
 
-                    @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
-                        Log.d("LoginActivity", object.toString());
-                        // Get facebook data from login
-                        Bundle bFacebookData = getFacebookData(object);
-                    }
-                });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
-                request.setParameters(parameters);
-                request.executeAsync();
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                error.printStackTrace();
-                setLogger(error.getMessage());
-
-
-            }
-
-        });
-
-    }
-
-    private void handleFacebookAccessToken(AccessToken token) {
-
-
-        accessTokenTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
-                updateWithToken(newAccessToken);
-            }
-        };
-
-        // [START_EXCLUDE silent]
-
-        // [END_EXCLUDE]
-        auth = FirebaseAuth.getInstance();
-
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        auth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
-                        if (!task.isSuccessful()) {
-                            Log.w(TAG, "signInWithCredential", task.getException());
-
-                        }
-
-                        // [START_EXCLUDE]
-
-                        // [END_EXCLUDE]
-                    }
-                });
-    }
+//    private void handleFacebookAccessToken(AccessToken token) {
+//
+//
+//        accessTokenTracker = new AccessTokenTracker() {
+//            @Override
+//            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
+//                updateWithToken(newAccessToken);
+//            }
+//        };
+//
+//        // [START_EXCLUDE silent]
+//
+//        // [END_EXCLUDE]
+//        auth = FirebaseAuth.getInstance();
+//
+//        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+//        auth.signInWithCredential(credential)
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+//                        // If sign in fails, display a message to the user. If sign in succeeds
+//                        // the auth state listener will be notified and logic to handle the
+//                        // signed in user can be handled in the listener.
+//                        if (!task.isSuccessful()) {
+//                            Log.w(TAG, "signInWithCredential", task.getException());
+//
+//                        }
+//
+//                        // [START_EXCLUDE]
+//
+//                        // [END_EXCLUDE]
+//                    }
+//                });
+//    }
 
     @Override
     protected void onResume() {
