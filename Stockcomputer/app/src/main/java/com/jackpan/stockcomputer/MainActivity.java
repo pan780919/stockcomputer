@@ -59,6 +59,7 @@ import com.jackpan.stockcomputer.Data.MyApi;
 import com.jackpan.stockcomputer.Data.NewsData;
 import com.jackpan.stockcomputer.Kotlin.BuyAndSellActivity;
 import com.jackpan.stockcomputer.Kotlin.NewDetailActivity;
+import com.jackpan.stockcomputer.Kotlin.QueryStockPriceActivity;
 import com.jackpan.stockcomputer.Kotlin.StockValueAddedRateActivity;
 import com.jackpan.stockcomputer.Kotlin.ZeroStockActivity;
 import com.vpadn.ads.VpadnAdRequest;
@@ -361,7 +362,12 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     public  void setBuyAndSellActivity(){
         startActivity(BuyAndSellActivity.class);
     }
+    @OnClick(R.id.nav_stockprice)
+    public void setStockPiceActiviy(){
 
+        startActivity(QueryStockPriceActivity.class);
+
+    }
     @OnClick(R.id.nav_gallery)
     public void Click()
     {
