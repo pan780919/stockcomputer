@@ -40,7 +40,6 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.messenger.MessengerThreadParams;
 import com.facebook.messenger.MessengerUtils;
-import com.facebook.messenger.ShareToMessengerParams;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -176,6 +175,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //        test("2344");
 //        test2("2344");
 //        getNewDetil();
+        setStockData();
 
     }
 
@@ -550,6 +550,38 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
 
 
+
+    }
+    private void setStockData(){
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Document doc = Jsoup.connect("http://www.tse.com.tw/exchangeReport/STOCK_DAY?response=html&date=20180128&stockNo=3019").get();
+//                    for (Element element : doc.select("table>tbody>tr")) {
+//                        Log.d(TAG, "run: "+element.text());
+//
+//
+//                    }
+                    Log.d(TAG, "run: "+doc.select("table>tbody>tr").size());
+                    for (int i = 0; i < 1; i++) {
+//                        for (int i1 = 0; i1 < doc.select("table>tbody>tr").get(i).select("td").size(); i1++) {
+//                            Log.d(TAG, "run: "+doc.select("table>tbody>tr").get(i).select("td").get(i));
+//                        }
+                        for (Element td : doc.select("table>tbody>tr").get(0).select("td")) {
+                            Log.d(TAG, "run: "+td.text());
+                        }
+
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }.start();
 
     }
 
