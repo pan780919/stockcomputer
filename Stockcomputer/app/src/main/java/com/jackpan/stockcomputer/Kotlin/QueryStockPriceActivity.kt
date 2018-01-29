@@ -11,6 +11,10 @@ class QueryStockPriceActivity : BaseAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_query_stock_price)
+        if(!checkNetWork()){
+            return
+
+        }
         title = getString(R.string.title_activity_querystockprice)
         setDatePickerDialog()
     }

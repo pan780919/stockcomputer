@@ -42,7 +42,6 @@ public class BaseAppCompatActivity extends AppCompatActivity {
                 .setNegativeButton(getString(R.string.alertbutton_ok), null)
                 .show();
     }
-
     /**
      * 不重複的toast
      */
