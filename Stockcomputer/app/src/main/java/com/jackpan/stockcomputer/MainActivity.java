@@ -564,11 +564,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                         for (Element script : doc.select("table[class=t01]>tbody>tr").get(i).getElementsByTag("script")) {
 //                            Log.d(TAG, "run: "+script.text());
 //                            Log.d(TAG, "run: "+script.html().toString().replace("<!--",""));
-                            String s1 = script.html().toString().replace("<!--","");
-                            String s2 = s1.replace("//-->","");
-                            String s3 = s2.replace("GenLink2stk","");
-                            Log.d(TAG, "run: "+s3);
-
+                            MyApi.stockStringReplace(script.html().toString());
                             for (DataNode node : script.dataNodes()) {
 //                                Log.d(TAG, "run: "+node.getWholeData().toString().replace("GenLink2stk",""));
 
@@ -589,6 +585,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
 
     }
+
     private void setStockData(){
         new Thread(){
             @Override

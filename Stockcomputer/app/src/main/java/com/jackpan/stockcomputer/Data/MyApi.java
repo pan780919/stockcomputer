@@ -123,4 +123,17 @@ public class MyApi {
 
     }
 
+    public static void stockStringReplace(String s){
+
+        String s1 =s.replace("<!--","");
+        String s2 = s1.replace("//-->","");
+        String s3 = s2.replace("GenLink2stk","");
+        String s4 = s3.replace("(","");
+        String s5 = s4.replace(");","");
+        String []stringArray = s5.split(",");
+
+        Log.d(TAG, "run: "+stringArray[1].replace("'",""));
+
+    }
+
 }
