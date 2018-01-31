@@ -57,7 +57,6 @@ import com.vpadn.ads.VpadnBanner;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.DataNode;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -552,26 +551,9 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                 super.run();
                 try {
                     Document doc = Jsoup.connect("http://jow.win168.com.tw/Z/ZE/ZEW/ZEW.djhtm").get();
-//                    for (Element element : doc.select("table[class=t01]>tbody>tr")) {
-//                        for (int i = 2; i < element.select("td").size(); i++) {
-//                            Log.d(TAG, "run: "+ element.select("td").get(i).text());
-//
-//
-//                        }
-//                    }
                     for (int i = 2; i < doc.select("table[class=t01]>tbody>tr").size(); i++) {
-//                        Log.d(TAG, "run: "+doc.select("table[class=t01]>tbody>tr").get(i).text());
                         for (Element script : doc.select("table[class=t01]>tbody>tr").get(i).getElementsByTag("script")) {
-//                            Log.d(TAG, "run: "+script.text());
-//                            Log.d(TAG, "run: "+script.html().toString().replace("<!--",""));
                             MyApi.stockStringReplace(script.html().toString());
-                            for (DataNode node : script.dataNodes()) {
-//                                Log.d(TAG, "run: "+node.getWholeData().toString().replace("GenLink2stk",""));
-
-                            }
-                        }
-                        for (Element td : doc.select("table[class=t01]>tbody>tr").get(i).select("td")) {
-
                         }
 
                     }
