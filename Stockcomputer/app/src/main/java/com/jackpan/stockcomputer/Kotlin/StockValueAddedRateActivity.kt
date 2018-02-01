@@ -1,15 +1,18 @@
 package com.jackpan.stockcomputer.Kotlin
 
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity
 import com.jackpan.stockcomputer.R
 import org.jsoup.Jsoup
 import java.io.IOException
-import java.util.ArrayList
+import java.util.*
 
 class StockValueAddedRateActivity : BaseAppCompatActivity() {
-
+    lateinit var  mSearchNumberEdt :EditText
+    lateinit var  mSearchNumberButton :Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stock_value_added_rate)
@@ -17,7 +20,18 @@ class StockValueAddedRateActivity : BaseAppCompatActivity() {
             return
         }
         setTitle("股票殖利率試算")
-        stockCalculate("3019")
+        mSearchNumberEdt = findViewById(R.id.searchnumber_edt)
+        mSearchNumberButton = findViewById(R.id.searchbutton)
+        mSearchNumberButton.setOnClickListener(View.OnClickListener {
+            var mNumber :String =mSearchNumberEdt.text.toString().trim()
+            if(!mNumber.isEmpty()){
+
+                stockCalculate(mNumber)
+
+            }
+
+
+        })
     }
 
 
@@ -28,6 +42,7 @@ class StockValueAddedRateActivity : BaseAppCompatActivity() {
                 super.run()
                 val price = ArrayList<String>()
                 try {
+                    setLogger("https://tw.stock.yahoo.com/d/s/dividend_$number.html")
                     val doc = Jsoup.connect("https://tw.stock.yahoo.com/d/s/dividend_$number.html").get()
                     for (table in doc.select("table[width=630][align=center]>tbody")) {
 
@@ -45,6 +60,7 @@ class StockValueAddedRateActivity : BaseAppCompatActivity() {
                                     for (td in element2.select("td")) {
                                         //                                        Log.d(TAG, "run: "+td.text());
                                         price.add(td.text())
+//                                        setLogger(td.text())
                                     }
                                 }
 

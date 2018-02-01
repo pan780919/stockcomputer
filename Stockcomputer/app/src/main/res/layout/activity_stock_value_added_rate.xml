@@ -54,6 +54,7 @@
         android:textSize="16dp"
         ></EditText>
     <Button
+        android:id="@+id/searchbutton"
         android:layout_marginTop="12dp"
         android:layout_marginRight="8dp"
         android:layout_marginLeft="8dp"
