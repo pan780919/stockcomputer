@@ -27,6 +27,7 @@ class StockValueAddedRateActivity : BaseAppCompatActivity() {
             if(!mNumber.isEmpty()){
 
                 stockCalculate(mNumber)
+                test2(mNumber)
 
             }
 
@@ -34,6 +35,36 @@ class StockValueAddedRateActivity : BaseAppCompatActivity() {
         })
     }
 
+     fun test2(number: String) {
+        object : Thread() {
+            override fun run() {
+                super.run()
+                try {
+                    setLogger("https://goodinfo.tw/StockInfo/StockDetail.asp?STOCK_ID="+number)
+                    val doc = Jsoup.connect("https://goodinfo.tw/StockInfo/StockDetail.asp?STOCK_ID="+number).get()
+//                    val t = doc.select("tr[align=center][height=26px][bgcolor=#e7f3ff]")[0]
+                    //                    Log.d(TAG, "run: "+ t.select("td").get(0).text());
+                    //                    for (Element td : t.select("td")) {
+                    //                        Log.d(TAG, "run: "+td.text());
+                    //                    }
+                    val e = doc.select("tr[align=center][height=26px][bgcolor=white]")[0]
+                    setLogger(e.select("td").get(0).text())
+                    //                    Log.d(TAG, "run: "+ e.select("td").get(0).text());
+                    //                    for (Element td : e.select("td")) {
+                    //
+                    //                        Log.d(TAG, "run: "+td.text());
+                    //
+                    //                    }
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+
+
+            }
+        }.start()
+
+
+    }
 
     fun stockCalculate(number: String) {
 
