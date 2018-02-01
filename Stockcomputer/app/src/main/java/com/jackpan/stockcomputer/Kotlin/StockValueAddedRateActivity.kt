@@ -1,5 +1,6 @@
 package com.jackpan.stockcomputer.Kotlin
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -13,6 +14,7 @@ import java.util.*
 class StockValueAddedRateActivity : BaseAppCompatActivity() {
     lateinit var  mSearchNumberEdt :EditText
     lateinit var  mSearchNumberButton :Button
+    lateinit var   dialog :ProgressDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stock_value_added_rate)
@@ -26,8 +28,10 @@ class StockValueAddedRateActivity : BaseAppCompatActivity() {
             var mNumber :String =mSearchNumberEdt.text.toString().trim()
             if(!mNumber.isEmpty()){
 
+
                 stockCalculate(mNumber)
                 test2(mNumber)
+
 
             }
 
@@ -49,6 +53,7 @@ class StockValueAddedRateActivity : BaseAppCompatActivity() {
                     //                    }
                     val e = doc.select("tr[align=center][height=26px][bgcolor=white]")[0]
                     setLogger(e.select("td").get(0).text())
+                    dialog.dismiss()
                     //                    Log.d(TAG, "run: "+ e.select("td").get(0).text());
                     //                    for (Element td : e.select("td")) {
                     //
@@ -67,7 +72,13 @@ class StockValueAddedRateActivity : BaseAppCompatActivity() {
     }
 
     fun stockCalculate(number: String) {
+        dialog= ProgressDialog(this)
 
+        dialog.setMessage("Please wait")
+        dialog.setTitle("Loading")
+        dialog.setCancelable(false)
+        dialog.isIndeterminate=true
+        dialog.show()
         object : Thread() {
             override fun run() {
                 super.run()
