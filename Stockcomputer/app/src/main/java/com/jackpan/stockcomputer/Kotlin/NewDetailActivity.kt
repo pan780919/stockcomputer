@@ -1,5 +1,6 @@
 package com.jackpan.stockcomputer.Kotlin
 //import android.app.ProgressDialog
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.widget.TextView
 import com.google.android.gms.ads.AdRequest
@@ -17,6 +18,7 @@ class NewDetailActivity : BaseAppCompatActivity() {
     lateinit var mFormTextView :TextView
     lateinit var mDetailTextView : TextView
     lateinit var mAdView : AdView
+    lateinit var mProgressDialog :ProgressDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_detail)
@@ -35,9 +37,9 @@ class NewDetailActivity : BaseAppCompatActivity() {
     }
     fun getNewsDetail(s:String){
 //        var mProgress = ProgressDialog(this)
-//        mProgress.setMessage("資料讀取中")
-//        mProgress.setTitle("請稍等片刻！！")
-//        mProgress.show()
+        mProgressDialog.setMessage("資料讀取中")
+        mProgressDialog.setTitle("請稍等片刻！！")
+        mProgressDialog.show()
         thread {
             try {
 
@@ -58,7 +60,7 @@ class NewDetailActivity : BaseAppCompatActivity() {
                     }
 
                 }
-//                mProgress.dismiss()
+                mProgressDialog.dismiss()
 
             } catch (e: IOException) {
                 e.printStackTrace()
