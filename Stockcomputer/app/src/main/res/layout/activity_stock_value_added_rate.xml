@@ -63,6 +63,7 @@
         android:text="開始計算"
         ></Button>
     <TextView
+        android:id="@+id/ratetext"
         android:layout_marginTop="12dp"
         android:layout_marginRight="8dp"
         android:layout_marginLeft="8dp"
@@ -89,6 +90,8 @@
         android:layout_height="wrap_content"
         ></TextView>
     <TextView
+        android:id="@+id/ideatext"
+
         android:layout_marginTop="12dp"
         android:layout_marginRight="8dp"
         android:layout_marginLeft="8dp"
