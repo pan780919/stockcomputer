@@ -11,8 +11,6 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
 
-
-
         >
 
         <LinearLayout
@@ -24,7 +22,7 @@
             <TextView
                 android:id="@+id/newstile"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:textSize="20dp"
 
                 ></TextView>
@@ -33,7 +31,7 @@
                 android:layout_below="@+id/newstile"
                 android:id="@+id/newstime"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:textSize="20dp"
 
                 ></TextView>
@@ -44,7 +42,7 @@
 
                 android:id="@+id/newsfrom"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:textSize="20dp"
 
                 ></TextView>
@@ -55,26 +53,26 @@
 
                 android:id="@+id/newsdetail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:textSize="20dp"
 
                 ></TextView>
+
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                ads:adSize="BANNER"
+                ads:adUnitId="ca-app-pub-7019441527375550/3182087426">
+
+            </com.google.android.gms.ads.AdView>
         </LinearLayout>
 
 
     </ScrollView>
 
-    <com.google.android.gms.ads.AdView
-        android:layout_alignParentBottom="true"
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="4dp"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-7019441527375550/3182087426">
-
-    </com.google.android.gms.ads.AdView>
 
 </RelativeLayout>

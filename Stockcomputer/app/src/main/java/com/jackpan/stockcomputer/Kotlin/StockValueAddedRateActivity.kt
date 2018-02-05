@@ -151,6 +151,17 @@ class StockValueAddedRateActivity : BaseAppCompatActivity() {
             var rate :Double = price.toDouble()/money.toDouble()
             setLogger(rate.toString())
             mRateText.text = rate.toString()
+            if(rate<0.014){
+                mIdeaText.text  = "不建議當成長期投資的選擇,建議見好就收"
+            }
+            if(rate>=0.015&&rate<=4.9){
+                mIdeaText.text  = "投資報酬還不錯,如果前景不錯就抱緊"
+
+            }
+            if(rate>5){
+                mIdeaText.text  = "可以長期投資,逢低買進吧"
+
+            }
 
             dialog.dismiss()
 

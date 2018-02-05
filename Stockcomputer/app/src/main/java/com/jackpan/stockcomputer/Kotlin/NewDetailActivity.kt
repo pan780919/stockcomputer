@@ -36,6 +36,7 @@ class NewDetailActivity : BaseAppCompatActivity() {
 
     }
     fun getNewsDetail(s:String){
+        mProgressDialog = ProgressDialog(this)
         mProgressDialog.setMessage("資料讀取中")
         mProgressDialog.setTitle("請稍等片刻！！")
         mProgressDialog.show()
