@@ -90,7 +90,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     private ProfileTracker profileTracker;
     private FirebaseAuth auth;
     private FirebaseAuth.AuthStateListener authListener;
-    private  ArrayList<String> nextPage = new ArrayList<>();
+    private ArrayList<String> nextPage = new ArrayList<>();
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.listView)
@@ -107,7 +107,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     com.clickforce.ad.AdView clickforceAd;
     @BindView(R.id.fbImg)
     ImageView mFbImageView;
-//    @BindView(R.id.fbloginbutton)
+    //    @BindView(R.id.fbloginbutton)
 //
 //    LoginButton mFbLoginButton;
     @BindView(R.id.adView_page)
@@ -156,9 +156,9 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         }
 
         setNewsData();
-             mAdapter= new MyAdapter(newlist);
+        mAdapter = new MyAdapter(newlist);
         mListview.setAdapter(mAdapter);
-   ;
+
 //        fbLogin();
 //        test("2344");
 //        test2("2344");
@@ -179,30 +179,25 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
      * 設定 會員中心資料
      */
 
-    private  void setMemberData(String Key,String firstname,String lastname,
-                                String email,String birthday,String gender,
-                                String memberlv,String photo,String location){
-        HashMap<String,String> memberMap =new HashMap<>();
-        memberMap.put(MemberData.KEY_ID,Key);
+    private void setMemberData(String Key, String firstname, String lastname,
+                               String email, String birthday, String gender,
+                               String memberlv, String photo, String location) {
+        HashMap<String, String> memberMap = new HashMap<>();
+        memberMap.put(MemberData.KEY_ID, Key);
         memberMap.put(MemberData.KEY_FIRST_NAME, firstname);
-        memberMap.put(MemberData.KEY_LAST_NAME,lastname);
-        memberMap.put(MemberData.KEY_EMAIL,email);
-        memberMap.put(MemberData.KEY_BIRTHDAY,birthday);
-        memberMap.put(MemberData.KEY_GENDER,gender);
-        memberMap.put(MemberData.KEY_MEMBERLV,memberlv);
-        memberMap.put(MemberData.KEY_PHOTO,photo);
-        memberMap.put(MemberData.KEY_LOCATION,location);
+        memberMap.put(MemberData.KEY_LAST_NAME, lastname);
+        memberMap.put(MemberData.KEY_EMAIL, email);
+        memberMap.put(MemberData.KEY_BIRTHDAY, birthday);
+        memberMap.put(MemberData.KEY_GENDER, gender);
+        memberMap.put(MemberData.KEY_MEMBERLV, memberlv);
+        memberMap.put(MemberData.KEY_PHOTO, photo);
+        memberMap.put(MemberData.KEY_LOCATION, location);
 
 
-
-        mfiebaselibsClass.setFireBaseDB(MemberData.KEY_URL+Key,Key,memberMap);
-
+        mfiebaselibsClass.setFireBaseDB(MemberData.KEY_URL + Key, Key, memberMap);
 
 
     }
-
-
-
 
 
     //臉書登入
@@ -289,7 +284,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     }
 
-    private void checkFbState(){
+    private void checkFbState() {
         if (Profile.getCurrentProfile() != null) {
             Profile profile = Profile.getCurrentProfile();
             // 取得用戶大頭照
@@ -298,16 +293,17 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             String name = profile.getName();
             mUserAccountTextView.setText(name);
             mUserIdTextView.setText(id);
-            MyApi.loadImage(String.valueOf(userPhoto), mFbImageView,context);
-            MySharedPrefernces.saveUserId(context,id);
-        }else {
+            MyApi.loadImage(String.valueOf(userPhoto), mFbImageView, context);
+            MySharedPrefernces.saveUserId(context, id);
+        } else {
             mFbImageView.setImageDrawable(null);
             mUserAccountTextView.setText("");
             mUserIdTextView.setText("");
-            MySharedPrefernces.saveUserId(context,"");
+            MySharedPrefernces.saveUserId(context, "");
         }
 
     }
+
     private void setUsetProfile() {
         profileTracker = new ProfileTracker() {
             @Override
@@ -323,7 +319,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                     //登入
 //                    fbName.setText(currentProfile.getName());
                     MySharedPrefernces.saveUserPhoto(context, String.valueOf(currentProfile.getProfilePictureUri(150, 150)));
-                    MyApi.loadImage(String.valueOf(currentProfile.getProfilePictureUri(150, 150)), mFbImageView,context);
+                    MyApi.loadImage(String.valueOf(currentProfile.getProfilePictureUri(150, 150)), mFbImageView, context);
                     String id = currentProfile.getId();
                     String name = currentProfile.getName();
                     mUserIdTextView.setText(id);
@@ -346,22 +342,25 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             Log.d(getClass().getSimpleName(), "profile currentProfile Tracking: " + "no");
 
     }
+
     @OnClick(R.id.nav_camera)
-    public  void setBuyAndSellActivity(){
+    public void setBuyAndSellActivity() {
         startActivity(BuyAndSellActivity.class);
     }
+
     @OnClick(R.id.nav_stockprice)
-    public void setStockPiceActiviy(){
+    public void setStockPiceActiviy() {
 
         startActivity(QueryStockPriceActivity.class);
 
     }
+
     @OnClick(R.id.nav_gallery)
-    public void Click()
-    {
-        if(!checkUserId(context)){
+    public void Click() {
+        if (!checkUserId(context)) {
             return;
-        };
+        }
+        ;
         startActivity(new Intent(this, ProfitAndLossActvity.class));
     }
 
@@ -380,44 +379,48 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         startActivity(CalculateActivity.class);
     }
 
-//    @OnClick(R.id.messenger_send_button)
+    //    @OnClick(R.id.messenger_send_button)
 //    public void sendMessageButton() {
 //        onMessengerButtonClicked();
 //
 //    }
     @OnClick(R.id.nav_price)
-    public void setStockPriceActivity(){
+    public void setStockPriceActivity() {
         startActivity(StockValueAddedRateActivity.class);
     }
+
     @OnClick(R.id.zerostock)
-    public void zeroStockActivity(){
+    public void zeroStockActivity() {
         startActivity(ZeroStockActivity.class);
     }
+
     @OnClick(R.id.rightbutton)
-    public void nextPageButton(){
-        if(nextPage.size()>=2){
-            setNewsData(nextPage.get(1),true);
-        }else {
-            setNewsData(nextPage.get(0),true);
+    public void nextPageButton() {
+        if (nextPage.size() >= 2) {
+            setNewsData(nextPage.get(1), true);
+        } else {
+            setNewsData(nextPage.get(0), true);
 
         }
     }
+
     @OnClick(R.id.liftbutton)
-    public void returnButton(){
-        if(nextPage.size()>=2){
-            setNewsData(nextPage.get(1),false);
-        }else {
+    public void returnButton() {
+        if (nextPage.size() >= 2) {
+            setNewsData(nextPage.get(1), false);
+        } else {
             showToast("已經是最後一頁！！");
             return;
 
         }
     }
-    @OnItemClick(R.id.listView)
-    public void listViewOnItemClick(int i){
-        Bundle b = new Bundle();
-        b.putString("url",newlist.get(i).getNewsDetail());
 
-        startActivity(NewDetailActivity.class,b);
+    @OnItemClick(R.id.listView)
+    public void listViewOnItemClick(int i) {
+        Bundle b = new Bundle();
+        b.putString("url", newlist.get(i).getNewsDetail());
+
+        startActivity(NewDetailActivity.class, b);
 
 
     }
@@ -449,7 +452,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
     }
-    private  void setPageAdView(){
+
+    private void setPageAdView() {
         AdRequest adRequest = new AdRequest.Builder().build();
         mPageAdView.loadAd(adRequest);
     }
@@ -485,7 +489,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         clickforceAd.outputDebugInfo = true;
 
     }
-//
+
+    //
 //    private void onMessengerButtonClicked() {
 //        // The URI can reference a file://, content://, or android.resource. Here we use
 //        // android.resource for sample purposes.
@@ -514,8 +519,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //                    shareToMessengerParams);
 //        }
 //    }
-    private void test2(String number){
-        new Thread(){
+    private void test2(String number) {
+        new Thread() {
             @Override
             public void run() {
                 super.run();
@@ -543,11 +548,10 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         }.start();
 
 
-
-
     }
-    private void setWarningStock(){
-        new Thread(){
+
+    private void setWarningStock() {
+        new Thread() {
             @Override
             public void run() {
                 super.run();
@@ -569,8 +573,9 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
 
     }
-    private void getStockTime(){
-        new Thread(){
+
+    private void getStockTime() {
+        new Thread() {
             @Override
             public void run() {
                 super.run();
@@ -584,14 +589,15 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                         }
                     });
 
-                }catch (Exception e){
-                    Log.d(TAG,Log.getStackTraceString(e));
+                } catch (Exception e) {
+                    Log.d(TAG, Log.getStackTraceString(e));
                 }
             }
         }.start();
     }
-    private void setStockData(){
-        new Thread(){
+
+    private void setStockData() {
+        new Thread() {
             @Override
             public void run() {
                 super.run();
@@ -602,13 +608,13 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //
 //
 //                    }
-                    Log.d(TAG, "run: "+doc.select("table>tbody>tr").size());
+                    Log.d(TAG, "run: " + doc.select("table>tbody>tr").size());
                     for (int i = 0; i < 1; i++) {
 //                        for (int i1 = 0; i1 < doc.select("table>tbody>tr").get(i).select("td").size(); i1++) {
 //                            Log.d(TAG, "run: "+doc.select("table>tbody>tr").get(i).select("td").get(i));
 //                        }
                         for (Element td : doc.select("table>tbody>tr").get(0).select("td")) {
-                            Log.d(TAG, "run: "+td.text());
+                            Log.d(TAG, "run: " + td.text());
                         }
 
                     }
@@ -637,7 +643,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                     for (Element mtext : doc.getElementsByClass("mtext")) {
                         nextPage.add(mtext.attr("onClick").toString());
                     }
-                    if(!nextPage.get(0).equals("")){
+                    if (!nextPage.get(0).equals("")) {
 
 
                         for (Element table : doc.select("table#newListContainer")) {
@@ -652,7 +658,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                                         n.setNewsTitle(element.text());
                                         n.setNewsDetail(element.getElementsByTag("a").attr("href").toString());
                                         newlist.add(n);
-                                        }
+                                    }
 //                                        NewsData n = new NewsData();
 //
 //                                        n.setNewsTitle(element.text());
@@ -687,7 +693,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                         }
 
 
-
                     }
 
 
@@ -700,9 +705,11 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             }
         }.start();
     }
+
     String next;
-     String ntx;
-    private void setNewsData(String s,boolean isNextPage) {
+    String ntx;
+
+    private void setNewsData(String s, boolean isNextPage) {
 
         newlist.clear();
 
@@ -712,24 +719,24 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                 super.run();
                 try {
 
-                    if(nextPage.size()>=2){
-                        if(isNextPage ==true){
-                            next = nextPage.get(1).replace("location=","");
-                            ntx = next.replace("\'","");
-                        }else {
-                            next = nextPage.get(0).replace("location=","");
-                            ntx = next.replace("\'","");
+                    if (nextPage.size() >= 2) {
+                        if (isNextPage == true) {
+                            next = nextPage.get(1).replace("location=", "");
+                            ntx = next.replace("\'", "");
+                        } else {
+                            next = nextPage.get(0).replace("location=", "");
+                            ntx = next.replace("\'", "");
                         }
 
 
-                    }else {
-                        next = nextPage.get(0).replace("location=","");
-                        ntx = next.replace("\'","");
+                    } else {
+                        next = nextPage.get(0).replace("location=", "");
+                        ntx = next.replace("\'", "");
                     }
 
-                    Log.d(TAG, "run: "+"https://tw.stock.yahoo.com/news_list/url/d/e/N3.html"+ntx+"");
+                    Log.d(TAG, "run: " + "https://tw.stock.yahoo.com/news_list/url/d/e/N3.html" + ntx + "");
 
-                    Document doc = Jsoup.connect("https://tw.stock.yahoo.com/news_list/url/d/e/N3.html"+ntx+"").get();
+                    Document doc = Jsoup.connect("https://tw.stock.yahoo.com/news_list/url/d/e/N3.html" + ntx + "").get();
 
                     nextPage.clear();
                     for (Element mtext : doc.getElementsByClass("mtext")) {
@@ -738,12 +745,12 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
                     }
 
-                    if(!nextPage.get(0).equals("")){
+                    if (!nextPage.get(0).equals("")) {
                         for (Element table : doc.select("table#newListContainer")) {
 
                             for (Element tbody : table.select("tbody")) {
                                 for (Element tr : tbody.select("tr")) {
-                                    Log.d(TAG, "run: "+tr.select("td[valign=top]>a.mbody").size());
+                                    Log.d(TAG, "run: " + tr.select("td[valign=top]>a.mbody").size());
                                     for (int i = 0; i < tr.select("td[valign=top]>a.mbody").size(); i++) {
                                         NewsData mNewsData = new NewsData();
                                         mNewsData.setNewsTitle(tr.select("td[valign=top]>a.mbody").get(i).text());
@@ -781,8 +788,9 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             }
         }.start();
     }
-    private  void   getNewDetil(String s,NewsData d){
-        new Thread(){
+
+    private void getNewDetil(String s, NewsData d) {
+        new Thread() {
             @Override
             public void run() {
                 super.run();
@@ -795,7 +803,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                     for (Element element : doc.select("p")) {
 //                        Log.d(TAG, "getNewDetil: "+element.toString());
 //                        Log.d(TAG, "getNewDetil: "+element.text());
-                        if(!element.text().equals("")){
+                        if (!element.text().equals("")) {
 //                            newlist.add(mNewsData.setNewsDetail(element.text()));
                         }
 
@@ -815,7 +823,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             Bundle bundle = new Bundle();
             String id = object.getString("id");
             String photo = "";
-            MySharedPrefernces.saveUserId(context,id);
+            MySharedPrefernces.saveUserId(context, id);
 
             try {
                 URL profile_pic = new URL("https://graph.facebook.com/" + id + "/picture?width=200&height=150");
@@ -832,30 +840,30 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             if (object.has("first_name"))
                 bundle.putString("first_name", object.getString("first_name"));
             String firstName = object.getString("first_name");
-            Log.d(TAG, "getFacebookData: "+object.getString("first_name"));
+            Log.d(TAG, "getFacebookData: " + object.getString("first_name"));
             if (object.has("last_name"))
                 bundle.putString("last_name", object.getString("last_name"));
             String lastName = object.getString("last_name");
-            Log.d(TAG, "getFacebookData: "+object.getString("last_name"));
+            Log.d(TAG, "getFacebookData: " + object.getString("last_name"));
             if (object.has("email"))
                 bundle.putString("email", object.getString("email"));
-            Log.d(TAG, "getFacebookData: "+object.getString("email"));
+            Log.d(TAG, "getFacebookData: " + object.getString("email"));
             String mail = object.getString("email");
             if (object.has("gender"))
                 bundle.putString("gender", object.getString("gender"));
             String gender = object.getString("gender");
-            Log.d(TAG, "getFacebookData: "+object.getString("gender"));
+            Log.d(TAG, "getFacebookData: " + object.getString("gender"));
             if (object.has("birthday"))
                 bundle.putString("birthday", object.getString("birthday"));
             String birthday = object.getString("birthday");
-            Log.d(TAG, "getFacebookData: "+MyApi.birthdayToTimeStamp(object.getString("birthday")));
+            Log.d(TAG, "getFacebookData: " + MyApi.birthdayToTimeStamp(object.getString("birthday")));
 //            MyApi.DateComparison(System.currentTimeMillis(),System.currentTimeMillis());
 
             if (object.has("location"))
                 bundle.putString("location", object.getJSONObject("location").getString("name"));
-            Log.d(TAG, "getFacebookData: "+object.getJSONObject("location").getString("name"));
+            Log.d(TAG, "getFacebookData: " + object.getJSONObject("location").getString("name"));
             String location = object.getJSONObject("location").getString("name");
-            setMemberData(id,firstName,lastName,mail, String.valueOf(MyApi.birthdayToTimeStamp(object.getString("birthday"))),gender,"",photo,location);
+            setMemberData(id, firstName, lastName, mail, String.valueOf(MyApi.birthdayToTimeStamp(object.getString("birthday"))), gender, "", photo, location);
             return bundle;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -887,13 +895,13 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     @Override
     public void useLognState(boolean b) {
-        Log.d(TAG, "useLognState: "+b);
+        Log.d(TAG, "useLognState: " + b);
 
     }
 
     @Override
     public void getuseLoginId(String s) {
-        Log.d(TAG, "getuseLoginId: "+s);
+        Log.d(TAG, "getuseLoginId: " + s);
 
     }
 
@@ -936,16 +944,19 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     public void getUserLogoutState(boolean b) {
 
     }
+
     public class MyAdapter extends BaseAdapter {
         private ArrayList<NewsData> mDatas;
 
         public MyAdapter(ArrayList<NewsData> datas) {
             mDatas = datas;
         }
+
         public void updateData(ArrayList<NewsData> datas) {
             mDatas = datas;
             notifyDataSetChanged();
         }
+
         @Override
         public int getCount() {
             return mDatas.size();
@@ -965,29 +976,30 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder viewHolder;
             NewsData data = mDatas.get(position);
-            if(convertView!=null){
-                viewHolder = (ViewHolder)convertView.getTag();
-            }else {
+            if (convertView != null) {
+                viewHolder = (ViewHolder) convertView.getTag();
+            } else {
                 convertView = LayoutInflater.from(MainActivity.this).inflate(
                         R.layout.layout_homepage, null);
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }
-            viewHolder.mTitleTextView.setText(data.getNewsTitle()+"");
+            viewHolder.mTitleTextView.setText(data.getNewsTitle() + "");
             viewHolder.mDetailTextView.setText("(詳全文...)");
 
             return convertView;
         }
 
     }
-    static class  ViewHolder{
+
+    static class ViewHolder {
         @BindView(R.id.title)
         TextView mTitleTextView;
         @BindView(R.id.detail)
         TextView mDetailTextView;
 
-        public ViewHolder(View v){
-            ButterKnife.bind(this,v);
+        public ViewHolder(View v) {
+            ButterKnife.bind(this, v);
         }
     }
 }

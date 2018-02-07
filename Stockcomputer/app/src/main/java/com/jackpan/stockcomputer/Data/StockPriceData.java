@@ -1,7 +1,10 @@
 package com.jackpan.stockcomputer.Data;
 
-public  class StockPriceData {
-    public  String stockPriceDataArray;
+import android.util.Log;
+
+public class StockPriceData {
+    private static final String TAG = "StockPriceData";
+    public String stockPriceDataArray;
     public String data;
     public String deal;
     public String money;
@@ -13,6 +16,7 @@ public  class StockPriceData {
     public String turnover;
 
     public void setStockPriceDataArray(String stockPriceDataArray) {
+        Log.d(TAG, "setStockPriceDataArray: " + stockPriceDataArray);
         this.stockPriceDataArray = stockPriceDataArray;
     }
 
@@ -21,17 +25,26 @@ public  class StockPriceData {
     }
 
 
-    public void setSolitArrayData(){
-        String[] arrayString = getStockPriceDataArray().split("");
-        arrayString[0] = data;
-        arrayString[1] = deal;
-        arrayString[2] = money;
-        arrayString[3] = opening;
-        arrayString[4] = high;
-        arrayString[5] = low;
-        arrayString[6] = closeing;
-        arrayString[7] = difference;
-        arrayString[8] = turnover;
+    public void getSolitArrayData() {
+        String[] arrayString = getStockPriceDataArray().split(" ");
+        Log.d(TAG, "getSolitArrayData: " + arrayString[0]);
+        Log.d(TAG, "getSolitArrayData: " + arrayString[1]);
+        Log.d(TAG, "getSolitArrayData: " + arrayString[2]);
+        Log.d(TAG, "getSolitArrayData: " + arrayString[3]);
+        Log.d(TAG, "getSolitArrayData: " + arrayString[4]);
+        Log.d(TAG, "getSolitArrayData: " + arrayString[5]);
+        Log.d(TAG, "getSolitArrayData: " + arrayString[6]);
+        Log.d(TAG, "getSolitArrayData: " + arrayString[7]);
+        Log.d(TAG, "getSolitArrayData: " + arrayString[8]);
+        data = arrayString[0];
+        deal = arrayString[1];
+        money = arrayString[2];
+        opening = arrayString[3];
+        high = arrayString[4];
+        low = arrayString[5];
+        closeing = arrayString[6];
+        difference = arrayString[7];
+        turnover = arrayString[8];
 
 
     }

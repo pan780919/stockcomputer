@@ -1,7 +1,6 @@
 package com.jackpan.stockcomputer.Kotlin
 
 import android.app.DatePickerDialog
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import butterknife.ButterKnife
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity
-import com.jackpan.stockcomputer.Data.CalculateData
 import com.jackpan.stockcomputer.Data.StockPriceData
 import com.jackpan.stockcomputer.R
 import org.jsoup.Jsoup
@@ -24,7 +22,11 @@ class QueryStockPriceActivity : BaseAppCompatActivity() {
     lateinit var mAdView: AdView
     lateinit var mStockSearch: EditText
     lateinit var mSearchBtn: Button
-    lateinit var mListView :ListView
+    lateinit var mListView: ListView
+    val stockPriceDataList = ArrayList<StockPriceData>()
+    var mAdapter: MyAdapter? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_query_stock_price)
@@ -34,18 +36,20 @@ class QueryStockPriceActivity : BaseAppCompatActivity() {
         }
         title = getString(R.string.title_activity_querystockprice)
         setAdView()
-
         mStockSearch = findViewById(R.id.stocknumber_edt)
         mSearchBtn = findViewById(R.id.searchbtn)
-        mListView  = findViewById(R.id.stocklist)
+        mListView = findViewById(R.id.stocklist)
+        mAdapter = MyAdapter(stockPriceDataList)
+        mListView.adapter = mAdapter
         mSearchBtn.setOnClickListener(View.OnClickListener {
-            var number :String = mStockSearch.text.toString().trim()
-            if(!number.isEmpty()){
+            var number: String = mStockSearch.text.toString().trim()
+            if (!number.isEmpty()) {
                 setDatePickerDialog(number)
 
             }
 
         })
+
 
     }
 
@@ -81,14 +85,14 @@ class QueryStockPriceActivity : BaseAppCompatActivity() {
             } else {
                 DayString = (dayOfMonth).toString()
             }
-            setStockData(YearString, MonthString, DayString,number)
+            setStockData(YearString, MonthString, DayString, number)
 
         }, year, month, day)
         dpd.show()
 
     }
 
-    private fun setStockData(year: String, month: String, day: String,number:String) {
+    private fun setStockData(year: String, month: String, day: String, number: String) {
         setLogger(year)
         setLogger(month)
         setLogger(day)
@@ -96,16 +100,22 @@ class QueryStockPriceActivity : BaseAppCompatActivity() {
             override fun run() {
                 super.run()
                 try {
-                    val doc = Jsoup.connect("http://www.tse.com.tw/exchangeReport/STOCK_DAY?response=html&date=" + year + month + day + "+&stockNo=" + number).timeout(30000).get()
+                    val doc = Jsoup.connect("http://www.tse.com.tw/exchangeReport/STOCK_DAY?response=html&date=" + year + month + day + "+&stockNo=" + number).get()
 
                     setLogger(doc.select("table>tbody>tr").size.toString())
                     for (i in 0..0) {
+
                         //                        for (int i1 = 0; i1 < doc.select("table>tbody>tr").get(i).select("td").size(); i1++) {
                         //                            Log.d(TAG, "run: "+doc.select("table>tbody>tr").get(i).select("td").get(i));
                         //                        }
                         for (td in doc.select("table>tbody>tr")) {
-//                            setLogger(td.text())
-                            stingsplit(td.text())
+                            setLogger(td.text())
+                            var mStockPriceData = StockPriceData()
+                            mStockPriceData.setStockPriceDataArray(td.text())
+                            stockPriceDataList.add(mStockPriceData)
+                            runOnUiThread({
+                                mAdapter?.notifyDataSetChanged()
+                            })
                         }
 
                     }
@@ -114,7 +124,7 @@ class QueryStockPriceActivity : BaseAppCompatActivity() {
                     e.printStackTrace()
                     setLogger(e.message)
 
-                }catch (e:SocketTimeoutException){
+                } catch (e: SocketTimeoutException) {
                     e.printStackTrace()
                     setLogger(e.message)
                 }
@@ -124,12 +134,6 @@ class QueryStockPriceActivity : BaseAppCompatActivity() {
         }.start()
 
     }
-    fun stingsplit(s:String){
-
-       var  list =s.split(" ")
-        list.forEach { setLogger(it)}
-    }
-
 
     inner class MyAdapter(private var mDatas: ArrayList<StockPriceData>?) : BaseAdapter() {
         fun updateData(datas: ArrayList<StockPriceData>) {
@@ -157,12 +161,15 @@ class QueryStockPriceActivity : BaseAppCompatActivity() {
                 viewHolder = convertView.tag as ViewHolder
             } else {
                 convertView = LayoutInflater.from(this@QueryStockPriceActivity).inflate(
-                        R.layout.layout_calculate, null)
+                        R.layout.stockprice_layout, null)
                 viewHolder = ViewHolder(convertView)
                 convertView!!.tag = viewHolder
             }
-            val adRequest = AdRequest.Builder().build()
-            viewHolder.adView!!.loadAd(adRequest)
+            setLogger(position.toString())
+            setLogger(data.getStockPriceDataArray())
+//            val adRequest = AdRequest.Builder().build()
+//            viewHolder.adView!!.loadAd(adRequest)
+//            viewHolder.mDateTextView!!.text = data.data
 //            if (data.state == 1) {
 //                viewHolder.mStateTextView!!.text = "賺"
 //                viewHolder.mStateTextView!!.setTextColor(Color.RED)
@@ -185,14 +192,24 @@ class QueryStockPriceActivity : BaseAppCompatActivity() {
     internal class ViewHolder(v: View) {
         @BindView(R.id.adView)
         var adView: AdView? = null
-        @BindView(R.id.text_state)
-        var mStateTextView: TextView? = null
-        @BindView(R.id.textView_sell_price)
-        var mSellPrice: TextView? = null
-        @BindView(R.id.textView_sell_payment)
-        var mSellPayment: TextView? = null
-        @BindView(R.id.textView_sell_pricetotal)
-        var mPriceToatal: TextView? = null
+        @BindView(R.id.datetext)
+        var mDateTextView: TextView? = null
+        @BindView(R.id.dealtext)
+        var mDealTextView: TextView? = null
+        @BindView(R.id.moneytext)
+        var mMoneyTextView: TextView? = null
+        @BindView(R.id.openingtext)
+        var mOpeningTextView: TextView? = null
+        @BindView(R.id.hightext)
+        var mHighTextView: TextView? = null
+        @BindView(R.id.lowtext)
+        var mLowTextView: TextView? = null
+        @BindView(R.id.closeingtext)
+        var mCloseingTextView: TextView? = null
+        @BindView(R.id.differencetext)
+        var mDifferenceTextView: TextView? = null
+        @BindView(R.id.turnovertext)
+        var mTurnoverTextView: TextView? = null
 
         init {
             ButterKnife.bind(this, v)
