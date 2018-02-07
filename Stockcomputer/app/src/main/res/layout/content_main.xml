@@ -10,12 +10,27 @@
     tools:showIn="@layout/app_bar_main">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp">
+        <TextView
+            android:layout_marginRight="18dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/adView_page"
+            android:id="@+id/timetetx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textColor="@color/color_bigview_setting_text_red"
+            ></TextView>
         <ListView
+            android:layout_marginTop="20dp"
             android:layout_above="@+id/adView_page"
             android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
         <com.google.android.gms.ads.AdView
 
             android:layout_above="@+id/layout"

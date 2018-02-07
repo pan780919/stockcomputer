@@ -1,13 +1,19 @@
 package com.jackpan.stockcomputer.Kotlin
 
 import android.app.DatePickerDialog
+import android.graphics.Color
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
+import android.view.ViewGroup
+import android.widget.*
+import butterknife.BindView
+import butterknife.ButterKnife
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity
+import com.jackpan.stockcomputer.Data.CalculateData
+import com.jackpan.stockcomputer.Data.StockPriceData
 import com.jackpan.stockcomputer.R
 import org.jsoup.Jsoup
 import java.io.IOException
@@ -18,9 +24,11 @@ class QueryStockPriceActivity : BaseAppCompatActivity() {
     lateinit var mAdView: AdView
     lateinit var mStockSearch: EditText
     lateinit var mSearchBtn: Button
+    lateinit var mListView :ListView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_query_stock_price)
+        ButterKnife.bind(this)
         if (!checkNetWork()) {
             return
         }
@@ -29,6 +37,7 @@ class QueryStockPriceActivity : BaseAppCompatActivity() {
 
         mStockSearch = findViewById(R.id.stocknumber_edt)
         mSearchBtn = findViewById(R.id.searchbtn)
+        mListView  = findViewById(R.id.stocklist)
         mSearchBtn.setOnClickListener(View.OnClickListener {
             var number :String = mStockSearch.text.toString().trim()
             if(!number.isEmpty()){
@@ -95,7 +104,8 @@ class QueryStockPriceActivity : BaseAppCompatActivity() {
                         //                            Log.d(TAG, "run: "+doc.select("table>tbody>tr").get(i).select("td").get(i));
                         //                        }
                         for (td in doc.select("table>tbody>tr")) {
-                            setLogger(td.text())
+//                            setLogger(td.text())
+                            stingsplit(td.text())
                         }
 
                     }
@@ -113,5 +123,79 @@ class QueryStockPriceActivity : BaseAppCompatActivity() {
             }
         }.start()
 
+    }
+    fun stingsplit(s:String){
+
+       var  list =s.split(" ")
+        list.forEach { setLogger(it)}
+    }
+
+
+    inner class MyAdapter(private var mDatas: ArrayList<StockPriceData>?) : BaseAdapter() {
+        fun updateData(datas: ArrayList<StockPriceData>) {
+            mDatas = datas
+            notifyDataSetChanged()
+        }
+
+        override fun getCount(): Int {
+            return mDatas!!.size
+        }
+
+        override fun getItem(position: Int): Any {
+            return mDatas!![position]
+        }
+
+        override fun getItemId(position: Int): Long {
+            return position.toLong()
+        }
+
+        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+            var convertView = convertView
+            val viewHolder: ViewHolder
+            val data = mDatas!![position]
+            if (convertView != null) {
+                viewHolder = convertView.tag as ViewHolder
+            } else {
+                convertView = LayoutInflater.from(this@QueryStockPriceActivity).inflate(
+                        R.layout.layout_calculate, null)
+                viewHolder = ViewHolder(convertView)
+                convertView!!.tag = viewHolder
+            }
+            val adRequest = AdRequest.Builder().build()
+            viewHolder.adView!!.loadAd(adRequest)
+//            if (data.state == 1) {
+//                viewHolder.mStateTextView!!.text = "賺"
+//                viewHolder.mStateTextView!!.setTextColor(Color.RED)
+//                viewHolder.mSellPayment!!.text = "賺到:" + data.price + ""
+//                viewHolder.mSellPayment!!.setTextColor(Color.RED)
+//            } else {
+//                viewHolder.mStateTextView!!.text = "賠"
+//                viewHolder.mStateTextView!!.setTextColor(Color.GREEN)
+//                viewHolder.mSellPayment!!.text = "賠了:" + data.price + ""
+//                viewHolder.mSellPayment!!.setTextColor(Color.GREEN)
+//            }
+//            viewHolder.mSellPrice!!.text = "股價：" + data.stockPrice + ""
+//            viewHolder.mPriceToatal!!.text = "賣價:" + data.stockTotal + ""
+
+            return convertView
+        }
+
+    }
+
+    internal class ViewHolder(v: View) {
+        @BindView(R.id.adView)
+        var adView: AdView? = null
+        @BindView(R.id.text_state)
+        var mStateTextView: TextView? = null
+        @BindView(R.id.textView_sell_price)
+        var mSellPrice: TextView? = null
+        @BindView(R.id.textView_sell_payment)
+        var mSellPayment: TextView? = null
+        @BindView(R.id.textView_sell_pricetotal)
+        var mPriceToatal: TextView? = null
+
+        init {
+            ButterKnife.bind(this, v)
+        }
     }
 }

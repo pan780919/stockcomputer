@@ -118,7 +118,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     TextView mUserIdTextView;
 
     private Context context;
-
+    @BindView(R.id.timetetx)
+    TextView mStockTimeText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,7 +164,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //        test2("2344");
 //        getNewDetil();
 //        setStockData();
-        setWarningStock();
+//        setWarningStock();
+        getStockTime();
     }
 
 
@@ -567,7 +569,27 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
 
     }
+    private void getStockTime(){
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Document doc = Jsoup.connect("https://tw.stock.yahoo.com/").get();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mStockTimeText.setText(doc.select("td[width=270][class=ssbody]").text());
 
+                        }
+                    });
+
+                }catch (Exception e){
+                    Log.d(TAG,Log.getStackTraceString(e));
+                }
+            }
+        }.start();
+    }
     private void setStockData(){
         new Thread(){
             @Override
@@ -649,8 +671,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                                             public void run() {
 
                                                 mAdapter.notifyDataSetChanged();
-                                                mProgressDialog.dismiss();
 
+                                                mProgressDialog.dismiss();
 
                                             }
                                         });
