@@ -112,6 +112,7 @@ class QueryStockPriceActivity : BaseAppCompatActivity() {
                             setLogger(td.text())
                             var mStockPriceData = StockPriceData()
                             mStockPriceData.setStockPriceDataArray(td.text())
+                            mStockPriceData.getSolitArrayData()
                             stockPriceDataList.add(mStockPriceData)
                             runOnUiThread({
                                 mAdapter?.notifyDataSetChanged()
@@ -167,9 +168,10 @@ class QueryStockPriceActivity : BaseAppCompatActivity() {
             }
             setLogger(position.toString())
             setLogger(data.getStockPriceDataArray())
-//            val adRequest = AdRequest.Builder().build()
-//            viewHolder.adView!!.loadAd(adRequest)
-//            viewHolder.mDateTextView!!.text = data.data
+            val adRequest = AdRequest.Builder().build()
+            viewHolder.adView.loadAd(adRequest)
+            setLogger(data.data)
+            viewHolder.mDateTextView.text = data.data
 //            if (data.state == 1) {
 //                viewHolder.mStateTextView!!.text = "賺"
 //                viewHolder.mStateTextView!!.setTextColor(Color.RED)
@@ -189,27 +191,28 @@ class QueryStockPriceActivity : BaseAppCompatActivity() {
 
     }
 
+
     internal class ViewHolder(v: View) {
         @BindView(R.id.adView)
-        var adView: AdView? = null
+         lateinit var adView: AdView
         @BindView(R.id.datetext)
-        var mDateTextView: TextView? = null
-        @BindView(R.id.dealtext)
-        var mDealTextView: TextView? = null
-        @BindView(R.id.moneytext)
-        var mMoneyTextView: TextView? = null
-        @BindView(R.id.openingtext)
-        var mOpeningTextView: TextView? = null
-        @BindView(R.id.hightext)
-        var mHighTextView: TextView? = null
-        @BindView(R.id.lowtext)
-        var mLowTextView: TextView? = null
-        @BindView(R.id.closeingtext)
-        var mCloseingTextView: TextView? = null
-        @BindView(R.id.differencetext)
-        var mDifferenceTextView: TextView? = null
-        @BindView(R.id.turnovertext)
-        var mTurnoverTextView: TextView? = null
+        lateinit var mDateTextView: TextView
+//        @BindView(R.id.dealtext)
+//        var mDealTextView: TextView? = null
+//        @BindView(R.id.moneytext)
+//        var mMoneyTextView: TextView? = null
+//        @BindView(R.id.openingtext)
+//        var mOpeningTextView: aTextView? = null
+//        @BindView(R.id.hightext)
+//        var mHighTextView: TextView? = null
+//        @BindView(R.id.lowtext)
+//        var mLowTextView: TextView? = null
+//        @BindView(R.id.closeingtext)
+//        var mCloseingTextView: TextView? = null
+//        @BindView(R.id.differencetext)
+//        var mDifferenceTextView: TextView? = null
+//        @BindView(R.id.turnovertext)
+//        var mTurnoverTextView: TextView? = null
 
         init {
             ButterKnife.bind(this, v)

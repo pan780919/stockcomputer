@@ -123,9 +123,13 @@
         <activity android:name=".Kotlin.NewDetailActivity" />
         <activity android:name=".Kotlin.ZeroStockActivity" />
         <activity android:name=".Kotlin.StockValueAddedRateActivity" />
-        <activity android:name=".Kotlin.QueryStockPriceActivity"></activity>
-        <activity android:name=".LineLogin.MainActivity"></activity>
-        <activity android:name=".LineLogin.PostLoginActivity"></activity>
+        <activity android:name=".Kotlin.QueryStockPriceActivity" />
+        <activity android:name=".LineLogin.MainActivity" />
+        <activity android:name=".LineLogin.PostLoginActivity" />
+        <activity
+            android:name=".util.Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

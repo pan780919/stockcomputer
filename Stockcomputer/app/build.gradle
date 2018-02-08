@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin : 'kotlin-kapt'
 
 android {
     packagingOptions {
@@ -10,7 +11,7 @@ android {
         exclude 'META-INF/LICENSE.txt'
     }
     compileSdkVersion 26
-    buildToolsVersion "26"
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         multiDexEnabled true
@@ -45,7 +46,7 @@ dependencies {
     })
     compile files('libs/glide-3.6.1.jar')
     compile files('libs/mFirebaseLibs.jar')
-    compile files('libs/jsoup-1.10.3.jar')
+    compile files('libs/jsoup-1.11.2.jar')
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     compile files('libs/adbert-sdk-320n.jar')
     compile files('libs/vpadn-sdk-obf470-81217102-1712181548-f6c5e3e.jar')
@@ -78,8 +79,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile "com.android.support:customtabs:26.0.0"
-    compile(name:'line-sdk-4.0.6', ext:'aar')
-
+    compile(name: 'line-sdk-4.0.6', ext: 'aar')
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    kapt "com.jakewharton:butterknife-compiler:8.8.1"
 
 
 }

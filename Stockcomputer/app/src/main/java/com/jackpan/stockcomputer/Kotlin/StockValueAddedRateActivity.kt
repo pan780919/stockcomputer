@@ -46,7 +46,6 @@ class StockValueAddedRateActivity : BaseAppCompatActivity() {
 
         })
     }
-
      fun getStockNowPrice(number: String) {
         object : Thread() {
             override fun run() {
