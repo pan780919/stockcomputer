@@ -18,7 +18,7 @@
         <HorizontalScrollView
             android:layout_height="match_parent"
             android:layout_width="match_parent"
-
+            android:scrollbars="none"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                         ></TextView>
                     <TextView
                         android:id="@+id/datetext"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="45dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="107/02/01"
@@ -63,7 +63,7 @@
                         ></TextView>
                     <TextView
                         android:id="@+id/dealtext"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="45dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="18,967,432"
@@ -86,7 +86,7 @@
                         ></TextView>
                     <TextView
                         android:id="@+id/moneytext"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="45dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="2,233,403,180	"
@@ -109,7 +109,7 @@
                         ></TextView>
                     <TextView
                         android:id="@+id/openingtext"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="45dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="119.00"
@@ -132,7 +132,7 @@
                         ></TextView>
                     <TextView
                         android:id="@+id/hightext"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="45dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="119.00"
@@ -155,7 +155,7 @@
                         ></TextView>
                     <TextView
                         android:id="@+id/lowtext"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="45dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="119.00"
@@ -178,7 +178,7 @@
                         ></TextView>
                     <TextView
                         android:id="@+id/closeingtext"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="45dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="119.00"
@@ -201,7 +201,7 @@
                         ></TextView>
                     <TextView
                         android:id="@+id/differencetext"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="45dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="119.00"
@@ -224,7 +224,7 @@
                         ></TextView>
                     <TextView
                         android:id="@+id/turnovertext"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="45dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="119.00"

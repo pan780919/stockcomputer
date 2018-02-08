@@ -194,25 +194,25 @@ class QueryStockPriceActivity : BaseAppCompatActivity() {
 
     internal class ViewHolder(v: View) {
         @BindView(R.id.adView)
-         lateinit var adView: AdView
+        lateinit var adView: AdView
         @BindView(R.id.datetext)
         lateinit var mDateTextView: TextView
-//        @BindView(R.id.dealtext)
-//        var mDealTextView: TextView? = null
-//        @BindView(R.id.moneytext)
-//        var mMoneyTextView: TextView? = null
-//        @BindView(R.id.openingtext)
-//        var mOpeningTextView: aTextView? = null
-//        @BindView(R.id.hightext)
-//        var mHighTextView: TextView? = null
-//        @BindView(R.id.lowtext)
-//        var mLowTextView: TextView? = null
-//        @BindView(R.id.closeingtext)
-//        var mCloseingTextView: TextView? = null
-//        @BindView(R.id.differencetext)
-//        var mDifferenceTextView: TextView? = null
-//        @BindView(R.id.turnovertext)
-//        var mTurnoverTextView: TextView? = null
+        @BindView(R.id.dealtext)
+        lateinit var mDealTextView: TextView
+        @BindView(R.id.moneytext)
+        lateinit var mMoneyTextView: TextView
+        @BindView(R.id.openingtext)
+        lateinit var mOpeningTextView: TextView
+        @BindView(R.id.hightext)
+        lateinit var mHighTextView: TextView
+        @BindView(R.id.lowtext)
+        lateinit var mLowTextView: TextView
+        @BindView(R.id.closeingtext)
+        lateinit var mCloseingTextView: TextView
+        @BindView(R.id.differencetext)
+        lateinit var mDifferenceTextView: TextView
+        @BindView(R.id.turnovertext)
+        lateinit var mTurnoverTextView: TextView
 
         init {
             ButterKnife.bind(this, v)
