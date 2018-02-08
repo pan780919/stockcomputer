@@ -1,6 +1,7 @@
 package com.jackpan.stockcomputer.Kotlin
 
 import android.app.DatePickerDialog
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,7 +26,9 @@ class QueryStockPriceActivity : BaseAppCompatActivity() {
     lateinit var mListView: ListView
     val stockPriceDataList = ArrayList<StockPriceData>()
     var mAdapter: MyAdapter? = null
-
+    lateinit var mProgressDialog :ProgressDialog
+    @BindView(R.id.stocknametext)
+    lateinit var mStockNameText:TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,13 +99,34 @@ class QueryStockPriceActivity : BaseAppCompatActivity() {
         setLogger(year)
         setLogger(month)
         setLogger(day)
+        mProgressDialog = ProgressDialog(this)
+        mProgressDialog.setTitle("讀取中")
+        mProgressDialog.setMessage("請稍候")
+        mProgressDialog.setCancelable(false)
+        mProgressDialog.show()
+
         object : Thread() {
+            lateinit var mStockName :String
             override fun run() {
                 super.run()
                 try {
                     val doc = Jsoup.connect("http://www.tse.com.tw/exchangeReport/STOCK_DAY?response=html&date=" + year + month + day + "+&stockNo=" + number).get()
+                    setLogger(doc.select("table>tbody>tr").size.toString())//
+                    setLogger(doc.select("th[colspan=9]").text())//抓股票名稱
 
-                    setLogger(doc.select("table>tbody>tr").size.toString())
+                    if(doc.select("table>tbody>tr").size==0){
+                        runOnUiThread {
+                            showToast("輸入錯誤！請重新查詢")
+                            mProgressDialog.dismiss()
+
+                        }
+                        return
+
+                    }
+                    mStockName = doc.select("th[colspan=9]").text()
+
+
+
                     for (i in 0..0) {
 
                         //                        for (int i1 = 0; i1 < doc.select("table>tbody>tr").get(i).select("td").size(); i1++) {
@@ -115,7 +139,9 @@ class QueryStockPriceActivity : BaseAppCompatActivity() {
                             mStockPriceData.getSolitArrayData()
                             stockPriceDataList.add(mStockPriceData)
                             runOnUiThread({
+                                mStockNameText.text = mStockName
                                 mAdapter?.notifyDataSetChanged()
+                                mProgressDialog.dismiss()
                             })
                         }
 
@@ -168,23 +194,17 @@ class QueryStockPriceActivity : BaseAppCompatActivity() {
             }
             setLogger(position.toString())
             setLogger(data.getStockPriceDataArray())
-            val adRequest = AdRequest.Builder().build()
-            viewHolder.adView.loadAd(adRequest)
-            setLogger(data.data)
+//            val adRequest = AdRequest.Builder().build()
+//            viewHolder.adView.loadAd(adRequest)
             viewHolder.mDateTextView.text = data.data
-//            if (data.state == 1) {
-//                viewHolder.mStateTextView!!.text = "賺"
-//                viewHolder.mStateTextView!!.setTextColor(Color.RED)
-//                viewHolder.mSellPayment!!.text = "賺到:" + data.price + ""
-//                viewHolder.mSellPayment!!.setTextColor(Color.RED)
-//            } else {
-//                viewHolder.mStateTextView!!.text = "賠"
-//                viewHolder.mStateTextView!!.setTextColor(Color.GREEN)
-//                viewHolder.mSellPayment!!.text = "賠了:" + data.price + ""
-//                viewHolder.mSellPayment!!.setTextColor(Color.GREEN)
-//            }
-//            viewHolder.mSellPrice!!.text = "股價：" + data.stockPrice + ""
-//            viewHolder.mPriceToatal!!.text = "賣價:" + data.stockTotal + ""
+            viewHolder.mDealTextView.text = data.deal
+            viewHolder.mMoneyTextView.text = data.money
+            viewHolder.mOpeningTextView.text = data.opening
+            viewHolder.mHighTextView.text = data.high
+            viewHolder.mLowTextView.text = data.low
+            viewHolder.mCloseingTextView.text = data.closeing
+            viewHolder.mDifferenceTextView.text = data.difference
+            viewHolder.mTurnoverTextView.text = data.turnover
 
             return convertView
         }
