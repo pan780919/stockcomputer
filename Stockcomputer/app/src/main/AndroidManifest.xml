@@ -26,6 +26,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
         android:name=".MyApplication"
@@ -44,11 +45,13 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-
+            </intent-filter>
+            <!-- Intent filter used for Messenger protocol version 20150311 -->
+            <intent-filter>
                 <action android:name="android.intent.action.PICK" />
 
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="com.facebook.orca.category.PLATFORM_THREAD_20150314" />
+                <category android:name="com.facebook.orca.category.PLATFORM_THREAD_20150311" />
             </intent-filter>
         </activity>
 
@@ -115,6 +118,17 @@
         <activity
             android:name=".Activity.CalculateActivity"
             android:label="@string/title_activity_calculate"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Kotlin.BuyAndSellActivity" />
+        <activity android:name=".Kotlin.NewDetailActivity" />
+        <activity android:name=".Kotlin.ZeroStockActivity" />
+        <activity android:name=".Kotlin.StockValueAddedRateActivity" />
+        <activity android:name=".Kotlin.QueryStockPriceActivity" />
+        <activity android:name=".LineLogin.MainActivity" />
+        <activity android:name=".LineLogin.PostLoginActivity" />
+        <activity
+            android:name=".util.Main2Activity"
+            android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
