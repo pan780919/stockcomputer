@@ -37,7 +37,6 @@ import com.jackpan.stockcomputer.Data.MemberData;
 import com.jackpan.stockcomputer.Data.MyApi;
 import com.jackpan.stockcomputer.Data.NewsData;
 import com.jackpan.stockcomputer.Kotlin.BuyAndSellActivity;
-import com.jackpan.stockcomputer.Kotlin.LoginActivity;
 import com.jackpan.stockcomputer.Kotlin.NewDetailActivity;
 import com.jackpan.stockcomputer.Kotlin.QueryStockPriceActivity;
 import com.jackpan.stockcomputer.Kotlin.StockValueAddedRateActivity;
@@ -46,15 +45,11 @@ import com.vpadn.ads.VpadnAdRequest;
 import com.vpadn.ads.VpadnAdSize;
 import com.vpadn.ads.VpadnBanner;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -182,7 +177,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     @OnClick(R.id.loginbutton)
     public  void setLoginActivity(){
-        startActivityForResult(LoginActivity.class,LOGINSTATE);
+        startActivityForResult(com.jackpan.stockcomputer.LineLogin.MainActivity.class,LOGINSTATE);
 
     }
 

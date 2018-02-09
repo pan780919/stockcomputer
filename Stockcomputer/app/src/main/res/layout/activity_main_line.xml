@@ -15,7 +15,7 @@
 
     <TextView
         android:id="@+id/login_button"
-        android:layout_width="220dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:background="@drawable/button_press"
@@ -24,11 +24,11 @@
         android:clickable="true"
         android:textColor="#FFFFFF" />
 
-    <TextView
+    <Button
         android:id="@+id/browser_login_button"
-        android:layout_width="220dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_press"
+        android:b="@drawable/button_press"
         android:text="Browser Login"
         android:gravity="center"
         android:clickable="true"

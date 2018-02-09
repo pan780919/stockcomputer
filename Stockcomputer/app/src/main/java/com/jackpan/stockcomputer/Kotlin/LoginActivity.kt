@@ -2,6 +2,7 @@ package com.jackpan.stockcomputer.Kotlin
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.facebook.CallbackManager
@@ -16,6 +17,10 @@ import com.jackpan.stockcomputer.R
 class LoginActivity : BaseAppCompatActivity() {
     @BindView(R.id.fbloginbutton)
     lateinit var mFbLoginBtn : LoginButton
+    @BindView(R.id.login_button)
+    lateinit var mLoginButton: TextView
+    @BindView(R.id.browser_login_button)
+    lateinit var mBrowserLoginButton :TextView
     var callbackManager: CallbackManager? = null
     var loginManager: LoginManager? = null
 

@@ -26,6 +26,35 @@
             android:layout_height="wrap_content"
             ></com.facebook.login.widget.LoginButton>
 
+        <TextView
+            android:layout_below="@+id/fbloginbutton"
+
+            android:layout_marginTop="20dp"
+            android:layout_centerInParent="true"
+
+            android:id="@+id/login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_press"
+            android:text="Login with LINE"
+            android:gravity="center"
+            android:clickable="true"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:layout_below="@+id/login_button"
+            android:layout_marginTop="8dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/browser_login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_press"
+            android:text="Browser Login"
+            android:gravity="center"
+            android:clickable="true"
+            android:textColor="#FFFFFF"/>
+
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
