@@ -10,6 +10,7 @@ import com.facebook.appevents.AppEventsLogger
 import com.facebook.login.LoginManager
 import com.facebook.login.widget.LoginButton
 import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity
+import com.jackpan.stockcomputer.Manager.FacebookManager
 import com.jackpan.stockcomputer.R
 
 class LoginActivity : BaseAppCompatActivity() {
@@ -30,6 +31,7 @@ class LoginActivity : BaseAppCompatActivity() {
             setLogger("網路無開啟！！")
             return
         }
+        FacebookManager.fbLogin(this,mFbLoginBtn,callbackManager)
 
     }
 
@@ -42,5 +44,6 @@ class LoginActivity : BaseAppCompatActivity() {
         callbackManager?.onActivityResult(requestCode, resultCode, data)
 
     }
+
 
 }

@@ -29,20 +29,23 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.jackpan.stockcomputer.Data.MyApi;
 import com.jackpan.stockcomputer.MySharedPrefernces;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
 public class FacebookManager {
     private static final String TAG = "FacebookManager";
-    private ProfileTracker profileTracker;
-    private FirebaseAuth auth;
-    private FirebaseAuth.AuthStateListener authListener;
-    private AccessTokenTracker accessTokenTracker;
+    private static ProfileTracker profileTracker;
+    private static FirebaseAuth auth;
+    private static FirebaseAuth.AuthStateListener authListener;
+    private static AccessTokenTracker accessTokenTracker;
 
     //臉書登入
-    private void fbLogin(Context context,LoginButton mFbLoginButton, CallbackManager callbackManager) {
+    public static void fbLogin(Context context,LoginButton mFbLoginButton, CallbackManager callbackManager) {
         List<String> PERMISSIONS_PUBLISH = Arrays.asList("public_profile", "email", "user_friends","user_location","user_birthday", "user_likes");
         mFbLoginButton.setReadPermissions(PERMISSIONS_PUBLISH);
         mFbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -56,7 +59,7 @@ public class FacebookManager {
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         Log.d("LoginActivity", object.toString());
                         // Get facebook data from login
-//                        Bundle bFacebookData = getFacebookData(object);
+                        Bundle bFacebookData = getFacebookData(context,object);
                     }
                 });
                 Bundle parameters = new Bundle();
@@ -81,7 +84,7 @@ public class FacebookManager {
 
     }
 
-    private void handleFacebookAccessToken(Context context,AccessToken token) {
+    public static void handleFacebookAccessToken(Context context,AccessToken token) {
 
 
         accessTokenTracker = new AccessTokenTracker() {
@@ -117,7 +120,7 @@ public class FacebookManager {
                 });
     }
 
-    private void checkFbState(Context context ,ImageView mFbImageView, TextView mUserIdTextView, TextView mUserAccountTextView) {
+    public static  void checkFbState(Context context ,ImageView mFbImageView, TextView mUserIdTextView, TextView mUserAccountTextView) {
         if (Profile.getCurrentProfile() != null) {
             Profile profile = Profile.getCurrentProfile();
             // 取得用戶大頭照
@@ -138,7 +141,7 @@ public class FacebookManager {
     }
 
 
-    private void setUsetProfile(Context context ,ImageView mFbImageView, TextView mUserIdTextView, TextView mUserAccountTextView) {
+    public static  void setUsetProfile(Context context ,ImageView mFbImageView, TextView mUserIdTextView, TextView mUserAccountTextView) {
         profileTracker = new ProfileTracker() {
             @Override
             protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
@@ -172,10 +175,60 @@ public class FacebookManager {
 
             }
 
-        } else
-            Log.d(getClass().getSimpleName(), "profile currentProfile Tracking: " + "no");
-
+        }
     }
 
+    private static Bundle getFacebookData(Context context,JSONObject object) {
 
+        try {
+            Bundle bundle = new Bundle();
+            String id = object.getString("id");
+            String photo = "";
+            MySharedPrefernces.saveUserId(context, id);
+
+            try {
+                URL profile_pic = new URL("https://graph.facebook.com/" + id + "/picture?width=200&height=150");
+                Log.d(TAG, profile_pic + "");
+                bundle.putString("profile_pic", profile_pic.toString());
+                photo = profile_pic.toString();
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                return null;
+            }
+
+            bundle.putString("idFacebook", id);
+            if (object.has("first_name"))
+                bundle.putString("first_name", object.getString("first_name"));
+            String firstName = object.getString("first_name");
+            Log.d(TAG, "getFacebookData: " + object.getString("first_name"));
+            if (object.has("last_name"))
+                bundle.putString("last_name", object.getString("last_name"));
+            String lastName = object.getString("last_name");
+            Log.d(TAG, "getFacebookData: " + object.getString("last_name"));
+            if (object.has("email"))
+                bundle.putString("email", object.getString("email"));
+            Log.d(TAG, "getFacebookData: " + object.getString("email"));
+            String mail = object.getString("email");
+            if (object.has("gender"))
+                bundle.putString("gender", object.getString("gender"));
+            String gender = object.getString("gender");
+            Log.d(TAG, "getFacebookData: " + object.getString("gender"));
+            if (object.has("birthday"))
+                bundle.putString("birthday", object.getString("birthday"));
+            String birthday = object.getString("birthday");
+            Log.d(TAG, "getFacebookData: " + MyApi.birthdayToTimeStamp(object.getString("birthday")));
+//            MyApi.DateComparison(System.currentTimeMillis(),System.currentTimeMillis());
+
+            if (object.has("location"))
+                bundle.putString("location", object.getJSONObject("location").getString("name"));
+            Log.d(TAG, "getFacebookData: " + object.getJSONObject("location").getString("name"));
+            String location = object.getJSONObject("location").getString("name");
+//            setMemberData(id, firstName, lastName, mail, String.valueOf(MyApi.birthdayToTimeStamp(object.getString("birthday"))), gender, "", photo, location);
+            return bundle;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
