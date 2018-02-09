@@ -32,6 +32,12 @@ public class BaseAppCompatActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void startActivityForResult(Class<?> clas ,int code){
+        Intent intent = new Intent();
+        intent.setClass(this, clas);
+        startActivityForResult(intent,code);
+    }
+
     /**
      * 基本AlertDilog
      */
