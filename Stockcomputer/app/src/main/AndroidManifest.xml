@@ -129,7 +129,8 @@
         <activity
             android:name=".util.Main2Activity"
             android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Kotlin.LoginActivity"></activity>
     </application>
 
 </manifest>

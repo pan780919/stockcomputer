@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.jackpan.stockcomputer.Kotlin.LoginActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+        <TextView
+            android:layout_marginBottom="100dp"
+            android:layout_centerInParent="true"
+            android:layout_above="@+id/fbloginbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="快速登入"
+            android:textSize="28dp"
+            ></TextView>
+        <com.facebook.login.widget.LoginButton
+            android:layout_centerInParent="true"
+            android:id="@+id/fbloginbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            ></com.facebook.login.widget.LoginButton>
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -3,7 +3,6 @@ package com.jackpan.stockcomputer;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -24,19 +23,11 @@ import com.adbert.AdbertOrientation;
 import com.adbert.ExpandVideoPosition;
 import com.clickforce.ad.Listener.AdViewLinstener;
 import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
-import com.facebook.Profile;
-import com.facebook.ProfileTracker;
-import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager;
 import com.facebook.messenger.MessengerThreadParams;
 import com.facebook.messenger.MessengerUtils;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.google.firebase.auth.FirebaseAuth;
 import com.jackpan.libs.mfirebaselib.MfiebaselibsClass;
 import com.jackpan.libs.mfirebaselib.MfirebaeCallback;
 import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity;
@@ -82,14 +73,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     private ProgressDialog mProgressDialog;
     private ArrayList<NewsData> newlist = new ArrayList<>();
     private MyAdapter mAdapter;
-    private CallbackManager callbackManager;
-    private AccessTokenTracker accessTokenTracker;
-    private LoginManager loginManager;
-
     private MfiebaselibsClass mfiebaselibsClass;
-    private ProfileTracker profileTracker;
-    private FirebaseAuth auth;
-    private FirebaseAuth.AuthStateListener authListener;
+
     private ArrayList<String> nextPage = new ArrayList<>();
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -107,9 +92,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     com.clickforce.ad.AdView clickforceAd;
     @BindView(R.id.fbImg)
     ImageView mFbImageView;
-    //    @BindView(R.id.fbloginbutton)
-//
-//    LoginButton mFbLoginButton;
     @BindView(R.id.adView_page)
     AdView mPageAdView;
     @BindView(R.id.useraccount)
@@ -124,15 +106,10 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        callbackManager = CallbackManager.Factory.create();
-        loginManager = LoginManager.getInstance();
-        AppEventsLogger.activateApp(this);
         context = this;
         mfiebaselibsClass = new MfiebaselibsClass(this, MainActivity.this);
         mfiebaselibsClass.userLoginCheck();
         setContentView(R.layout.activity_main);
-
         ButterKnife.bind(this);
         checkNetWork();
         toolbar.setTitle(getResources().getString(R.string.activty_main_title));
@@ -158,21 +135,12 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         setNewsData();
         mAdapter = new MyAdapter(newlist);
         mListview.setAdapter(mAdapter);
-
-//        fbLogin();
 //        test("2344");
 //        test2("2344");
 //        getNewDetil();
 //        setStockData();
 //        setWarningStock();
         getStockTime();
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     /**
@@ -196,150 +164,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
         mfiebaselibsClass.setFireBaseDB(MemberData.KEY_URL + Key, Key, memberMap);
 
-
-    }
-
-
-    //臉書登入
-//    private void fbLogin() {
-//        List<String> PERMISSIONS_PUBLISH = Arrays.asList("public_profile", "email", "user_friends","user_location","user_birthday", "user_likes");
-//        mFbLoginButton.setReadPermissions(PERMISSIONS_PUBLISH);
-//        mFbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-//            @Override
-//            public void onSuccess(LoginResult loginResult) {
-//                handleFacebookAccessToken(loginResult.getAccessToken());
-//                setUsetProfile();
-//                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-//
-//                    @Override
-//                    public void onCompleted(JSONObject object, GraphResponse response) {
-//                        Log.d("LoginActivity", object.toString());
-//                        // Get facebook data from login
-//                        Bundle bFacebookData = getFacebookData(object);
-//                    }
-//                });
-//                Bundle parameters = new Bundle();
-//                parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
-//                request.setParameters(parameters);
-//                request.executeAsync();
-//            }
-//
-//            @Override
-//            public void onCancel() {
-//
-//            }
-//
-//            @Override
-//            public void onError(FacebookException error) {
-//                error.printStackTrace();
-//                setLogger(error.getMessage());
-//
-//
-//            }
-//
-//        });
-//
-//    }
-
-//    private void handleFacebookAccessToken(AccessToken token) {
-//
-//
-//        accessTokenTracker = new AccessTokenTracker() {
-//            @Override
-//            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
-//                updateWithToken(newAccessToken);
-//            }
-//        };
-//
-//        // [START_EXCLUDE silent]
-//
-//        // [END_EXCLUDE]
-//        auth = FirebaseAuth.getInstance();
-//
-//        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-//        auth.signInWithCredential(credential)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
-//                        // If sign in fails, display a message to the user. If sign in succeeds
-//                        // the auth state listener will be notified and logic to handle the
-//                        // signed in user can be handled in the listener.
-//                        if (!task.isSuccessful()) {
-//                            Log.w(TAG, "signInWithCredential", task.getException());
-//
-//                        }
-//
-//                        // [START_EXCLUDE]
-//
-//                        // [END_EXCLUDE]
-//                    }
-//                });
-//    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        checkFbState();
-
-    }
-
-    private void checkFbState() {
-        if (Profile.getCurrentProfile() != null) {
-            Profile profile = Profile.getCurrentProfile();
-            // 取得用戶大頭照
-            Uri userPhoto = profile.getProfilePictureUri(300, 300);
-            String id = profile.getId();
-            String name = profile.getName();
-            mUserAccountTextView.setText(name);
-            mUserIdTextView.setText(id);
-            MyApi.loadImage(String.valueOf(userPhoto), mFbImageView, context);
-            MySharedPrefernces.saveUserId(context, id);
-        } else {
-            mFbImageView.setImageDrawable(null);
-            mUserAccountTextView.setText("");
-            mUserIdTextView.setText("");
-            MySharedPrefernces.saveUserId(context, "");
-        }
-
-    }
-
-    private void setUsetProfile() {
-        profileTracker = new ProfileTracker() {
-            @Override
-            protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
-                if (oldProfile != null) {
-                    //登出後
-//                    fbName.setText("");
-                    mFbImageView.setImageBitmap(null);
-
-                }
-
-                if (currentProfile != null) {
-                    //登入
-//                    fbName.setText(currentProfile.getName());
-                    MySharedPrefernces.saveUserPhoto(context, String.valueOf(currentProfile.getProfilePictureUri(150, 150)));
-                    MyApi.loadImage(String.valueOf(currentProfile.getProfilePictureUri(150, 150)), mFbImageView, context);
-                    String id = currentProfile.getId();
-                    String name = currentProfile.getName();
-                    mUserIdTextView.setText(id);
-                    mUserAccountTextView.setText(name);
-
-                }
-
-            }
-        };
-        profileTracker.startTracking();
-        if (profileTracker.isTracking()) {
-            if (Profile.getCurrentProfile() == null) return;
-            if (Profile.getCurrentProfile().getProfilePictureUri(150, 150) != null) {
-                MyApi.loadImage(String.valueOf(Profile.getCurrentProfile().getProfilePictureUri(150, 150)), mFbImageView, context);
-
-
-            }
-
-        } else
-            Log.d(getClass().getSimpleName(), "profile currentProfile Tracking: " + "no");
 
     }
 
@@ -419,7 +243,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     public void listViewOnItemClick(int i) {
         Bundle b = new Bundle();
         b.putString("url", newlist.get(i).getNewsDetail());
-
         startActivity(NewDetailActivity.class, b);
 
 
