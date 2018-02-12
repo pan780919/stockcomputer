@@ -1,18 +1,26 @@
 package com.jackpan.stockcomputer.Kotlin
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
+import butterknife.OnClick
 import com.facebook.CallbackManager
 import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
 import com.facebook.login.LoginManager
 import com.facebook.login.widget.LoginButton
 import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity
+import com.jackpan.stockcomputer.LineLogin.Constants
+import com.jackpan.stockcomputer.LineLogin.PostLoginActivity
 import com.jackpan.stockcomputer.Manager.FacebookManager
+import com.jackpan.stockcomputer.Manager.LineLoginManager.REQUEST_CODE
 import com.jackpan.stockcomputer.R
+import com.linecorp.linesdk.LineApiResponseCode
+import com.linecorp.linesdk.auth.LineLoginApi
 
 class LoginActivity : BaseAppCompatActivity() {
     @BindView(R.id.fbloginbutton)
@@ -47,6 +55,49 @@ class LoginActivity : BaseAppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         callbackManager?.onActivityResult(requestCode, resultCode, data)
+        if(resultCode!= Activity.RESULT_OK){
+            return
+        }
+        val result = LineLoginApi.getLoginResultFromIntent(data)
+
+        when (result.responseCode) {
+
+            LineApiResponseCode.SUCCESS -> {
+
+                val transitionIntent = Intent(this, PostLoginActivity::class.java)
+                transitionIntent.putExtra("line_profile", result.lineProfile)
+                transitionIntent.putExtra("line_credential", result.lineCredential)
+                startActivity(transitionIntent)
+            }
+
+            LineApiResponseCode.CANCEL -> Log.e("ERROR", "LINE Login Canceled by user!!")
+
+            else -> {
+                Log.e("ERROR", "Login FAILED!")
+                Log.e("ERROR", result.errorData.toString())
+            }
+        }
+
+    }
+    @OnClick(R.id.login_button)
+    fun setLoginButton(){
+        try {
+            val LoginIntent = LineLoginApi.getLoginIntent(this, Constants.CHANNEL_ID)
+            startActivityForResult(LoginIntent, REQUEST_CODE)
+        }catch (e:Exception){
+
+        }
+
+    }
+    @OnClick(R.id.browser_login_button)
+    fun setBrowserLoginButton(){
+        try {
+            val LoginIntent = LineLoginApi.getLoginIntentWithoutLineAppAuth(this, Constants.CHANNEL_ID)
+            startActivityForResult(LoginIntent, REQUEST_CODE)
+
+        }catch (e:Exception){
+
+        }
 
     }
 
