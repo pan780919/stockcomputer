@@ -41,6 +41,7 @@ import com.jackpan.stockcomputer.Kotlin.NewDetailActivity;
 import com.jackpan.stockcomputer.Kotlin.QueryStockPriceActivity;
 import com.jackpan.stockcomputer.Kotlin.StockValueAddedRateActivity;
 import com.jackpan.stockcomputer.Kotlin.ZeroStockActivity;
+import com.jackpan.stockcomputer.Manager.FacebookManager;
 import com.vpadn.ads.VpadnAdRequest;
 import com.vpadn.ads.VpadnAdSize;
 import com.vpadn.ads.VpadnBanner;
@@ -175,9 +176,14 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        FacebookManager.checkFbState(context,mFbImageView,mUserIdTextView,mUserAccountTextView);
+    }
+
     @OnClick(R.id.loginbutton)
     public  void setLoginActivity(){
-        startActivityForResult(com.jackpan.stockcomputer.LineLogin.MainActivity.class,LOGINSTATE);
 
     }
 
