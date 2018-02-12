@@ -102,14 +102,14 @@
                 android:textSize="20dp"
                 android:text="登出"
                 ></Button>
-            <Button
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="4dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="修改密碼"
-                android:id="@+id/button2"
-                />
+            <!--<Button-->
+                <!--android:layout_marginLeft="20dp"-->
+                <!--android:layout_marginTop="4dp"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="修改密碼"-->
+                <!--android:id="@+id/button2"-->
+                <!--/>-->
         </LinearLayout>
     </ScrollView>
 
