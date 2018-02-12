@@ -101,7 +101,9 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     private Context context;
     @BindView(R.id.timetetx)
     TextView mStockTimeText;
-
+    @BindView(R.id.adViewContainer)
+    RelativeLayout adViewContainer;
+    private  com.facebook.ads.AdView mFbAdView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,6 +136,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         setNewsData();
         mAdapter = new MyAdapter(newlist);
         mListview.setAdapter(mAdapter);
+        setmFbAdView();
 //        test("2344");
 //        test2("2344");
 //        getNewDetil();
@@ -141,7 +144,15 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //        setWarningStock();
         getStockTime();
     }
+    private  void setmFbAdView(){
 
+        adViewContainer = (RelativeLayout) findViewById(R.id.adViewContainer);
+
+        mFbAdView = new com.facebook.ads.AdView(this, "383959162037550_415939618839504", com.facebook.ads.AdSize.BANNER_HEIGHT_50);
+                adViewContainer.addView(mFbAdView);
+        mFbAdView.loadAd();
+
+    }
     /**
      * 設定 會員中心資料
      */
