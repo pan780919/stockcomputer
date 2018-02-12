@@ -46,6 +46,27 @@ public class MySharedPrefernces {
         SharedPreferences sp = context.getSharedPreferences(NAME, Activity.MODE_PRIVATE);
         return sp.getString(KEY_USER_ID, "");
     }
+    public static final String KEY_USER_MAIL = "usermail";
 
+    public static  void saveUserMail(Context context,String mail){
+        SharedPreferences sp = context.getSharedPreferences(NAME, Activity.MODE_PRIVATE);
+        sp.edit().putString(KEY_USER_MAIL, mail).apply();
+    }
+
+    public static String getUserMail(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(NAME, Activity.MODE_PRIVATE);
+        return sp.getString(KEY_USER_MAIL, "");
+    }
+    public static final String KEY_USER_Name = "username";
+
+    public static  void saveUserName(Context context,String name){
+        SharedPreferences sp = context.getSharedPreferences(NAME, Activity.MODE_PRIVATE);
+        sp.edit().putString(KEY_USER_Name, name).apply();
+    }
+
+    public static String getUserName(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(NAME, Activity.MODE_PRIVATE);
+        return sp.getString(KEY_USER_Name, "");
+    }
 
 }
