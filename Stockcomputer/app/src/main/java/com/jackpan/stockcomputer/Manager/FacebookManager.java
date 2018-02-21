@@ -184,6 +184,7 @@ public class FacebookManager {
             Bundle bundle = new Bundle();
             String id = object.getString("id");
             String photo = "";
+            MySharedPrefernces.saveUserLoginState(context,1);
             MySharedPrefernces.saveUserId(context, id);
 
             try {

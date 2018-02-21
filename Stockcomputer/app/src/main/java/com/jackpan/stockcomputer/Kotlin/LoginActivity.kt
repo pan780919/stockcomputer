@@ -2,9 +2,11 @@ package com.jackpan.stockcomputer.Kotlin
 
 import android.app.Activity
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -20,7 +22,10 @@ import com.jackpan.stockcomputer.Manager.FacebookManager
 import com.jackpan.stockcomputer.Manager.LineLoginManager.REQUEST_CODE
 import com.jackpan.stockcomputer.MySharedPrefernces
 import com.jackpan.stockcomputer.R
+import com.linecorp.linesdk.LineApiResponse
 import com.linecorp.linesdk.LineApiResponseCode
+import com.linecorp.linesdk.api.LineApiClient
+import com.linecorp.linesdk.api.LineApiClientBuilder
 import com.linecorp.linesdk.auth.LineLoginApi
 
 class LoginActivity : BaseAppCompatActivity() {
@@ -30,6 +35,7 @@ class LoginActivity : BaseAppCompatActivity() {
     lateinit var mLoginButton: TextView
     var callbackManager: CallbackManager? = null
     var loginManager: LoginManager? = null
+    lateinit var lineApiClient: LineApiClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +49,8 @@ class LoginActivity : BaseAppCompatActivity() {
             setLogger("網路無開啟！！")
             return
         }
+        val apiClientBuilder = LineApiClientBuilder(applicationContext, Constants.CHANNEL_ID)
+        lineApiClient = apiClientBuilder.build()
         FacebookManager.fbLogin(this,mFbLoginBtn,callbackManager)
 
     }
@@ -70,9 +78,12 @@ class LoginActivity : BaseAppCompatActivity() {
                 Log.d("msg", result.lineProfile?.userId)
 //                Log.d("msg", result.lineProfile?.pictureUrl.toString())
 //                Log.d("msg", result.lineProfile?.displayName)
+                MySharedPrefernces.saveUserLoginState(this,2)
                 MySharedPrefernces.saveUserId(this,result.lineProfile?.userId)
                 MySharedPrefernces.saveUserName(this, result.lineProfile?.displayName)
                 MySharedPrefernces.saveUserPhoto(this, result.lineProfile?.pictureUrl.toString())
+                LogoutTask().execute()
+                this.finish()
 
             }
 
@@ -95,5 +106,24 @@ class LoginActivity : BaseAppCompatActivity() {
 
     }
 
+    inner class LogoutTask : AsyncTask<Void, Void, LineApiResponse<*>>() {
 
+        override fun onPreExecute() {
+        }
+
+        override fun doInBackground(vararg params: Void): LineApiResponse<*> {
+            return lineApiClient.logout()
+        }
+
+        override fun onPostExecute(apiResponse: LineApiResponse<*>) {
+
+            if (apiResponse.isSuccess) {
+                Toast.makeText(applicationContext, "Logout Successful", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(applicationContext, "Logout Failed", Toast.LENGTH_SHORT).show()
+                Log.e("TAG", "Logout Failed: " + apiResponse.errorData.toString())
+            }
+        }
+
+    }
 }
