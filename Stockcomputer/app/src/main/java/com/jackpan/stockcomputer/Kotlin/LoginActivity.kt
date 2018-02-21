@@ -18,6 +18,7 @@ import com.jackpan.stockcomputer.LineLogin.Constants
 import com.jackpan.stockcomputer.LineLogin.PostLoginActivity
 import com.jackpan.stockcomputer.Manager.FacebookManager
 import com.jackpan.stockcomputer.Manager.LineLoginManager.REQUEST_CODE
+import com.jackpan.stockcomputer.MySharedPrefernces
 import com.jackpan.stockcomputer.R
 import com.linecorp.linesdk.LineApiResponseCode
 import com.linecorp.linesdk.auth.LineLoginApi
@@ -27,8 +28,6 @@ class LoginActivity : BaseAppCompatActivity() {
     lateinit var mFbLoginBtn : LoginButton
     @BindView(R.id.login_button)
     lateinit var mLoginButton: TextView
-    @BindView(R.id.browser_login_button)
-    lateinit var mBrowserLoginButton :TextView
     var callbackManager: CallbackManager? = null
     var loginManager: LoginManager? = null
 
@@ -65,9 +64,16 @@ class LoginActivity : BaseAppCompatActivity() {
             LineApiResponseCode.SUCCESS -> {
 
                 val transitionIntent = Intent(this, PostLoginActivity::class.java)
-                transitionIntent.putExtra("line_profile", result.lineProfile)
-                transitionIntent.putExtra("line_credential", result.lineCredential)
-                startActivity(transitionIntent)
+//                transitionIntent.putExtra("line_profile", result.lineProfile)
+//                transitionIntent.putExtra("line_credential", result.lineCredential)
+//                startActivity(transitionIntent)
+//                Log.d("msg", result.lineProfile?.userId)
+//                Log.d("msg", result.lineProfile?.pictureUrl.toString())
+//                Log.d("msg", result.lineProfile?.displayName)
+                MySharedPrefernces.saveUserId(this,result.lineProfile?.userId)
+                MySharedPrefernces.saveUserName(this, result.lineProfile?.displayName)
+                MySharedPrefernces.saveUserPhoto(this, result.lineProfile?.pictureUrl.toString())
+
             }
 
             LineApiResponseCode.CANCEL -> Log.e("ERROR", "LINE Login Canceled by user!!")
@@ -84,17 +90,6 @@ class LoginActivity : BaseAppCompatActivity() {
         try {
             val LoginIntent = LineLoginApi.getLoginIntent(this, Constants.CHANNEL_ID)
             startActivityForResult(LoginIntent, REQUEST_CODE)
-        }catch (e:Exception){
-
-        }
-
-    }
-    @OnClick(R.id.browser_login_button)
-    fun setBrowserLoginButton(){
-        try {
-            val LoginIntent = LineLoginApi.getLoginIntentWithoutLineAppAuth(this, Constants.CHANNEL_ID)
-            startActivityForResult(LoginIntent, REQUEST_CODE)
-
         }catch (e:Exception){
 
         }

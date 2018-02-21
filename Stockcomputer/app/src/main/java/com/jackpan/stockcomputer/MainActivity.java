@@ -37,6 +37,7 @@ import com.jackpan.stockcomputer.Data.MemberData;
 import com.jackpan.stockcomputer.Data.MyApi;
 import com.jackpan.stockcomputer.Data.NewsData;
 import com.jackpan.stockcomputer.Kotlin.BuyAndSellActivity;
+import com.jackpan.stockcomputer.Kotlin.LoginActivity;
 import com.jackpan.stockcomputer.Kotlin.NewDetailActivity;
 import com.jackpan.stockcomputer.Kotlin.QueryStockPriceActivity;
 import com.jackpan.stockcomputer.Kotlin.StockValueAddedRateActivity;
@@ -196,11 +197,12 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     @OnClick(R.id.nav_share)
     public void shareTo(){
         MyApi.shareTo(context);
-        
+
     }
 
     @OnClick(R.id.loginbutton)
     public  void setLoginActivity(){
+        startActivity(LoginActivity.class);
 
     }
 
