@@ -18,6 +18,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -51,7 +52,7 @@ public class FacebookManager {
         mFbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                handleFacebookAccessToken(context,loginResult.getAccessToken());
+//                handleFacebookAccessToken(context,loginResult.getAccessToken());
 //                setUsetProfile();
                 GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
 
@@ -60,6 +61,9 @@ public class FacebookManager {
                         Log.d("LoginActivity", object.toString());
                         // Get facebook data from login
                         Bundle bFacebookData = getFacebookData(context,object);
+                        LoginManager.getInstance().logOut();
+                        ((Activity)context).finish();
+
                     }
                 });
                 Bundle parameters = new Bundle();
@@ -81,6 +85,7 @@ public class FacebookManager {
             }
 
         });
+
 
     }
 
