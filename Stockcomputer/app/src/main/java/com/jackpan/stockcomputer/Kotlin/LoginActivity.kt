@@ -67,7 +67,7 @@ class LoginActivity : BaseAppCompatActivity() {
 //                transitionIntent.putExtra("line_profile", result.lineProfile)
 //                transitionIntent.putExtra("line_credential", result.lineCredential)
 //                startActivity(transitionIntent)
-//                Log.d("msg", result.lineProfile?.userId)
+                Log.d("msg", result.lineProfile?.userId)
 //                Log.d("msg", result.lineProfile?.pictureUrl.toString())
 //                Log.d("msg", result.lineProfile?.displayName)
                 MySharedPrefernces.saveUserId(this,result.lineProfile?.userId)
@@ -91,7 +91,6 @@ class LoginActivity : BaseAppCompatActivity() {
             val LoginIntent = LineLoginApi.getLoginIntent(this, Constants.CHANNEL_ID)
             startActivityForResult(LoginIntent, REQUEST_CODE)
         }catch (e:Exception){
-
         }
 
     }

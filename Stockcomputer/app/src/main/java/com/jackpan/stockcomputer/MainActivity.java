@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -42,7 +43,6 @@ import com.jackpan.stockcomputer.Kotlin.NewDetailActivity;
 import com.jackpan.stockcomputer.Kotlin.QueryStockPriceActivity;
 import com.jackpan.stockcomputer.Kotlin.StockValueAddedRateActivity;
 import com.jackpan.stockcomputer.Kotlin.ZeroStockActivity;
-import com.jackpan.stockcomputer.Manager.FacebookManager;
 import com.vpadn.ads.VpadnAdRequest;
 import com.vpadn.ads.VpadnAdSize;
 import com.vpadn.ads.VpadnBanner;
@@ -105,6 +105,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     @BindView(R.id.adViewContainer)
     RelativeLayout adViewContainer;
     private  com.facebook.ads.AdView mFbAdView;
+    @BindView(R.id.loginbutton)
+    Button mLoginButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -191,7 +193,15 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     @Override
     protected void onResume() {
         super.onResume();
-        FacebookManager.checkFbState(context,mFbImageView,mUserIdTextView,mUserAccountTextView);
+//        FacebookManager.checkFbState(context,mFbImageView,mUserIdTextView,mUserAccountTextView);
+        String id = MySharedPrefernces.getUserId(context);
+        Log.d(TAG, "onResume: "+id);
+        if(!id.equals("")){
+            mLoginButton.setText("已登入");
+        }else {
+            mLoginButton.setText("登入");
+
+        }
     }
 
     @OnClick(R.id.nav_share)
@@ -201,8 +211,16 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     }
 
     @OnClick(R.id.loginbutton)
-    public  void setLoginActivity(){
-        startActivity(LoginActivity.class);
+    public  void setLoginActivity(View v){
+        String id = MySharedPrefernces.getUserId(context);
+        if(!id.equals("")){
+
+        }else {
+
+            startActivity(LoginActivity.class);
+
+        }
+
 
     }
 
