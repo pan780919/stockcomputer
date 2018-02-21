@@ -2,6 +2,7 @@ package com.jackpan.stockcomputer.Data;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -135,5 +136,16 @@ public class MyApi {
         Log.d(TAG, "run: "+stringArray[1].replace("'",""));
 
     }
+
+
+    public static void shareTo(Context context) {
+        String body ="https://play.google.com/store/apps/details?id=com.jackpan.stockcomputer";
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "分享本程式");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, body);
+        context.startActivity(Intent.createChooser(sharingIntent, "分享本程式"));
+    }
+
 
 }

@@ -193,6 +193,12 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         FacebookManager.checkFbState(context,mFbImageView,mUserIdTextView,mUserAccountTextView);
     }
 
+    @OnClick(R.id.nav_share)
+    public void shareTo(){
+        MyApi.shareTo(context);
+        
+    }
+
     @OnClick(R.id.loginbutton)
     public  void setLoginActivity(){
 
