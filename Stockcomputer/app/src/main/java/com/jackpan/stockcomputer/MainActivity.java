@@ -169,11 +169,9 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             public void onRewarded(RewardItem reward) {
 
                 // Reward the user.
-                Log.d(TAG, "onRewarded: "+ reward.getType());
                 Log.d(TAG, "onRewarded: "+ "  amount: " +
                         reward.getAmount());
-                Log.d(TAG, "onRewarded: "+ reward.getType() + "  amount: " +
-                        reward.getAmount());
+
             }
 
             @Override
