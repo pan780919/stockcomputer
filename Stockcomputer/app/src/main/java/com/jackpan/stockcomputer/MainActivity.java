@@ -29,6 +29,7 @@ import com.facebook.messenger.MessengerUtils;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.gson.Gson;
 import com.jackpan.libs.mfirebaselib.MfiebaselibsClass;
 import com.jackpan.libs.mfirebaselib.MfirebaeCallback;
 import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity;
@@ -160,6 +161,22 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     }
     /**
+     * 設定 基本會員中心資料
+     */
+    private void setMemberData(String Key, String name,
+                               String photo) {
+        HashMap<String, String> memberMap = new HashMap<>();
+        memberMap.put(MemberData.KEY_ID, Key);
+        memberMap.put(MemberData.KEY_NAME, name);
+        memberMap.put(MemberData.KEY_PHOTO, photo);
+        memberMap.put(MemberData.KEY_POINT,"100");
+        memberMap.put(MemberData.KEY_MEMBERLV,MemberData.MEMBER_LV_1);
+        mfiebaselibsClass.setFireBaseDB(MemberData.KEY_URL, Key, memberMap);
+
+
+
+    }
+    /**
      * 設定 會員中心資料
      */
 
@@ -205,6 +222,9 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
         }
         String id = MySharedPrefernces.getUserId(context);
+        String name = MySharedPrefernces.getUserName(context);
+        String photo = MySharedPrefernces.getUserPhoto(context);
+        setMemberData(id,name,photo);
         Log.d(TAG, "onResume: "+id);
         if(!id.equals("")){
             mLoginButton.setText("已登入");
@@ -215,6 +235,9 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             mUserIdTextView.setText("");
 
         }
+        Log.d(TAG, "onResume: "+MemberData.KEY_URL+"/"+id);
+        mfiebaselibsClass.getFirebaseDatabase(MemberData.KEY_URL+"/"+id,id);
+
     }
 
     @OnClick(R.id.nav_share)
@@ -721,6 +744,9 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     @Override
     public void getDatabaseData(Object o) {
+        Gson gson = new Gson();
+        String s = gson.toJson(o);
+        Log.d(TAG, "firebasedata: "+s);
 
     }
 
@@ -758,6 +784,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     @Override
     public void getFireBaseDBState(boolean b, String s) {
+        Log.d(TAG, "getFireBaseDBState: "+s);
 
     }
 
