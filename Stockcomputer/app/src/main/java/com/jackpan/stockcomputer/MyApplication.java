@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Intent;
 
 import com.adlocus.PushAd;
+import com.firebase.client.Firebase;
 import com.jackpan.stockcomputer.Data.MyApi;
 
 //import com.adlocus.PushAd;
@@ -18,6 +19,8 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         myApplication = this;
+        Firebase.setAndroidContext(this);
+
         Intent promotionIntent = new Intent(this, MainActivity.class);
         PushAd.enablePush(this, MyApi.AdLocusKey, promotionIntent );
         MyApi.getKeyHash(myApplication);
