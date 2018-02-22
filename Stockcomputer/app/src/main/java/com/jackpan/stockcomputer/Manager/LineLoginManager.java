@@ -4,7 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.jackpan.stockcomputer.Data.MyApi;
+import com.jackpan.stockcomputer.MySharedPrefernces;
 import com.linecorp.linesdk.auth.LineLoginApi;
 import com.linecorp.linesdk.auth.LineLoginResult;
 
@@ -56,6 +60,25 @@ public class LineLoginManager {
 
     }
 
+    public  static  void checkState(Context context , ImageView mFbImageView, TextView mUserIdTextView, TextView mUserAccountTextView){
+        String id = MySharedPrefernces.getUserId(context);
+        String name = MySharedPrefernces.getUserName(context);
+        String photo = MySharedPrefernces.getUserPhoto(context);
+        if(!id.equals("")){
+            mUserIdTextView.setText(id);
+        }
+        if(!name.equals("")){
+
+            mUserAccountTextView.setText(name);
+        }
+        if(!photo.equals("")){
+            MyApi.loadImage(photo,mFbImageView,context);
+        }
+
+
+
+
+    }
 
 
 

@@ -39,10 +39,13 @@ import com.jackpan.stockcomputer.Data.MyApi;
 import com.jackpan.stockcomputer.Data.NewsData;
 import com.jackpan.stockcomputer.Kotlin.BuyAndSellActivity;
 import com.jackpan.stockcomputer.Kotlin.LoginActivity;
+import com.jackpan.stockcomputer.Kotlin.MemberCenterActivity;
 import com.jackpan.stockcomputer.Kotlin.NewDetailActivity;
 import com.jackpan.stockcomputer.Kotlin.QueryStockPriceActivity;
 import com.jackpan.stockcomputer.Kotlin.StockValueAddedRateActivity;
 import com.jackpan.stockcomputer.Kotlin.ZeroStockActivity;
+import com.jackpan.stockcomputer.Manager.FacebookManager;
+import com.jackpan.stockcomputer.Manager.LineLoginManager;
 import com.vpadn.ads.VpadnAdRequest;
 import com.vpadn.ads.VpadnAdSize;
 import com.vpadn.ads.VpadnBanner;
@@ -193,13 +196,23 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     @Override
     protected void onResume() {
         super.onResume();
-//        FacebookManager.checkFbState(context,mFbImageView,mUserIdTextView,mUserAccountTextView);
+        int state = MySharedPrefernces.getUserLoginState(context);
+        if(state==1){
+            FacebookManager.checkFbState(context,mFbImageView,mUserIdTextView,mUserAccountTextView);
+
+        }else if(state==2){
+            LineLoginManager.checkState(context,mFbImageView,mUserIdTextView,mUserAccountTextView);
+
+        }
         String id = MySharedPrefernces.getUserId(context);
         Log.d(TAG, "onResume: "+id);
         if(!id.equals("")){
             mLoginButton.setText("已登入");
         }else {
             mLoginButton.setText("登入");
+            mFbImageView.setImageDrawable(null);
+            mUserAccountTextView.setText("");
+            mUserIdTextView.setText("");
 
         }
     }
@@ -214,7 +227,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     public  void setLoginActivity(View v){
         String id = MySharedPrefernces.getUserId(context);
         if(!id.equals("")){
-
+                startActivity(MemberCenterActivity.class);
         }else {
 
             startActivity(LoginActivity.class);
