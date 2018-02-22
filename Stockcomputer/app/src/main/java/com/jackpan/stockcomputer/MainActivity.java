@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.adbert.AdbertLoopADView;
 import com.adbert.AdbertOrientation;
@@ -29,6 +30,10 @@ import com.facebook.messenger.MessengerUtils;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.gson.Gson;
 import com.jackpan.libs.mfirebaselib.MfiebaselibsClass;
 import com.jackpan.libs.mfirebaselib.MfirebaeCallback;
@@ -79,6 +84,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     private static final int LOGINSTATE = 0 ;
 
+    private RewardedVideoAd mRewardedVideoAd;
 
     private ArrayList<String> nextPage = new ArrayList<>();
     @BindView(R.id.toolbar)
@@ -150,7 +156,71 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //        setStockData();
 //        setWarningStock();
         getStockTime();
+        setRewardedVideoAd();
     }
+    private void setRewardedVideoAd(){
+        MobileAds.initialize(this,
+                "ca-app-pub-7019441527375550~1705354228");
+        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+        mRewardedVideoAd.loadAd("ca-app-pub-7019441527375550/1968113408",
+                new AdRequest.Builder().build());
+
+        mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
+            @Override
+            public void onRewarded(RewardItem reward) {
+                Toast.makeText(context, "onRewarded! currency: " + reward.getType() + "  amount: " +
+                        reward.getAmount(), Toast.LENGTH_SHORT).show();
+                // Reward the user.
+            }
+
+            @Override
+            public void onRewardedVideoAdLeftApplication() {
+                Toast.makeText(context, "onRewardedVideoAdLeftApplication",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRewardedVideoAdClosed() {
+                Toast.makeText(context, "onRewardedVideoAdClosed", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRewardedVideoAdFailedToLoad(int errorCode) {
+                Log.d(TAG, "onRewardedVideoAdFailedToLoad: "+errorCode);
+                Toast.makeText(context, "onRewardedVideoAdFailedToLoad", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRewardedVideoAdLoaded() {
+                Toast.makeText(context, "onRewardedVideoAdLoaded", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRewardedVideoAdOpened() {
+                Toast.makeText(context, "onRewardedVideoAdOpened", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRewardedVideoStarted() {
+                Toast.makeText(context, "onRewardedVideoStarted", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+
+    @Override
+    public void onPause() {
+        mRewardedVideoAd.pause(this);
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        mRewardedVideoAd.destroy(this);
+        super.onDestroy();
+    }
+
     private  void setmFbAdView(){
 
         adViewContainer = (RelativeLayout) findViewById(R.id.adViewContainer);
@@ -213,6 +283,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     @Override
     protected void onResume() {
         super.onResume();
+        mRewardedVideoAd.resume(this);
         int state = MySharedPrefernces.getUserLoginState(context);
         if(state==1){
             FacebookManager.checkFbState(context,mFbImageView,mUserIdTextView,mUserAccountTextView);
@@ -239,7 +310,12 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         mfiebaselibsClass.getFirebaseDatabase(MemberData.KEY_URL+"/"+id,id);
 
     }
-
+    @OnClick(R.id.fbImg)
+    public  void mRewardedVideoAdClick(){
+        if (mRewardedVideoAd.isLoaded()) {
+            mRewardedVideoAd.show();
+        }
+    }
     @OnClick(R.id.nav_share)
     public void shareTo(){
         MyApi.shareTo(context);
