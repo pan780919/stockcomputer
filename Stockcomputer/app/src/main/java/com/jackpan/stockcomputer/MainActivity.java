@@ -29,6 +29,10 @@ import com.facebook.messenger.MessengerUtils;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.gson.Gson;
 import com.jackpan.libs.mfirebaselib.MfiebaselibsClass;
 import com.jackpan.libs.mfirebaselib.MfirebaeCallback;
@@ -79,6 +83,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     private static final int LOGINSTATE = 0 ;
 
+    private RewardedVideoAd mRewardedVideoAd;
 
     private ArrayList<String> nextPage = new ArrayList<>();
     @BindView(R.id.toolbar)
@@ -150,7 +155,67 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //        setStockData();
 //        setWarningStock();
         getStockTime();
+        setRewardedVideoAd();
     }
+    private void setRewardedVideoAd(){
+        MobileAds.initialize(this,
+                "ca-app-pub-7019441527375550~1705354228");
+        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
+        mRewardedVideoAd.loadAd("ca-app-pub-7019441527375550/1968113408",
+                new AdRequest.Builder().build());
+
+        mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
+            @Override
+            public void onRewarded(RewardItem reward) {
+
+                // Reward the user.
+                Log.d(TAG, "onRewarded: "+ "  amount: " +
+                        reward.getAmount());
+
+            }
+
+            @Override
+            public void onRewardedVideoAdLeftApplication() {
+
+            }
+
+            @Override
+            public void onRewardedVideoAdClosed() {
+            }
+
+            @Override
+            public void onRewardedVideoAdFailedToLoad(int errorCode) {
+                Log.d(TAG, "onRewardedVideoAdFailedToLoad: "+errorCode);
+            }
+
+            @Override
+            public void onRewardedVideoAdLoaded() {
+            }
+
+            @Override
+            public void onRewardedVideoAdOpened() {
+            }
+
+            @Override
+            public void onRewardedVideoStarted() {
+            }
+        });
+
+    }
+
+
+    @Override
+    public void onPause() {
+        mRewardedVideoAd.pause(this);
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        mRewardedVideoAd.destroy(this);
+        super.onDestroy();
+    }
+
     private  void setmFbAdView(){
 
         adViewContainer = (RelativeLayout) findViewById(R.id.adViewContainer);
@@ -213,6 +278,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     @Override
     protected void onResume() {
         super.onResume();
+        mRewardedVideoAd.resume(this);
         int state = MySharedPrefernces.getUserLoginState(context);
         if(state==1){
             FacebookManager.checkFbState(context,mFbImageView,mUserIdTextView,mUserAccountTextView);
@@ -239,7 +305,12 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         mfiebaselibsClass.getFirebaseDatabase(MemberData.KEY_URL+"/"+id,id);
 
     }
-
+    @OnClick(R.id.fbImg)
+    public  void mRewardedVideoAdClick(){
+        if (mRewardedVideoAd.isLoaded()) {
+            mRewardedVideoAd.show();
+        }
+    }
     @OnClick(R.id.nav_share)
     public void shareTo(){
         MyApi.shareTo(context);
@@ -262,12 +333,17 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     @OnClick(R.id.nav_camera)
     public void setBuyAndSellActivity() {
+        if (!checkUserId(context)) {
+            return;
+        }
         startActivity(BuyAndSellActivity.class);
     }
 
     @OnClick(R.id.nav_stockprice)
     public void setStockPiceActiviy() {
-
+        if (!checkUserId(context)) {
+            return;
+        }
         startActivity(QueryStockPriceActivity.class);
 
     }
@@ -277,12 +353,24 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         if (!checkUserId(context)) {
             return;
         }
-        ;
+
         startActivity(new Intent(this, ProfitAndLossActvity.class));
     }
+    @OnClick(R.id.nav_member)
+    public void toMemberCenter(){
+        String id = MySharedPrefernces.getUserId(context);
+        if(!id.equals("")){
+            startActivity(MemberCenterActivity.class);
+        }else {
+            startActivity(LoginActivity.class);
 
+        }
+    }
     @OnClick(R.id.nav_stock_share)
     public void shareStockActivity() {
+        if (!checkUserId(context)) {
+            return;
+        }
         startActivity(ShareStockNumberActivity.class);
     }
 
@@ -293,6 +381,9 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     @OnClick(R.id.nav_calculate)
     public void calculateActivity() {
+        if (!checkUserId(context)) {
+            return;
+        }
         startActivity(CalculateActivity.class);
     }
 
@@ -303,11 +394,17 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //    }
     @OnClick(R.id.nav_price)
     public void setStockPriceActivity() {
+        if (!checkUserId(context)) {
+            return;
+        }
         startActivity(StockValueAddedRateActivity.class);
     }
 
     @OnClick(R.id.zerostock)
     public void zeroStockActivity() {
+        if (!checkUserId(context)) {
+            return;
+        }
         startActivity(ZeroStockActivity.class);
     }
 

@@ -6,6 +6,7 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
+import com.facebook.login.LoginManager
 import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity
 import com.jackpan.stockcomputer.Data.MyApi
 import com.jackpan.stockcomputer.MySharedPrefernces
@@ -64,6 +65,7 @@ class MemberCenterActivity : BaseAppCompatActivity() {
         MySharedPrefernces.saveUserName(this,"")
         MySharedPrefernces.saveUserMail(this,"")
         MySharedPrefernces.saveUserPhoto(this,"")
+        LoginManager.getInstance().logOut()
         finish()
 
 
