@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.adbert.AdbertLoopADView;
 import com.adbert.AdbertOrientation;
@@ -168,41 +167,39 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         mRewardedVideoAd.setRewardedVideoAdListener(new RewardedVideoAdListener() {
             @Override
             public void onRewarded(RewardItem reward) {
-                Toast.makeText(context, "onRewarded! currency: " + reward.getType() + "  amount: " +
-                        reward.getAmount(), Toast.LENGTH_SHORT).show();
+
                 // Reward the user.
+                Log.d(TAG, "onRewarded: "+ reward.getType());
+                Log.d(TAG, "onRewarded: "+ "  amount: " +
+                        reward.getAmount());
+                Log.d(TAG, "onRewarded: "+ reward.getType() + "  amount: " +
+                        reward.getAmount());
             }
 
             @Override
             public void onRewardedVideoAdLeftApplication() {
-                Toast.makeText(context, "onRewardedVideoAdLeftApplication",
-                        Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
             public void onRewardedVideoAdClosed() {
-                Toast.makeText(context, "onRewardedVideoAdClosed", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRewardedVideoAdFailedToLoad(int errorCode) {
                 Log.d(TAG, "onRewardedVideoAdFailedToLoad: "+errorCode);
-                Toast.makeText(context, "onRewardedVideoAdFailedToLoad", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRewardedVideoAdLoaded() {
-                Toast.makeText(context, "onRewardedVideoAdLoaded", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRewardedVideoAdOpened() {
-                Toast.makeText(context, "onRewardedVideoAdOpened", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRewardedVideoStarted() {
-                Toast.makeText(context, "onRewardedVideoStarted", Toast.LENGTH_SHORT).show();
             }
         });
 
