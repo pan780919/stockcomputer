@@ -18,7 +18,6 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -61,7 +60,7 @@ public class FacebookManager {
                         Log.d("LoginActivity", object.toString());
                         // Get facebook data from login
                         Bundle bFacebookData = getFacebookData(context,object);
-                        LoginManager.getInstance().logOut();
+//                        LoginManager.getInstance().logOut();
                         ((Activity)context).finish();
 
                     }
@@ -136,11 +135,15 @@ public class FacebookManager {
             mUserIdTextView.setText(id);
             MyApi.loadImage(String.valueOf(userPhoto), mFbImageView, context);
             MySharedPrefernces.saveUserId(context, id);
+            MySharedPrefernces.saveUserName(context,name);
+            MySharedPrefernces.saveUserPhoto(context,userPhoto.toString());
         } else {
             mFbImageView.setImageDrawable(null);
             mUserAccountTextView.setText("");
             mUserIdTextView.setText("");
             MySharedPrefernces.saveUserId(context, "");
+            MySharedPrefernces.saveUserName(context,"");
+            MySharedPrefernces.saveUserPhoto(context,"");
         }
 
     }

@@ -262,12 +262,17 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     @OnClick(R.id.nav_camera)
     public void setBuyAndSellActivity() {
+        if (!checkUserId(context)) {
+            return;
+        }
         startActivity(BuyAndSellActivity.class);
     }
 
     @OnClick(R.id.nav_stockprice)
     public void setStockPiceActiviy() {
-
+        if (!checkUserId(context)) {
+            return;
+        }
         startActivity(QueryStockPriceActivity.class);
 
     }
@@ -277,12 +282,24 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         if (!checkUserId(context)) {
             return;
         }
-        ;
+
         startActivity(new Intent(this, ProfitAndLossActvity.class));
     }
+    @OnClick(R.id.nav_member)
+    public void toMemberCenter(){
+        String id = MySharedPrefernces.getUserId(context);
+        if(!id.equals("")){
+            startActivity(MemberCenterActivity.class);
+        }else {
+            startActivity(LoginActivity.class);
 
+        }
+    }
     @OnClick(R.id.nav_stock_share)
     public void shareStockActivity() {
+        if (!checkUserId(context)) {
+            return;
+        }
         startActivity(ShareStockNumberActivity.class);
     }
 
@@ -293,6 +310,9 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     @OnClick(R.id.nav_calculate)
     public void calculateActivity() {
+        if (!checkUserId(context)) {
+            return;
+        }
         startActivity(CalculateActivity.class);
     }
 
@@ -303,11 +323,17 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //    }
     @OnClick(R.id.nav_price)
     public void setStockPriceActivity() {
+        if (!checkUserId(context)) {
+            return;
+        }
         startActivity(StockValueAddedRateActivity.class);
     }
 
     @OnClick(R.id.zerostock)
     public void zeroStockActivity() {
+        if (!checkUserId(context)) {
+            return;
+        }
         startActivity(ZeroStockActivity.class);
     }
 
