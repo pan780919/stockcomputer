@@ -136,11 +136,15 @@ public class FacebookManager {
             mUserIdTextView.setText(id);
             MyApi.loadImage(String.valueOf(userPhoto), mFbImageView, context);
             MySharedPrefernces.saveUserId(context, id);
+            MySharedPrefernces.saveUserName(context,name);
+            MySharedPrefernces.saveUserPhoto(context,userPhoto.toString());
         } else {
             mFbImageView.setImageDrawable(null);
             mUserAccountTextView.setText("");
             mUserIdTextView.setText("");
             MySharedPrefernces.saveUserId(context, "");
+            MySharedPrefernces.saveUserName(context,"");
+            MySharedPrefernces.saveUserPhoto(context,"");
         }
 
     }
