@@ -1,7 +1,5 @@
 package com.jackpan.stockcomputer.Data;
 
-import android.util.Log;
-
 public class StockPriceData {
     private static final String TAG = "StockPriceData";
     public String stockPriceDataArray;
@@ -16,7 +14,6 @@ public class StockPriceData {
     public String turnover;
 
     public void setStockPriceDataArray(String stockPriceDataArray) {
-        Log.d(TAG, "setStockPriceDataArray: " + stockPriceDataArray);
         this.stockPriceDataArray = stockPriceDataArray;
     }
 
@@ -27,15 +24,6 @@ public class StockPriceData {
 
     public void getSolitArrayData() {
         String[] arrayString = getStockPriceDataArray().split(" ");
-        Log.d(TAG, "getSolitArrayData: " + arrayString[0]);
-        Log.d(TAG, "getSolitArrayData: " + arrayString[1]);
-        Log.d(TAG, "getSolitArrayData: " + arrayString[2]);
-        Log.d(TAG, "getSolitArrayData: " + arrayString[3]);
-        Log.d(TAG, "getSolitArrayData: " + arrayString[4]);
-        Log.d(TAG, "getSolitArrayData: " + arrayString[5]);
-        Log.d(TAG, "getSolitArrayData: " + arrayString[6]);
-        Log.d(TAG, "getSolitArrayData: " + arrayString[7]);
-        Log.d(TAG, "getSolitArrayData: " + arrayString[8]);
         data = arrayString[0];
         deal = arrayString[1];
         money = arrayString[2];

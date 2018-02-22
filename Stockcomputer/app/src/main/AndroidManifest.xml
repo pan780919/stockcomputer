@@ -129,6 +129,11 @@
         <activity
             android:name=".util.Main2Activity"
             android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Kotlin.LoginActivity" />
+        <activity
+            android:name=".Kotlin.MemberCenterActivity"
+            android:label="@string/title_activity_member_center"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
