@@ -80,7 +80,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     private ArrayList<NewsData> newlist = new ArrayList<>();
     private MyAdapter mAdapter;
     private MfiebaselibsClass mfiebaselibsClass;
-    private ArrayList<String> memberList = new ArrayList<>();
+
     private static final int LOGINSTATE = 0 ;
 
     private RewardedVideoAd mRewardedVideoAd;
@@ -294,6 +294,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         Log.d(TAG, "onResume: "+id);
         if(!id.equals("")){
             mLoginButton.setText("已登入");
+            mfiebaselibsClass.getFirebaseDatabase(MemberData.KEY_URL+"/"+id,id);
+
         }else {
             mLoginButton.setText("登入");
             mFbImageView.setImageDrawable(null);
@@ -303,7 +305,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         }
         Log.d(TAG, "onResume: "+MemberData.KEY_URL+"/"+id);
         Log.d(TAG, "onResume: "+MemberData.KEY_URL);
-        mfiebaselibsClass.getFirebaseDatabase(MemberData.KEY_URL+"/"+id,id);
 
     }
     @OnClick(R.id.fbImg)
@@ -845,6 +846,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         Gson gson = new Gson();
         Log.d(TAG, "getDatabaseData: "+o);
         String s = gson.toJson(o);
+        ArrayList<String> memberList = new ArrayList<>();
         memberList.add(s);
 
 //        Log.d(TAG, "getDatabaseData: "+s);
@@ -856,6 +858,13 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //            MySharedPrefernces.saveUserPoint(context, Integer.parseInt(memberData.point));
 //
 //        }
+        Log.d(TAG, "getDatabaseData: "+memberList.size());
+        Log.d(TAG, "getDatabaseData: "+memberList.toString());
+//        Log.d(TAG, "getDatabaseData: "+memberList.get(0));
+//        Log.d(TAG, "getDatabaseData: "+memberList.get(1));
+//        Log.d(TAG, "getDatabaseData: "+memberList.get(2));
+//        Log.d(TAG, "getDatabaseData: "+memberList.get(3));
+//        Log.d(TAG, "getDatabaseData: "+memberList.get(4));
 
 
 
