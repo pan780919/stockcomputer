@@ -7,8 +7,6 @@ import com.adlocus.PushAd;
 import com.firebase.client.Firebase;
 import com.jackpan.stockcomputer.Data.MyApi;
 
-//import com.adlocus.PushAd;
-
 public class MyApplication extends Application {
     private static MyApplication myApplication;
     public static MyApplication getInstance() {
