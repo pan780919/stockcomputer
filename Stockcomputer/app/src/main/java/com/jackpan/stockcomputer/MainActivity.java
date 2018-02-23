@@ -844,6 +844,14 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         Gson gson = new Gson();
         String s = gson.toJson(o);
         Log.d(TAG, "firebasedata: "+s);
+        MemberData memberData = gson.fromJson(s,MemberData.class);
+        if(memberData!=null){
+            MySharedPrefernces.saveUserId(context,memberData.id);
+            MySharedPrefernces.saveUserPhoto(context,memberData.photo);
+            MySharedPrefernces.saveUserName(context,memberData.name);
+            MySharedPrefernces.saveUserPoint(context, Integer.parseInt(memberData.point));
+
+        }
 
     }
 

@@ -168,7 +168,7 @@ public class InAppBillingActivity extends Activity {
 
                                 break;
                             case 1:
-                                ShowBuyDilog(inventory.getSkuDetails(DONAYE_150).getTitle(), inventory.getSkuDetails(DONAYE_150).getDescription(), inventory.getSkuDetails(DONAYE_300).getPrice(), DONAYE_150);
+                                ShowBuyDilog(inventory.getSkuDetails(DONAYE_150).getTitle(), inventory.getSkuDetails(DONAYE_150).getDescription(), inventory.getSkuDetails(DONAYE_150).getPrice(), DONAYE_150);
 
                                 break;
                             case 2:
@@ -234,12 +234,12 @@ public class InAppBillingActivity extends Activity {
                 case 1:
                     Toast.makeText(getApplicationContext(), requestCode + "", Toast.LENGTH_SHORT).show();
                     break;
-//                case 2:
-//                    Toast.makeText(getApplicationContext(), requestCode + "", Toast.LENGTH_SHORT).show();
-//                    break;
-//                case 3:
-//                    Toast.makeText(getApplicationContext(), requestCode + "", Toast.LENGTH_SHORT).show();
-//                    break;
+                case 2:
+                    Toast.makeText(getApplicationContext(), requestCode + "", Toast.LENGTH_SHORT).show();
+                    break;
+                case 3:
+                    Toast.makeText(getApplicationContext(), requestCode + "", Toast.LENGTH_SHORT).show();
+                    break;
 //                case 4:
 //                    Toast.makeText(getApplicationContext(), requestCode + "", Toast.LENGTH_SHORT).show();
 //                    break;
@@ -276,9 +276,9 @@ public class InAppBillingActivity extends Activity {
 
                                                List additionalSkuList = new ArrayList();
                                                additionalSkuList.add(DONAYE_30);
+                                               additionalSkuList.add(DONAYE_150);
                                                additionalSkuList.add(DONAYE_300);
-//                                               additionalSkuList.add(ITEM_SPONSOR_MONth);
-//                                               additionalSkuList.add(ITEM_SPONSOR_YEARS);
+                                               additionalSkuList.add(DONAYE_MONTH_300);
 //                                               additionalSkuList.add(ITEM_MY_VIP);
 //                                               additionalSkuList.add(ITEM_1000);
 //                                               additionalSkuList.add(ITEM_100);
