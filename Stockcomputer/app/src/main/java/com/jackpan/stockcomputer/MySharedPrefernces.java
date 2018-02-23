@@ -82,12 +82,23 @@ public class MySharedPrefernces {
         return sp.getInt(KEY_USER_LOGIN_STATE,0);
     }
 
+    public static final String KEY_USER_POINT= "userpoint";
+
+    public static  void saveUserPoint(Context context,int point){
+        SharedPreferences sp = context.getSharedPreferences(NAME, Activity.MODE_PRIVATE);
+        sp.edit().putInt(KEY_USER_POINT, point).apply();
+    }
+
+    public static int getUserPoint(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(NAME, Activity.MODE_PRIVATE);
+        return sp.getInt(KEY_USER_POINT,0);
+    }
+
     public static final String KEY_USER_Lv= "userlv";
     public static  void saveUserlv(Context context,String lv){
         SharedPreferences sp = context.getSharedPreferences(NAME, Activity.MODE_PRIVATE);
         sp.edit().putString(KEY_USER_Lv, lv).apply();
     }
-
     public static String getUserlv(Context context) {
         SharedPreferences sp = context.getSharedPreferences(NAME, Activity.MODE_PRIVATE);
         return sp.getString(KEY_USER_Lv, MemberData.MEMBER_LV_1);
