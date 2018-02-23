@@ -87,9 +87,9 @@ public class InAppBillingActivity extends Activity {
                 showDilog();
                 MySharedPrefernces.saveIsBuyed(InAppBillingActivity.this, true);
 
-            } else if (purchase.getSku().equals(DONAYE_150)) {
-                showDilog();
-                MySharedPrefernces.saveIsBuyed(InAppBillingActivity.this, true);
+//            } else if (purchase.getSku().equals(DONAYE_150)) {
+//                showDilog();
+//                MySharedPrefernces.saveIsBuyed(InAppBillingActivity.this, true);
 
             } else if (purchase.getSku().equals(DONAYE_MONTH_300)) {
                 showDilog();
@@ -122,7 +122,7 @@ public class InAppBillingActivity extends Activity {
 
 
     // 詢問 可以購買名單
-
+    private static final String TAG = "InAppBillingActivity";
     IabHelper.QueryInventoryFinishedListener mReceivedInventoryListener
             = new IabHelper.QueryInventoryFinishedListener() {
         public void onQueryInventoryFinished(IabResult result,
@@ -134,22 +134,32 @@ public class InAppBillingActivity extends Activity {
             } else {
 //
 //
+
                 mListView = (ListView) findViewById(R.id.buyList);
+                String myfree = "";
+                String month = "";
+                String years = "";
+                if( inventory.getSkuDetails(DONAYE_30).getTitle()!=null){
+                    myfree =
+                            inventory.getSkuDetails(DONAYE_30).getTitle();
 
+                }
+                if(inventory.getSkuDetails(DONAYE_300).getTitle()!=null){
+                    month =
+                            inventory.getSkuDetails(DONAYE_300).getTitle();
+                }
 
-                String myfree =
-                        inventory.getSkuDetails(DONAYE_30).getTitle();
-                String other = inventory.getSkuDetails(DONAYE_150).getTitle();
+                if(inventory.getSkuDetails(DONAYE_MONTH_300).getTitle()!=null){
+                    years = inventory.getSkuDetails(DONAYE_MONTH_300).getTitle();
 
-                String month =
-                        inventory.getSkuDetails(DONAYE_300).getTitle();
-                String years = inventory.getSkuDetails(DONAYE_MONTH_300).getTitle();
+                }
+//                String other = inventory.getSkuDetails(DONAYE_150).getTitle();
 //                String vip = inventory.getSkuDetails(ITEM_MY_VIP).getTitle();
 //                String vip_1000 = inventory.getSkuDetails(ITEM_1000).getTitle();
 //                String vip_100 = inventory.getSkuDetails(ITEM_100).getTitle();
                 ArrayList<String> mylist = new ArrayList<>();
                 mylist.add(myfree);
-                mylist.add(other);
+//                mylist.add(other);
                 mylist.add(month);
                 mylist.add(years);
 //                mylist.add(vip);
@@ -167,14 +177,14 @@ public class InAppBillingActivity extends Activity {
                                 ShowBuyDilog(inventory.getSkuDetails(DONAYE_30).getTitle(), inventory.getSkuDetails(DONAYE_30).getDescription(), inventory.getSkuDetails(DONAYE_30).getPrice(), DONAYE_30);
 
                                 break;
+//                            case 1:
+//                                ShowBuyDilog(inventory.getSkuDetails(DONAYE_150).getTitle(), inventory.getSkuDetails(DONAYE_150).getDescription(), inventory.getSkuDetails(DONAYE_150).getPrice(), DONAYE_150);
+//
+//                                break;
                             case 1:
-                                ShowBuyDilog(inventory.getSkuDetails(DONAYE_150).getTitle(), inventory.getSkuDetails(DONAYE_150).getDescription(), inventory.getSkuDetails(DONAYE_150).getPrice(), DONAYE_150);
-
-                                break;
-                            case 2:
                                 ShowBuyDilog(inventory.getSkuDetails(DONAYE_300).getTitle(), inventory.getSkuDetails(DONAYE_300).getDescription(), inventory.getSkuDetails(DONAYE_300).getPrice(), DONAYE_300);
                                 break;
-                            case 3:
+                            case 2:
                                 ShowBuyDilog(inventory.getSkuDetails(DONAYE_MONTH_300).getTitle(), inventory.getSkuDetails(DONAYE_MONTH_300).getDescription(), inventory.getSkuDetails(DONAYE_MONTH_300).getPrice(),DONAYE_MONTH_300);
                                 break;
 //                            case 4:
@@ -276,7 +286,7 @@ public class InAppBillingActivity extends Activity {
 
                                                List additionalSkuList = new ArrayList();
                                                additionalSkuList.add(DONAYE_30);
-                                               additionalSkuList.add(DONAYE_150);
+//                                               additionalSkuList.add(DONAYE_150);
                                                additionalSkuList.add(DONAYE_300);
                                                additionalSkuList.add(DONAYE_MONTH_300);
 //                                               additionalSkuList.add(ITEM_MY_VIP);

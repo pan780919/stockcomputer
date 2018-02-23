@@ -80,7 +80,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     private ArrayList<NewsData> newlist = new ArrayList<>();
     private MyAdapter mAdapter;
     private MfiebaselibsClass mfiebaselibsClass;
-
+    private ArrayList<String> memberList = new ArrayList<>();
     private static final int LOGINSTATE = 0 ;
 
     private RewardedVideoAd mRewardedVideoAd;
@@ -302,6 +302,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
         }
         Log.d(TAG, "onResume: "+MemberData.KEY_URL+"/"+id);
+        Log.d(TAG, "onResume: "+MemberData.KEY_URL);
         mfiebaselibsClass.getFirebaseDatabase(MemberData.KEY_URL+"/"+id,id);
 
     }
@@ -842,16 +843,21 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     @Override
     public void getDatabaseData(Object o) {
         Gson gson = new Gson();
+        Log.d(TAG, "getDatabaseData: "+o);
         String s = gson.toJson(o);
-        Log.d(TAG, "firebasedata: "+s);
-        MemberData memberData = gson.fromJson(s,MemberData.class);
-        if(memberData!=null){
-            MySharedPrefernces.saveUserId(context,memberData.id);
-            MySharedPrefernces.saveUserPhoto(context,memberData.photo);
-            MySharedPrefernces.saveUserName(context,memberData.name);
-            MySharedPrefernces.saveUserPoint(context, Integer.parseInt(memberData.point));
+        memberList.add(s);
 
-        }
+//        Log.d(TAG, "getDatabaseData: "+s);
+//        MemberData memberData = gson.fromJson(s,MemberData.class);
+//        if(memberData!=null){
+//            MySharedPrefernces.saveUserId(context,memberData.id);
+//            MySharedPrefernces.saveUserPhoto(context,memberData.photo);
+//            MySharedPrefernces.saveUserName(context,memberData.name);
+//            MySharedPrefernces.saveUserPoint(context, Integer.parseInt(memberData.point));
+//
+//        }
+
+
 
     }
 

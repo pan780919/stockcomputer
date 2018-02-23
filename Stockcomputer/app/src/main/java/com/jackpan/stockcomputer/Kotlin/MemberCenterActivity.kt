@@ -43,6 +43,7 @@ class MemberCenterActivity : BaseAppCompatActivity() {
         var userName: String = MySharedPrefernces.getUserName(this)
         var userPoint: Int = MySharedPrefernces.getUserPoint(this)
         var userPhoto: String = MySharedPrefernces.getUserPhoto(this)
+        var userLv :String = MySharedPrefernces.getUserlv(this)
 
         if (!userId.equals("")){
             mUserIdTextView.text = userId
