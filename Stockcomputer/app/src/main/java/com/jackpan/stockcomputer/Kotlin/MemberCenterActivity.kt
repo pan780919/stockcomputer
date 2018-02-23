@@ -20,7 +20,7 @@ class MemberCenterActivity : BaseAppCompatActivity() {
     lateinit var mUserIdTextView: TextView
     @BindView(R.id.username)
     lateinit var mUserNameTextView: TextView
-    @BindView(R.id.usermail)
+    @BindView(R.id.userpoint)
     lateinit var mUserMailTextView: TextView
     @BindView(R.id.userlv)
     lateinit var mUserLVTextView: TextView

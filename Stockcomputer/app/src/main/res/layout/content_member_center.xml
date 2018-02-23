@@ -58,23 +58,6 @@
                 android:text="Name"
                 android:layout_marginLeft="20dp"
                 ></TextView>
-            <TextView
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text="會員Email:"
-                android:layout_marginLeft="20dp"
-                ></TextView>
-            <TextView
-                android:id="@+id/usermail"
-                android:layout_marginTop="4dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text="Email"
-                android:layout_marginLeft="20dp"
-                ></TextView>
 
             <TextView
                 android:layout_marginLeft="20dp"
@@ -94,6 +77,25 @@
                 android:textSize="20dp"
                 android:text="Lv"
                 ></TextView>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="會員點數:"
+                android:layout_marginLeft="20dp"
+                ></TextView>
+            <TextView
+                android:id="@+id/userpoint"
+                android:layout_marginTop="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="Email"
+                android:layout_marginLeft="20dp"
+                ></TextView>
+
             <Button
                 android:layout_marginLeft="20dp"
                 android:id="@+id/userlogoutbtn"
