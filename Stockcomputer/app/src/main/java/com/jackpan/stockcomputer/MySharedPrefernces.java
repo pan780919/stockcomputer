@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.jackpan.stockcomputer.Data.MemberData;
+
 /**
  * Created by HYXEN20141227 on 2016/6/20.
  */
@@ -80,5 +82,14 @@ public class MySharedPrefernces {
         return sp.getInt(KEY_USER_LOGIN_STATE,0);
     }
 
+    public static final String KEY_USER_Lv= "userlv";
+    public static  void saveUserlv(Context context,String lv){
+        SharedPreferences sp = context.getSharedPreferences(NAME, Activity.MODE_PRIVATE);
+        sp.edit().putString(KEY_USER_Lv, lv).apply();
+    }
 
+    public static String getUserlv(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(NAME, Activity.MODE_PRIVATE);
+        return sp.getString(KEY_USER_Lv, MemberData.MEMBER_LV_1);
+    }
 }
