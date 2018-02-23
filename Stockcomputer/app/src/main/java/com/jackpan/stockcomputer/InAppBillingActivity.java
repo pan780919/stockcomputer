@@ -132,24 +132,21 @@ public class InAppBillingActivity extends Activity {
                 // Handle failure
                 return;
             } else {
-//
-//
-
                 mListView = (ListView) findViewById(R.id.buyList);
                 String myfree = "";
                 String month = "";
                 String years = "";
-                if( inventory.getSkuDetails(DONAYE_30).getTitle()!=null){
+                if(inventory.getSkuDetails(DONAYE_30)!=null){
                     myfree =
                             inventory.getSkuDetails(DONAYE_30).getTitle();
 
                 }
-                if(inventory.getSkuDetails(DONAYE_300).getTitle()!=null){
+                if(inventory.getSkuDetails(DONAYE_300)!=null){
                     month =
                             inventory.getSkuDetails(DONAYE_300).getTitle();
                 }
 
-                if(inventory.getSkuDetails(DONAYE_MONTH_300).getTitle()!=null){
+                if(inventory.getSkuDetails(DONAYE_MONTH_300)!=null){
                     years = inventory.getSkuDetails(DONAYE_MONTH_300).getTitle();
 
                 }
@@ -283,10 +280,8 @@ public class InAppBillingActivity extends Activity {
 
                                            } else {
 
-
                                                List additionalSkuList = new ArrayList();
                                                additionalSkuList.add(DONAYE_30);
-//                                               additionalSkuList.add(DONAYE_150);
                                                additionalSkuList.add(DONAYE_300);
                                                additionalSkuList.add(DONAYE_MONTH_300);
 //                                               additionalSkuList.add(ITEM_MY_VIP);
