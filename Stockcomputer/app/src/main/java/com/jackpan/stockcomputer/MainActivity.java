@@ -851,27 +851,14 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     @Override
     public void getDatabaseData(Object o) {
         Gson gson = new Gson();
-        Log.d(TAG, "getDatabaseData: " + o);
         String s = gson.toJson(o);
         memberList.add(s);
-
-//        Log.d(TAG, "getDatabaseData: "+s);
-//        MemberData memberData = gson.fromJson(s,MemberData.class);
-//        if(memberData!=null){
-//            MySharedPrefernces.saveUserId(context,memberData.id);
-//            MySharedPrefernces.saveUserPhoto(context,memberData.photo);
-//            MySharedPrefernces.saveUserName(context,memberData.name);
-//            MySharedPrefernces.saveUserPoint(context, Integer.parseInt(memberData.point));
-//
-//        }
-        Log.d(TAG, "getDatabaseData: " + memberList.size());
-        Log.d(TAG, "getDatabaseData: " + memberList.toString());
         if (memberList.size() >= 5) {
-            Log.d(TAG, "getDatabaseData: " + memberList.get(0));
-            Log.d(TAG, "getDatabaseData: " + memberList.get(1));
-            Log.d(TAG, "getDatabaseData: " + memberList.get(2));
-            Log.d(TAG, "getDatabaseData: " + memberList.get(3));
-            Log.d(TAG, "getDatabaseData: " + memberList.get(4));
+            MySharedPrefernces.saveUserId(context,memberList.get(0));
+            MySharedPrefernces.saveUserlv(context,memberList.get(1));
+            MySharedPrefernces.saveUserName(context,memberList.get(2));
+            MySharedPrefernces.saveUserPhoto(context,memberList.get(3));
+            MySharedPrefernces.saveUserPoint(context, Integer.parseInt(memberList.get(4)));
             memberList.clear();
         }
 
