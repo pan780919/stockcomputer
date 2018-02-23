@@ -38,6 +38,10 @@ class MemberCenterActivity : BaseAppCompatActivity() {
 
 
     }
+    @OnClick(R.id.pointbutton)
+    fun getPoint(){
+
+    }
     fun getUserState() {
         var userId: String = MySharedPrefernces.getUserId(this)
         var userName: String = MySharedPrefernces.getUserName(this)
