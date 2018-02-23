@@ -81,9 +81,10 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     private MyAdapter mAdapter;
     private MfiebaselibsClass mfiebaselibsClass;
 
-    private static final int LOGINSTATE = 0 ;
+    private static final int LOGINSTATE = 0;
 
     private RewardedVideoAd mRewardedVideoAd;
+    ArrayList<String> memberList = new ArrayList<>();
 
     private ArrayList<String> nextPage = new ArrayList<>();
     @BindView(R.id.toolbar)
@@ -113,9 +114,10 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     TextView mStockTimeText;
     @BindView(R.id.adViewContainer)
     RelativeLayout adViewContainer;
-    private  com.facebook.ads.AdView mFbAdView;
+    private com.facebook.ads.AdView mFbAdView;
     @BindView(R.id.loginbutton)
     Button mLoginButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,7 +159,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         getStockTime();
         setRewardedVideoAd();
     }
-    private void setRewardedVideoAd(){
+
+    private void setRewardedVideoAd() {
         MobileAds.initialize(this,
                 "ca-app-pub-7019441527375550~1705354228");
         mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(this);
@@ -169,7 +172,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             public void onRewarded(RewardItem reward) {
 
                 // Reward the user.
-                Log.d(TAG, "onRewarded: "+ "  amount: " +
+                Log.d(TAG, "onRewarded: " + "  amount: " +
                         reward.getAmount());
 
             }
@@ -185,7 +188,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
             @Override
             public void onRewardedVideoAdFailedToLoad(int errorCode) {
-                Log.d(TAG, "onRewardedVideoAdFailedToLoad: "+errorCode);
+                Log.d(TAG, "onRewardedVideoAdFailedToLoad: " + errorCode);
             }
 
             @Override
@@ -216,15 +219,16 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         super.onDestroy();
     }
 
-    private  void setmFbAdView(){
+    private void setmFbAdView() {
 
         adViewContainer = (RelativeLayout) findViewById(R.id.adViewContainer);
 
         mFbAdView = new com.facebook.ads.AdView(this, "383959162037550_415939618839504", com.facebook.ads.AdSize.BANNER_HEIGHT_50);
-                adViewContainer.addView(mFbAdView);
+        adViewContainer.addView(mFbAdView);
         mFbAdView.loadAd();
 
     }
+
     /**
      * 設定 基本會員中心資料
      */
@@ -234,13 +238,13 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         memberMap.put(MemberData.KEY_ID, Key);
         memberMap.put(MemberData.KEY_NAME, name);
         memberMap.put(MemberData.KEY_PHOTO, photo);
-        memberMap.put(MemberData.KEY_POINT,"100");
-        memberMap.put(MemberData.KEY_MEMBERLV,MemberData.MEMBER_LV_1);
+        memberMap.put(MemberData.KEY_POINT, "100");
+        memberMap.put(MemberData.KEY_MEMBERLV, MemberData.MEMBER_LV_1);
         mfiebaselibsClass.setFireBaseDB(MemberData.KEY_URL, Key, memberMap);
 
 
-
     }
+
     /**
      * 設定 會員中心資料
      */
@@ -268,8 +272,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     @Override
     public void onActivityReenter(int resultCode, Intent data) {
         super.onActivityReenter(resultCode, data);
-        if(resultCode == RESULT_OK){
-            if(resultCode == LOGINSTATE){
+        if (resultCode == RESULT_OK) {
+            if (resultCode == LOGINSTATE) {
             }
         }
 
@@ -280,51 +284,53 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         super.onResume();
         mRewardedVideoAd.resume(this);
         int state = MySharedPrefernces.getUserLoginState(context);
-        if(state==1){
-            FacebookManager.checkFbState(context,mFbImageView,mUserIdTextView,mUserAccountTextView);
+        if (state == 1) {
+            FacebookManager.checkFbState(context, mFbImageView, mUserIdTextView, mUserAccountTextView);
 
-        }else if(state==2){
-            LineLoginManager.checkState(context,mFbImageView,mUserIdTextView,mUserAccountTextView);
+        } else if (state == 2) {
+            LineLoginManager.checkState(context, mFbImageView, mUserIdTextView, mUserAccountTextView);
 
         }
         String id = MySharedPrefernces.getUserId(context);
         String name = MySharedPrefernces.getUserName(context);
         String photo = MySharedPrefernces.getUserPhoto(context);
-        setMemberData(id,name,photo);
-        Log.d(TAG, "onResume: "+id);
-        if(!id.equals("")){
+        setMemberData(id, name, photo);
+        Log.d(TAG, "onResume: " + id);
+        if (!id.equals("")) {
             mLoginButton.setText("已登入");
-            mfiebaselibsClass.getFirebaseDatabase(MemberData.KEY_URL+"/"+id,id);
+            mfiebaselibsClass.getFirebaseDatabase(MemberData.KEY_URL + "/" + id, id);
 
-        }else {
+        } else {
             mLoginButton.setText("登入");
             mFbImageView.setImageDrawable(null);
             mUserAccountTextView.setText("");
             mUserIdTextView.setText("");
 
         }
-        Log.d(TAG, "onResume: "+MemberData.KEY_URL+"/"+id);
-        Log.d(TAG, "onResume: "+MemberData.KEY_URL);
+        Log.d(TAG, "onResume: " + MemberData.KEY_URL + "/" + id);
+        Log.d(TAG, "onResume: " + MemberData.KEY_URL);
 
     }
+
     @OnClick(R.id.fbImg)
-    public  void mRewardedVideoAdClick(){
+    public void mRewardedVideoAdClick() {
         if (mRewardedVideoAd.isLoaded()) {
             mRewardedVideoAd.show();
         }
     }
+
     @OnClick(R.id.nav_share)
-    public void shareTo(){
+    public void shareTo() {
         MyApi.shareTo(context);
 
     }
 
     @OnClick(R.id.loginbutton)
-    public  void setLoginActivity(View v){
+    public void setLoginActivity(View v) {
         String id = MySharedPrefernces.getUserId(context);
-        if(!id.equals("")){
-                startActivity(MemberCenterActivity.class);
-        }else {
+        if (!id.equals("")) {
+            startActivity(MemberCenterActivity.class);
+        } else {
 
             startActivity(LoginActivity.class);
 
@@ -358,16 +364,18 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
         startActivity(new Intent(this, ProfitAndLossActvity.class));
     }
+
     @OnClick(R.id.nav_member)
-    public void toMemberCenter(){
+    public void toMemberCenter() {
         String id = MySharedPrefernces.getUserId(context);
-        if(!id.equals("")){
+        if (!id.equals("")) {
             startActivity(MemberCenterActivity.class);
-        }else {
+        } else {
             startActivity(LoginActivity.class);
 
         }
     }
+
     @OnClick(R.id.nav_stock_share)
     public void shareStockActivity() {
         if (!checkUserId(context)) {
@@ -833,7 +841,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     }
 
 
-
     private void updateWithToken(AccessToken currentAccessToken) {
 
         if (currentAccessToken != null) {
@@ -844,9 +851,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     @Override
     public void getDatabaseData(Object o) {
         Gson gson = new Gson();
-        Log.d(TAG, "getDatabaseData: "+o);
+        Log.d(TAG, "getDatabaseData: " + o);
         String s = gson.toJson(o);
-        ArrayList<String> memberList = new ArrayList<>();
         memberList.add(s);
 
 //        Log.d(TAG, "getDatabaseData: "+s);
@@ -858,15 +864,16 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //            MySharedPrefernces.saveUserPoint(context, Integer.parseInt(memberData.point));
 //
 //        }
-        Log.d(TAG, "getDatabaseData: "+memberList.size());
-        Log.d(TAG, "getDatabaseData: "+memberList.toString());
-//        Log.d(TAG, "getDatabaseData: "+memberList.get(0));
-//        Log.d(TAG, "getDatabaseData: "+memberList.get(1));
-//        Log.d(TAG, "getDatabaseData: "+memberList.get(2));
-//        Log.d(TAG, "getDatabaseData: "+memberList.get(3));
-//        Log.d(TAG, "getDatabaseData: "+memberList.get(4));
-
-
+        Log.d(TAG, "getDatabaseData: " + memberList.size());
+        Log.d(TAG, "getDatabaseData: " + memberList.toString());
+        if (memberList.size() >= 5) {
+            Log.d(TAG, "getDatabaseData: " + memberList.get(0));
+            Log.d(TAG, "getDatabaseData: " + memberList.get(1));
+            Log.d(TAG, "getDatabaseData: " + memberList.get(2));
+            Log.d(TAG, "getDatabaseData: " + memberList.get(3));
+            Log.d(TAG, "getDatabaseData: " + memberList.get(4));
+            memberList.clear();
+        }
 
     }
 
@@ -904,7 +911,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     @Override
     public void getFireBaseDBState(boolean b, String s) {
-        Log.d(TAG, "getFireBaseDBState: "+s);
+        Log.d(TAG, "getFireBaseDBState: " + s);
 
     }
 
