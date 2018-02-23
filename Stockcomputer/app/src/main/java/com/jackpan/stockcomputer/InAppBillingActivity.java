@@ -133,23 +133,24 @@ public class InAppBillingActivity extends Activity {
                 return;
             } else {
                 mListView = (ListView) findViewById(R.id.buyList);
-                String myfree = "";
-                String month = "";
-                String years = "";
-                if(inventory.getSkuDetails(DONAYE_30)!=null){
-                    myfree =
-                            inventory.getSkuDetails(DONAYE_30).getTitle();
-
-                }
-                if(inventory.getSkuDetails(DONAYE_300)!=null){
-                    month =
-                            inventory.getSkuDetails(DONAYE_300).getTitle();
-                }
-
-                if(inventory.getSkuDetails(DONAYE_MONTH_300)!=null){
-                    years = inventory.getSkuDetails(DONAYE_MONTH_300).getTitle();
-
-                }
+                String myfree = "贊助開發者持續開發（收益20%做慈善）";
+                String month = "贊助開發者持續開發（收益20%做慈善）";
+                String years = "贊助開發者蘋果系統（收益20%做慈善）";
+//                new AlertDialog.Builder(InAppBillingActivity.this)
+//                        .setMessage(inventory.getSkuDetails(DONAYE_30).toString())
+//                        .show();
+//                Log.d(TAG, "onQueryInventoryFinished: "+inventory.getSkuDetails(DONAYE_30).toString());
+//                if(inventory.getSkuDetails(DONAYE_30)!=null){
+//                    myfree = inventory.getSkuDetails(DONAYE_30).getTitle();
+//                }
+//                if(inventory.getSkuDetails(DONAYE_300)!=null){
+//                    month = inventory.getSkuDetails(DONAYE_300).getTitle();
+//                }
+//
+//                if(inventory.getSkuDetails(DONAYE_MONTH_300)!=null){
+//                    years = inventory.getSkuDetails(DONAYE_MONTH_300).getTitle();
+//
+//                }
 //                String other = inventory.getSkuDetails(DONAYE_150).getTitle();
 //                String vip = inventory.getSkuDetails(ITEM_MY_VIP).getTitle();
 //                String vip_1000 = inventory.getSkuDetails(ITEM_1000).getTitle();
