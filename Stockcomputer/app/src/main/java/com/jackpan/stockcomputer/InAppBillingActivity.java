@@ -135,7 +135,7 @@ public class InAppBillingActivity extends Activity {
                 mListView = (ListView) findViewById(R.id.buyList);
                 String myfree = "贊助開發者持續開發（收益20%做慈善）";
                 String month = "贊助開發者持續開發（收益20%做慈善）";
-                String years = "贊助開發者蘋果系統（收益20%做慈善）";
+                String years = "贊助開發者開發蘋果系統（收益20%做慈善）";
 //                new AlertDialog.Builder(InAppBillingActivity.this)
 //                        .setMessage(inventory.getSkuDetails(DONAYE_30).toString())
 //                        .show();
