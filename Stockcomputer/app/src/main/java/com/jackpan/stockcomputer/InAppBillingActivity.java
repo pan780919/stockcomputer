@@ -136,35 +136,10 @@ public class InAppBillingActivity extends Activity {
                 String myfree = "贊助開發者持續開發（收益20%做慈善）";
                 String month = "贊助開發者持續開發（收益20%做慈善）";
                 String years = "贊助開發者開發蘋果系統（收益20%做慈善）";
-//                new AlertDialog.Builder(InAppBillingActivity.this)
-//                        .setMessage(inventory.getSkuDetails(DONAYE_30).toString())
-//                        .show();
-//                Log.d(TAG, "onQueryInventoryFinished: "+inventory.getSkuDetails(DONAYE_30).toString());
-//                if(inventory.getSkuDetails(DONAYE_30)!=null){
-//                    myfree = inventory.getSkuDetails(DONAYE_30).getTitle();
-//                }
-//                if(inventory.getSkuDetails(DONAYE_300)!=null){
-//                    month = inventory.getSkuDetails(DONAYE_300).getTitle();
-//                }
-//
-//                if(inventory.getSkuDetails(DONAYE_MONTH_300)!=null){
-//                    years = inventory.getSkuDetails(DONAYE_MONTH_300).getTitle();
-//
-//                }
-//                String other = inventory.getSkuDetails(DONAYE_150).getTitle();
-//                String vip = inventory.getSkuDetails(ITEM_MY_VIP).getTitle();
-//                String vip_1000 = inventory.getSkuDetails(ITEM_1000).getTitle();
-//                String vip_100 = inventory.getSkuDetails(ITEM_100).getTitle();
                 ArrayList<String> mylist = new ArrayList<>();
                 mylist.add(myfree);
-//                mylist.add(other);
                 mylist.add(month);
                 mylist.add(years);
-//                mylist.add(vip);
-//                mylist.add(vip_1000);
-//                mylist.add(vip_100);
-
-
                 ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(InAppBillingActivity.this, android.R.layout.simple_list_item_1, mylist);
                 mListView.setAdapter(myAdapter);
                 mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
