@@ -66,10 +66,17 @@ class NewDetailActivity : BaseAppCompatActivity() {
                 e.printStackTrace()
             }
             runOnUiThread{
-                mTitleTextView.text= mTitleList[0]
+                if(mTitleList.size>=1){
+                    mTitleTextView.text= mTitleList[0]
 
-                mTimeTextView.text = mTitleList[1]
-                mFormTextView.text = mTitleList[2]
+                }
+                if(mTitleList.size>=2){
+                    mTimeTextView.text = mTitleList[1]
+                }
+                if(mTitleList.size>=3){
+                    mFormTextView.text = mTitleList[2]
+                }
+
                 if (mTitleList.size>=4){
                     mDetailTextView.text = mTitleList[3]
 
