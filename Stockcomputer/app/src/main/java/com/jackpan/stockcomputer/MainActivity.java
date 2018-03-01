@@ -43,6 +43,7 @@ import com.jackpan.stockcomputer.Data.MemberData;
 import com.jackpan.stockcomputer.Data.MyApi;
 import com.jackpan.stockcomputer.Data.NewsData;
 import com.jackpan.stockcomputer.Kotlin.BuyAndSellActivity;
+import com.jackpan.stockcomputer.Kotlin.CheckVersionActivity;
 import com.jackpan.stockcomputer.Kotlin.LoginActivity;
 import com.jackpan.stockcomputer.Kotlin.MemberCenterActivity;
 import com.jackpan.stockcomputer.Kotlin.NewDetailActivity;
@@ -375,7 +376,10 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
         }
     }
-
+    @OnClick(R.id.nav_check)
+    public void checkVersion(){
+        startActivity(CheckVersionActivity.class);
+    }
     @OnClick(R.id.nav_stock_share)
     public void shareStockActivity() {
         if (!checkUserId(context)) {
