@@ -7,5 +7,46 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.jackpan.stockcomputer.Kotlin.CheckVersionActivity"
     tools:showIn="@layout/activity_check_version">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="20dp"
+                android:text="版本號："
+                ></TextView>
+            <TextView
+                android:id="@+id/versionnametext"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="20dp"
+                android:text=""
+                ></TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+
+            >
+            <Button
+                android:id="@+id/checkbutton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="開始檢查版本更新"
+                ></Button>
+
+        </LinearLayout>
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

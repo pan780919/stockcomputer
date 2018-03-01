@@ -16,6 +16,7 @@ class CheckVersionActivity : BaseAppCompatActivity() {
         setContentView(R.layout.activity_check_version)
         setSupportActionBar(toolbar)
         title = "檢查版本更新"
+        getNowVersion()
 
     }
     fun getNowVersion(){
@@ -23,8 +24,10 @@ class CheckVersionActivity : BaseAppCompatActivity() {
         var mVersionCode :String
         try {
             val pInfo = this.packageManager.getPackageInfo(packageName, 0)
-            pInfo.versionCode.toString()
-            pInfo.versionName
+            setLogger(pInfo.versionCode.toString())
+            setLogger( pInfo.versionName)
+
+
         }catch (e:Exception){
 
 
