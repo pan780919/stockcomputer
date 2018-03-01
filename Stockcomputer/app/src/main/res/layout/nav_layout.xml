@@ -157,6 +157,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/nav_slideshow"
 
                 android:layout_width="match_parent"
@@ -181,8 +182,8 @@
 
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/nav_stock_share"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
