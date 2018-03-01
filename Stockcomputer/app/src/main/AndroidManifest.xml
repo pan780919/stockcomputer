@@ -134,6 +134,10 @@
         <activity
             android:name=".Kotlin.MemberCenterActivity"
             android:label="@string/title_activity_member_center"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Kotlin.CheckVersionActivity"
+            android:label="@string/title_activity_check_version"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
