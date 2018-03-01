@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">股票獲利計算機</string>
-    <string name="my_license_key">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl52KvbtkT+zi2HpRL7v1iJw3bRoqrNyz8QPzGXaXdtZe2loA+Ab9T7hcdvXvtgwChpouqvUS3MEl8zPH5lgctC6zzM3JGNGrvfJ0OyYvHPhPdBcx+uaESduqpXAuR2nptCZK5GhedclqQzqAnqqikcLPbe83NpothiqXI8olTcWkxBtDi1xEENY3wJWSP+MmFulhG9Cw1vjY3GEEOGdw17eUrut24f/nLshlUXShMiWKw43GWh0HJB2oVQ2LmqbCaoCAXWLr3DBpEYTJXx6JwqIcA+EwbRZWlH70XDImRXBcQG9mtrN2cSrT/LiwEQY7QVOU7e+67lgy1KBANSn+ZQIDAQAB</string>
+    <string name="my_license_key">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAi+XmSmVeb7WI28HNiJC59uYMjKSVyfjcrHuKncrFounmxBsflyob/ApaZI/szZwoqTOqx+PFLOZxJEmuYt/9I2naYPNzTCcKFy69mCNOChBOWc/LeTz16ygQwM/ZkrKAv6EV1FBlMEiBHzkihYu08tM8YyPgpEsxq8/rzWKH4NR4eMkMLlvUV0On3PET0WZ2/fjzLTG+cbV1XpIELFdaOMEOlqNUiV11tI5ggFHkPmxnHui75tW1qDRLDebFuiwxbqGuhBk20pWjlRTsXzKz4wm8mQ2oUOL+6WbdmJ7Uz8Z3nzeEjd9j/JslDVeVn45KgAgrwuHBT4zlGoVt+qKNmwIDAQAB</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -48,4 +48,5 @@
     <string name="no_profile_image_set">Profile Image Not Set</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_member_center">MemberCenterActivity</string>
+    <string name="title_activity_check_version">CheckVersionActivity</string>
 </resources>
