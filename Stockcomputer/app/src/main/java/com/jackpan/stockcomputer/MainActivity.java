@@ -158,6 +158,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //        setStockData();
 //        setWarningStock();
         getStockTime();
+        getbuy();
         setRewardedVideoAd();
     }
 
@@ -811,6 +812,28 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                     Log.d(TAG, "run: " + e.getMessage());
                 }
 
+
+            }
+        }.start();
+    }
+
+
+    private  void getbuy(){
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Document doc = Jsoup.connect("https://tw.stock.yahoo.com/d/i/fgbuy_tse_w.html").get();
+                    for (Element element : doc.select("table[border=0][width=600][cellpadding=3][cellspacing=1]")) {
+                        for (Element tr : element.select("tr")) {
+                            Log.d(TAG, "run: "+tr.text());
+                        }
+                    }
+                    
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
             }
         }.start();
