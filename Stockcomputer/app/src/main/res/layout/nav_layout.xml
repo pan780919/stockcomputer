@@ -127,6 +127,7 @@
                     android:layout_height="45dp"
                     android:src="@drawable/ic_menu_share"></ImageView>
 
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -265,10 +266,20 @@
 
             </LinearLayout>
 
-            <com.adbert.AdbertLoopADView
+            <!--<com.adbert.AdbertLoopADView-->
+                <!--android:id="@+id/adbertADView"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"></com.adbert.AdbertLoopADView>-->
+            <com.google.android.gms.ads.AdView
                 android:id="@+id/adbertADView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></com.adbert.AdbertLoopADView>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                ads:adSize="BANNER"
+                ads:adUnitId="ca-app-pub-7019441527375550/1465129066">
+            </com.google.android.gms.ads.AdView>
 
             <LinearLayout
                 android:id="@+id/nav_member"

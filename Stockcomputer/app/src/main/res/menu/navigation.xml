@@ -2,18 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
+        android:id="@+id/fgbuy_tse"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:title="單日買超排行" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/fgbuy_tse_w"
         android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_dashboard" />
+        android:title="上週買超排行" />
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/fgsell_tse"
         android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications" />
+        android:title="單日賣超排行" />
 
+
+    <item
+        android:id="@+id/fgsell_tse_w"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="上週賣超排行" />
 </menu>

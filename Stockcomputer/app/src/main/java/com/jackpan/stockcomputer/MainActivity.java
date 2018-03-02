@@ -19,15 +19,11 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.adbert.AdbertLoopADView;
-import com.adbert.AdbertOrientation;
-import com.adbert.ExpandVideoPosition;
 import com.clickforce.ad.Listener.AdViewLinstener;
 import com.facebook.AccessToken;
 import com.facebook.messenger.MessengerThreadParams;
 import com.facebook.messenger.MessengerUtils;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
@@ -44,6 +40,7 @@ import com.jackpan.stockcomputer.Data.MyApi;
 import com.jackpan.stockcomputer.Data.NewsData;
 import com.jackpan.stockcomputer.Kotlin.BuyAndSellActivity;
 import com.jackpan.stockcomputer.Kotlin.CheckVersionActivity;
+import com.jackpan.stockcomputer.Kotlin.FgBuyActivity;
 import com.jackpan.stockcomputer.Kotlin.LoginActivity;
 import com.jackpan.stockcomputer.Kotlin.MemberCenterActivity;
 import com.jackpan.stockcomputer.Kotlin.NewDetailActivity;
@@ -99,7 +96,9 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     @BindView(R.id.adView)
     AdView mAdView;
     @BindView(R.id.adbertADView)
-    AdbertLoopADView adbertView;
+    AdView adbertView;
+//    AdbertLoopADView adbertView;
+
     @BindView(R.id.ad)
     com.clickforce.ad.AdView clickforceAd;
     @BindView(R.id.fbImg)
@@ -313,6 +312,11 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         Log.d(TAG, "onResume: " + MemberData.KEY_URL);
 
     }
+    @OnClick(R.id.nav_fgbuy)
+    public void fgBuyActivit(){
+        startActivity(FgBuyActivity.class);
+
+    }
 
     @OnClick(R.id.fbImg)
     public void mRewardedVideoAdClick() {
@@ -487,12 +491,15 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     }
 
     private void setAdbertBanner() {
-        adbertView.setMode(AdbertOrientation.NORMAL);
-        adbertView.setExpandVideo(ExpandVideoPosition.BOTTOM);
-        adbertView.setFullScreen(false);
-        adbertView.setBannerSize(AdSize.BANNER);
-        adbertView.setAPPID("20170619000001", "90cebe8ef120c8bb6ac2ce529dcb99af");
-        adbertView.start();
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adbertView.loadAd(adRequest);
+//        adbertView.setMode(AdbertOrientation.NORMAL);
+//        adbertView.setExpandVideo(ExpandVideoPosition.BOTTOM);
+//        adbertView.setFullScreen(false);
+//        adbertView.setBannerSize(AdSize.BANNER);
+//        adbertView.setAPPID("20170619000001", "90cebe8ef120c8bb6ac2ce529dcb99af");
+//        adbertView.start();
     }
 
     private void setClickForce() {
