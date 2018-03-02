@@ -138,7 +138,10 @@
         <activity
             android:name=".Kotlin.CheckVersionActivity"
             android:label="@string/title_activity_check_version"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Kotlin.FgBuyActivity"
+            android:label="@string/title_activity_fg_buy"></activity>
     </application>
 
 </manifest>
