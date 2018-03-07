@@ -856,13 +856,14 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     public void getDatabaseData(Object o) {
         Gson gson = new Gson();
         String s = gson.toJson(o);
+        Log.d(TAG, "getDatabaseData: "+s);
         memberList.add(s);
         if (memberList.size() >= 5) {
             MySharedPrefernces.saveUserId(context,memberList.get(0));
             MySharedPrefernces.saveUserlv(context,memberList.get(1));
             MySharedPrefernces.saveUserName(context,memberList.get(2));
             MySharedPrefernces.saveUserPhoto(context,memberList.get(3));
-            MySharedPrefernces.saveUserPoint(context, Integer.parseInt(memberList.get(4)));
+            MySharedPrefernces.saveUserPoint(context,memberList.get(4));
             memberList.clear();
         }
 
