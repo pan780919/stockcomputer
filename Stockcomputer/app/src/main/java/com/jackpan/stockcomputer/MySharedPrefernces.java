@@ -84,14 +84,14 @@ public class MySharedPrefernces {
 
     public static final String KEY_USER_POINT= "userpoint";
 
-    public static  void saveUserPoint(Context context,int point){
+    public static  void saveUserPoint(Context context,String  point){
         SharedPreferences sp = context.getSharedPreferences(NAME, Activity.MODE_PRIVATE);
-        sp.edit().putInt(KEY_USER_POINT, point).apply();
+        sp.edit().putString(KEY_USER_POINT, point).apply();
     }
 
-    public static int getUserPoint(Context context) {
+    public static String getUserPoint(Context context) {
         SharedPreferences sp = context.getSharedPreferences(NAME, Activity.MODE_PRIVATE);
-        return sp.getInt(KEY_USER_POINT,0);
+        return sp.getString(KEY_USER_POINT,"");
     }
 
     public static final String KEY_USER_Lv= "userlv";
