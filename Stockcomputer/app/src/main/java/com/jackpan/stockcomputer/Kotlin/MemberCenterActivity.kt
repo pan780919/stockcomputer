@@ -38,10 +38,14 @@ class MemberCenterActivity : BaseAppCompatActivity() {
 
 
     }
+    @OnClick(R.id.pointbutton)
+    fun getPoint(){
+
+    }
     fun getUserState() {
         var userId: String = MySharedPrefernces.getUserId(this)
         var userName: String = MySharedPrefernces.getUserName(this)
-        var userPoint: Int = MySharedPrefernces.getUserPoint(this)
+        var userPoint: String = MySharedPrefernces.getUserPoint(this)
         var userPhoto: String = MySharedPrefernces.getUserPhoto(this)
         var userLv :String = MySharedPrefernces.getUserlv(this)
 
@@ -53,7 +57,7 @@ class MemberCenterActivity : BaseAppCompatActivity() {
             mUserNameTextView.text = userName
         }
 
-        if(userPoint!=0){
+        if(!userPoint.equals("")){
             mUserMailTextView.text = userPoint.toString()
         }
         if(!userPhoto.equals("")){
@@ -62,8 +66,8 @@ class MemberCenterActivity : BaseAppCompatActivity() {
         }
     }
     fun checkUserLv(){
-        var point :Int = MySharedPrefernces.getUserPoint(this)
-
+        var pointString :String = MySharedPrefernces.getUserPoint(this)
+        var point :Int = pointString.replace("\"","").toInt()
         if(point<=999){
             mUserLVTextView.text = MemberData.MEMBER_LV_1
 

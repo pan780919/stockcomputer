@@ -77,24 +77,40 @@
                 android:textSize="20dp"
                 android:text="Lv"
                 ></TextView>
-
-            <TextView
+            <RelativeLayout
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text="會員點數:"
-                android:layout_marginLeft="20dp"
-                ></TextView>
-            <TextView
-                android:id="@+id/userpoint"
-                android:layout_marginTop="4dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text="Email"
-                android:layout_marginLeft="20dp"
-                ></TextView>
+                >
+                <TextView
+                    android:id="@+id/pointname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="會員點數:"
+                    android:layout_marginLeft="20dp"
+                    ></TextView>
+                <TextView
+                    android:layout_below="@+id/pointname"
+                    android:id="@+id/userpoint"
+                    android:layout_marginTop="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="11111"
+                    android:layout_marginLeft="20dp"
+                    ></TextView>
+                <Button
+                    android:layout_centerInParent="true"
+                    android:background="@mipmap/mo_gift"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/pointbutton"
+                    />
+            </RelativeLayout>
+
 
             <Button
                 android:layout_marginLeft="20dp"
@@ -105,14 +121,7 @@
                 android:textSize="20dp"
                 android:text="登出"
                 ></Button>
-            <!--<Button-->
-                <!--android:layout_marginLeft="20dp"-->
-                <!--android:layout_marginTop="4dp"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="修改密碼"-->
-                <!--android:id="@+id/button2"-->
-                <!--/>-->
+
         </LinearLayout>
     </ScrollView>
 
