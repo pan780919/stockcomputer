@@ -29,7 +29,7 @@ class FgBuyActivity : BaseAppCompatActivity() {
                 getFg(URL_FGSELL_TSE)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.fgsell_tse_w ->{
+            R.id.fgsell_tse_w -> {
                 getFg(URL_FGSELL_TEST_W)
                 return@OnNavigationItemSelectedListener true
 
@@ -37,14 +37,14 @@ class FgBuyActivity : BaseAppCompatActivity() {
         }
         false
     }
-    var URL_FGBUY_TSE :String ="https://tw.stock.yahoo.com/d/i/fgbuy_tse.html"
-    var URL_FGBUY_TSE_W :String = "https://tw.stock.yahoo.com/d/i/fgbuy_tse_w.html"
-    var URL_FGSELL_TSE : String = "https://tw.stock.yahoo.com/d/i/fgsell_tse.html"
-    var URL_FGSELL_TEST_W :String = "https://tw.stock.yahoo.com/d/i/fgsell_tse_w.html"
+    var URL_FGBUY_TSE: String = "https://tw.stock.yahoo.com/d/i/fgbuy_tse.html"
+    var URL_FGBUY_TSE_W: String = "https://tw.stock.yahoo.com/d/i/fgbuy_tse_w.html"
+    var URL_FGSELL_TSE: String = "https://tw.stock.yahoo.com/d/i/fgsell_tse.html"
+    var URL_FGSELL_TEST_W: String = "https://tw.stock.yahoo.com/d/i/fgsell_tse_w.html"
 
-    lateinit var mAdbertView : AdView
-    lateinit var mFgBuyListView : ListView
-    var mFgBuyArrayList =ArrayList<String>()
+    lateinit var mAdbertView: AdView
+    lateinit var mFgBuyListView: ListView
+    var mFgBuyArrayList = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,16 +53,19 @@ class FgBuyActivity : BaseAppCompatActivity() {
 
         setAdmob()
         getFg(URL_FGBUY_TSE)
+
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
-    fun setAdmob(){
+
+    fun setAdmob() {
         mAdbertView = findViewById(R.id.adbertADView)
-        val mAdRequest =AdRequest.Builder().build()
+        val mAdRequest = AdRequest.Builder().build()
         mAdbertView.loadAd(mAdRequest)
 
 
     }
-    fun getFg(url:String){
+
+    fun getFg(url: String) {
         mFgBuyArrayList.clear()
         var mProgressDialog = ProgressDialog(this)
         mProgressDialog.setTitle("讀取中")
@@ -70,29 +73,23 @@ class FgBuyActivity : BaseAppCompatActivity() {
         mProgressDialog.setCancelable(true)
         mProgressDialog.show()
 
-        Thread(){
+        Thread() {
             run {
                 try {
                     val doc = Jsoup.connect(url).get()
                     for (element in doc.select("table[border=0][width=600][cellpadding=3][cellspacing=1]")) {
                         for (tr in element.select("tr")) {
-//                            Log.d(javaClass.simpleName, "run: " + tr.text())
+                            Log.d(javaClass.simpleName, "run: " + tr.text())
                             mFgBuyArrayList.add(tr.text())
                         }
-                        Log.d(javaClass.simpleName, "run: " + element.select("tr").get(0).select("td").text())
-
                     }
 
-                }catch (e:Exception){
-
+                } catch (e: Exception) {
                 }
 
-                runOnUiThread { //
-                    mFgBuyArrayList.forEach {
-//                        Log.d(javaClass.simpleName, "run: " + it)
-
-                    }
-                                  mProgressDialog.dismiss()
+                runOnUiThread {
+                    //
+                    //              mProgressDialog.dismiss()
 
 
                 }
@@ -100,4 +97,5 @@ class FgBuyActivity : BaseAppCompatActivity() {
 
         }.start()
     }
+
 }
