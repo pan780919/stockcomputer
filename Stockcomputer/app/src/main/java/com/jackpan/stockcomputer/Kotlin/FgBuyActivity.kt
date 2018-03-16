@@ -25,19 +25,27 @@ class FgBuyActivity : BaseAppCompatActivity() {
             R.id.fgbuy_tse -> {
 
                 getFg(URL_FGBUY_TSE)
+                title = mFgTitleList[0].toString()
+
 
                 return@OnNavigationItemSelectedListener true
             }
             R.id.fgbuy_tse_w -> {
                 getFg(URL_FGBUY_TSE_W)
+                title = mFgTitleList[1].toString()
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.fgsell_tse -> {
                 getFg(URL_FGSELL_TSE)
+                title = mFgTitleList[2].toString()
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.fgsell_tse_w -> {
                 getFg(URL_FGSELL_TEST_W)
+                title = mFgTitleList[3].toString()
+
                 return@OnNavigationItemSelectedListener true
 
             }
@@ -51,13 +59,16 @@ class FgBuyActivity : BaseAppCompatActivity() {
 
     lateinit var mAdbertView: AdView
     lateinit var mFgBuyListView: ListView
-    var mFgBuyArrayList = ArrayList<FgBuyData>()
+    var mFgBuyArrayList =ArrayList<FgBuyData>()
     var mAdapter: MyAdapter? = null
+    lateinit var mFgTitleList : Array<String>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fg_buy)
+        mFgTitleList  = (resources.getStringArray(R.array.fgtitlelist))
+        title = mFgTitleList[0]
         mFgBuyListView = findViewById(R.id.fgbuylistview)
         setAdmob()
         getFg(URL_FGBUY_TSE)
