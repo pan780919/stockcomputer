@@ -96,9 +96,6 @@ class QueryStockPriceActivity : BaseAppCompatActivity() {
     }
 
     private fun setStockData(year: String, month: String, day: String, number: String) {
-        setLogger(year)
-        setLogger(month)
-        setLogger(day)
         mProgressDialog = ProgressDialog(this)
         mProgressDialog.setTitle("讀取中")
         mProgressDialog.setMessage("請稍候")
