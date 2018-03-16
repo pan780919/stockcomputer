@@ -202,7 +202,6 @@
                     android:text="上市自營商類排行"></TextView>>
             </LinearLayout>
             <LinearLayout
-                android:visibility="gone"
 
                 android:id="@+id/nav_fgbuy"
                 android:layout_width="match_parent"

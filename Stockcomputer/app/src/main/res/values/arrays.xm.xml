@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array
+        name="fgtitlelist"
+        >
+
+        <item>單日買超排行</item>
+        <item>上週買超排行</item>
+        <item>單日賣超排行</item>
+        <item>上週賣超排行</item>
+    </string-array>
+
+
+
+</resources>
