@@ -97,24 +97,16 @@ class FgBuyActivity : BaseAppCompatActivity() {
             run {
                 try {
                     val doc = Jsoup.connect(url).get()
-//                    Log.d("TAG", doc.select("table[border=0][width=600][cellpadding=3][cellspacing=1]").select("tr").get(0).text())
-//                    Log.d("TAG",doc.select("table[border=0][width=600][cellpadding=3][cellspacing=1]").select("tr").get(0).toString())
                     for (element in doc.select("table[border=0][width=600][cellpadding=3][cellspacing=1]")) {
 
 
                         for (tr in element.select("tr")) {
-//                            Log.d(javaClass.simpleName, "run: " + tr.text())
-//                            mFgBuyArrayList.add(tr.text())
                             var mFgBuyData = FgBuyData()
-//                            mFgBuyData.setFutitle(doc.select("table[border=0][width=600][cellpadding=3][cellspacing=1]").select("tr").get(0).text())
                             mFgBuyData.setFgmessage(tr.text().get(0).toString())
 
                             mFgBuyData.setFgmessage(tr.text())
                             mFgBuyArrayList.add(mFgBuyData)
                             runOnUiThread {
-//                                Log.d("TAG", mFgBuyData.futitle.get(0).toString())
-
-//                                Log.d("TAG", mFgBuyData.futitle)
                                 Log.d("TAG", mFgBuyData.fgmessage)
                                 mAdapter?.notifyDataSetChanged()
 

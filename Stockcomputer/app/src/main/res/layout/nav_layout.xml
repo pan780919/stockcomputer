@@ -157,8 +157,6 @@
 
             </LinearLayout>
             <LinearLayout
-                android:visibility="gone"
-
                 android:id="@+id/nav_quotes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -180,8 +178,6 @@
 
             </LinearLayout>
             <LinearLayout
-                android:visibility="gone"
-
                 android:id="@+id/nav_sebuy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

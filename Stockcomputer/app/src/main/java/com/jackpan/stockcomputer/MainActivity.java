@@ -278,8 +278,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             startActivity(LoginActivity.class);
 
         }
-
-
     }
 
     @OnClick(R.id.nav_camera)
@@ -300,7 +298,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     }
 
     @OnClick(R.id.nav_gallery)
-    public void Click() {
+    public void Click(){
         if (!checkUserId(context)) {
             return;
         }
