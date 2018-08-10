@@ -26,9 +26,19 @@
             android:layout_height="wrap_content"
             ></com.facebook.login.widget.LoginButton>
 
+        <Button
+            android:id="@+id/phonebutton"
+            android:layout_marginTop="12dp"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/fbloginbutton"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手機驗證"
+
+            ></Button>
         <TextView
             android:visibility="gone"
-            android:layout_below="@+id/fbloginbutton"
 
             android:layout_marginTop="20dp"
             android:layout_centerInParent="true"

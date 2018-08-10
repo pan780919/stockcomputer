@@ -135,6 +135,9 @@ class MemberCenterActivity : BaseAppCompatActivity() {
                 AdRequest.Builder().build())
 
         mRewardedVideoAd.setRewardedVideoAdListener(object : RewardedVideoAdListener {
+            override fun onRewardedVideoCompleted() {
+            }
+
             override fun onRewarded(reward: RewardItem) {
                 Log.d(TAG, reward.amount.toString())
                 Log.d(TAG, reward.type)

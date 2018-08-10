@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import butterknife.BindView
@@ -15,6 +16,10 @@ import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
 import com.facebook.login.LoginManager
 import com.facebook.login.widget.LoginButton
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.FirebaseException
+import com.google.firebase.auth.*
 import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity
 import com.jackpan.stockcomputer.LineLogin.Constants
 import com.jackpan.stockcomputer.LineLogin.PostLoginActivity
@@ -27,6 +32,7 @@ import com.linecorp.linesdk.LineApiResponseCode
 import com.linecorp.linesdk.api.LineApiClient
 import com.linecorp.linesdk.api.LineApiClientBuilder
 import com.linecorp.linesdk.auth.LineLoginApi
+import java.util.concurrent.TimeUnit
 
 class LoginActivity : BaseAppCompatActivity() {
     @BindView(R.id.fbloginbutton)
@@ -36,7 +42,11 @@ class LoginActivity : BaseAppCompatActivity() {
     var callbackManager: CallbackManager? = null
     var loginManager: LoginManager? = null
     lateinit var lineApiClient: LineApiClient
-
+    lateinit var phoneButton :Button
+    var mAuth: FirebaseAuth? = null
+    var mobileNumber: String = ""
+    var verificationID: String = ""
+    var token_: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         callbackManager = CallbackManager.Factory.create()
@@ -45,20 +55,65 @@ class LoginActivity : BaseAppCompatActivity() {
         FacebookSdk.sdkInitialize(applicationContext)
         setContentView(R.layout.activity_main2)
         ButterKnife.bind(this)
+        phoneButton = findViewById(R.id.phonebutton)
         if (!checkNetWork()){
             setLogger("網路無開啟！！")
             return
         }
+
         val apiClientBuilder = LineApiClientBuilder(applicationContext, Constants.CHANNEL_ID)
         lineApiClient = apiClientBuilder.build()
         FacebookManager.fbLogin(this,mFbLoginBtn,callbackManager)
+        phoneButton.setOnClickListener {
+            loginTask()
+        }
 
     }
 
+    private fun loginTask() {
+
+        var mCallBacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            override fun onVerificationCompleted(credential: PhoneAuthCredential?) {
+                Log.d(javaClass.simpleName,credential!!.smsCode)
+                Log.d(javaClass.simpleName,credential.toString())
+
+                if (credential != null) {
+
+                }
+            }
+
+            override fun onVerificationFailed(p0: FirebaseException?) {
+                Log.d(javaClass.simpleName,p0.toString())
+
+            }
+
+            override fun onCodeSent(verificationId: String?, token: PhoneAuthProvider.ForceResendingToken?) {
+                super.onCodeSent(verificationId, token)
+                Log.d(javaClass.simpleName,verificationId.toString())
+                Log.d(javaClass.simpleName,token.toString())
+
+
+            }
+
+            override fun onCodeAutoRetrievalTimeOut(verificationId: String?) {
+                super.onCodeAutoRetrievalTimeOut(verificationId)
+                // toast("Time out")
+            }
+        }
+
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                "+886911325323",            // Phone number to verify
+                60,                  // Timeout duration
+                TimeUnit.SECONDS,        // Unit of timeout
+                this,                // Activity (for callback binding)
+                mCallBacks)
+
+    }
     override fun onResume() {
         super.onResume()
 
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         callbackManager?.onActivityResult(requestCode, resultCode, data)
@@ -125,5 +180,27 @@ class LoginActivity : BaseAppCompatActivity() {
             }
         }
 
+    }
+    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+
+        mAuth!!.signInWithCredential(credential)
+                .addOnCompleteListener(this@LoginActivity, object : OnCompleteListener<AuthResult> {
+                    override fun onComplete(task: Task<AuthResult>) {
+                        if (task.isSuccessful()) {
+                            val user = task.getResult().getUser()
+
+                        } else {
+                            if (task.getException() is FirebaseAuthInvalidCredentialsException) {
+
+                            }
+                        }
+                    }
+                })
+    }
+
+    private fun verifyAuthentication(verificationID: String, otpText: String) {
+
+        val phoneAuthCredential = PhoneAuthProvider.getCredential(verificationID, otpText) as PhoneAuthCredential
+        signInWithPhoneAuthCredential(phoneAuthCredential)
     }
 }
