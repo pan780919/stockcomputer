@@ -42,7 +42,10 @@ import com.jackpan.stockcomputer.Kotlin.BuyAndSellActivity;
 import com.jackpan.stockcomputer.Kotlin.CheckVersionActivity;
 import com.jackpan.stockcomputer.Kotlin.FgBuyActivity;
 import com.jackpan.stockcomputer.Kotlin.LoginActivity;
+<<<<<<< HEAD
+=======
 import com.jackpan.stockcomputer.Kotlin.MemberCenterActivity;
+>>>>>>> 9772e3699e493202d1c21da2124e926b400aa768
 import com.jackpan.stockcomputer.Kotlin.NewDetailActivity;
 import com.jackpan.stockcomputer.Kotlin.QueryStockPriceActivity;
 import com.jackpan.stockcomputer.Kotlin.StockValueAddedRateActivity;
@@ -332,7 +335,15 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     }
 
     @OnClick(R.id.loginbutton)
+<<<<<<< HEAD
     public void setLoginActivity(View v) {
+=======
+<<<<<<< HEAD
+    public  void setLoginActivity(){
+        startActivity(LoginActivity.class);
+=======
+    public  void setLoginActivity(View v){
+>>>>>>> release/v1.0.6
         String id = MySharedPrefernces.getUserId(context);
         if (!id.equals("")) {
             startActivity(MemberCenterActivity.class);
@@ -342,6 +353,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
         }
 
+>>>>>>> 9772e3699e493202d1c21da2124e926b400aa768
 
     }
 
