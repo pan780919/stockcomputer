@@ -7,14 +7,17 @@ buildscript {
     repositories {
         jcenter()
 
+        google()
     }
     dependencies {
 //        classpath 'com.android.tools.build:gradle:3.0.1'
 
-        classpath 'com.android.tools.build:gradle:3.0.1'
-        classpath 'com.google.gms:google-services:3.1.1' // google-services plugin
+        classpath "com.android.tools.build:gradle:3.1.2"
+
+        // do not update, because 3.3.1 appears broken
+        //noinspection GradleDependency
+        classpath 'com.google.gms:google-services:3.3.1'
         classpath 'com.jakewharton:butterknife-gradle-plugin:8.4.0'
-        classpath 'me.tatarka:gradle-retrolambda:3.6.1'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
@@ -35,6 +38,7 @@ allprojects {
         maven {
             url  "http://dl.bintray.com/nuptboyzhb/maven"
         }
+        google()
     }
 }
 
