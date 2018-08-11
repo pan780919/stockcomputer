@@ -5,7 +5,12 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.BaseAdapter
 import android.widget.ListView
+import android.widget.TextView
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity
@@ -59,7 +64,7 @@ class SeBuyActivity : BaseAppCompatActivity() {
     lateinit var mAdbertView: AdView
     lateinit var mFgBuyListView: ListView
     var mSeBuyArrayList =ArrayList<SeBuyData>()
-    var mAdapter: FgBuyActivity.MyAdapter? = null
+    var mAdapter: MyAdapter? = null
     lateinit var mSeBuyTitleList : Array<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,8 +75,10 @@ class SeBuyActivity : BaseAppCompatActivity() {
         mFgBuyListView = findViewById(R.id.fgbuylistview)
         setAdmob()
         getSeBuy(URL_SEBUY_TSE)
-        mAdapter = MyAdapter(mFgBuyArrayList)
+        mAdapter = MyAdapter(mSeBuyArrayList)
         mFgBuyListView.adapter = mAdapter
+        sebuy_navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
     }
     fun setAdmob() {
         mAdbertView = findViewById(R.id.adbertADView)
@@ -119,5 +126,50 @@ class SeBuyActivity : BaseAppCompatActivity() {
 
         }.start()
     }
+    inner class MyAdapter(private var mDatas:ArrayList<SeBuyData>?) : BaseAdapter() {
+        fun updateData(datas: ArrayList<SeBuyData>) {
+            mDatas = datas
+            notifyDataSetChanged()
+        }
 
+        override fun getCount(): Int {
+            return mDatas!!.size
+        }
+
+        override fun getItem(position: Int): Any {
+            return mDatas!![position]
+        }
+
+        override fun getItemId(position: Int): Long {
+            return position.toLong()
+        }
+
+        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+            var convertView = convertView
+            val viewHolder: ViewHolder
+            val data = mDatas!![position]
+            if (convertView != null) {
+                viewHolder = convertView.tag as ViewHolder
+            } else {
+                convertView = LayoutInflater.from(this@SeBuyActivity).inflate(
+                        R.layout.fgbuy_layout, null)
+                viewHolder = ViewHolder(convertView)
+                convertView!!.tag = viewHolder
+            }
+
+            viewHolder.mFgTitle.text = data.SeBuytitle
+            viewHolder.mFgMessage.text = data.SeBuymessage
+
+
+            return convertView
+        }
+
+    }
+
+
+    internal class ViewHolder(v: View) {
+        val mFgTitle: TextView = v.findViewById(R.id.fugtitletext)
+        val mFgMessage: TextView = v.findViewById(R.id.fugmessagetext)
+
+    }
 }
