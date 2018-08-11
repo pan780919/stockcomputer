@@ -25,7 +25,6 @@ import com.facebook.messenger.MessengerThreadParams;
 import com.facebook.messenger.MessengerUtils;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.gson.Gson;
 import com.jackpan.libs.mfirebaselib.MfiebaselibsClass;
 import com.jackpan.libs.mfirebaselib.MfirebaeCallback;
@@ -153,11 +152,32 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //        setWarningStock();
         getStockTime();
         getbuy();
+        getStop();
     }
 
+    private void getStop() {
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Document doc = Jsoup.connect("https://histock.tw/holiday.aspx?id=TWSE").get();
+                    for (Element element : doc.select("table[cellpadding=0][cellspacing=0]>tbody")) {
+                        for (Element tr : element.select("tr")) {
+                            for (Element element1 : tr.select("tr>tbody[class=tbGV][cellspacing=0]")) {
+                                Log.d(TAG, "element1: "+element1.text());
+                            }
+                            Log.d(TAG, "run: "+tr.text());
+                        }
+                    }
 
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-
+            }
+        }.start();
+    }
 
 
     private void setmFbAdView() {
