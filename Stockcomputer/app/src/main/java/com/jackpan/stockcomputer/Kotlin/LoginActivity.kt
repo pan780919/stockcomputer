@@ -2,9 +2,11 @@ package com.jackpan.stockcomputer.Kotlin
 
 import android.app.Activity
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
@@ -18,8 +20,12 @@ import com.jackpan.stockcomputer.LineLogin.Constants
 import com.jackpan.stockcomputer.LineLogin.PostLoginActivity
 import com.jackpan.stockcomputer.Manager.FacebookManager
 import com.jackpan.stockcomputer.Manager.LineLoginManager.REQUEST_CODE
+import com.jackpan.stockcomputer.MySharedPrefernces
 import com.jackpan.stockcomputer.R
+import com.linecorp.linesdk.LineApiResponse
 import com.linecorp.linesdk.LineApiResponseCode
+import com.linecorp.linesdk.api.LineApiClient
+import com.linecorp.linesdk.api.LineApiClientBuilder
 import com.linecorp.linesdk.auth.LineLoginApi
 
 class LoginActivity : BaseAppCompatActivity() {
@@ -27,10 +33,9 @@ class LoginActivity : BaseAppCompatActivity() {
     lateinit var mFbLoginBtn : LoginButton
     @BindView(R.id.login_button)
     lateinit var mLoginButton: TextView
-    @BindView(R.id.browser_login_button)
-    lateinit var mBrowserLoginButton :TextView
     var callbackManager: CallbackManager? = null
     var loginManager: LoginManager? = null
+    lateinit var lineApiClient: LineApiClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +49,8 @@ class LoginActivity : BaseAppCompatActivity() {
             setLogger("網路無開啟！！")
             return
         }
+        val apiClientBuilder = LineApiClientBuilder(applicationContext, Constants.CHANNEL_ID)
+        lineApiClient = apiClientBuilder.build()
         FacebookManager.fbLogin(this,mFbLoginBtn,callbackManager)
 
     }
@@ -65,9 +72,19 @@ class LoginActivity : BaseAppCompatActivity() {
             LineApiResponseCode.SUCCESS -> {
 
                 val transitionIntent = Intent(this, PostLoginActivity::class.java)
-                transitionIntent.putExtra("line_profile", result.lineProfile)
-                transitionIntent.putExtra("line_credential", result.lineCredential)
-                startActivity(transitionIntent)
+//                transitionIntent.putExtra("line_profile", result.lineProfile)
+//                transitionIntent.putExtra("line_credential", result.lineCredential)
+//                startActivity(transitionIntent)
+                Log.d("msg", result.lineProfile?.userId)
+//                Log.d("msg", result.lineProfile?.pictureUrl.toString())
+//                Log.d("msg", result.lineProfile?.displayName)
+                MySharedPrefernces.saveUserLoginState(this,2)
+                MySharedPrefernces.saveUserId(this,result.lineProfile?.userId)
+                MySharedPrefernces.saveUserName(this, result.lineProfile?.displayName)
+                MySharedPrefernces.saveUserPhoto(this, result.lineProfile?.pictureUrl.toString())
+                LogoutTask().execute()
+                this.finish()
+
             }
 
             LineApiResponseCode.CANCEL -> Log.e("ERROR", "LINE Login Canceled by user!!")
@@ -85,21 +102,28 @@ class LoginActivity : BaseAppCompatActivity() {
             val LoginIntent = LineLoginApi.getLoginIntent(this, Constants.CHANNEL_ID)
             startActivityForResult(LoginIntent, REQUEST_CODE)
         }catch (e:Exception){
-
-        }
-
-    }
-    @OnClick(R.id.browser_login_button)
-    fun setBrowserLoginButton(){
-        try {
-            val LoginIntent = LineLoginApi.getLoginIntentWithoutLineAppAuth(this, Constants.CHANNEL_ID)
-            startActivityForResult(LoginIntent, REQUEST_CODE)
-
-        }catch (e:Exception){
-
         }
 
     }
 
+    inner class LogoutTask : AsyncTask<Void, Void, LineApiResponse<*>>() {
 
+        override fun onPreExecute() {
+        }
+
+        override fun doInBackground(vararg params: Void): LineApiResponse<*> {
+            return lineApiClient.logout()
+        }
+
+        override fun onPostExecute(apiResponse: LineApiResponse<*>) {
+
+            if (apiResponse.isSuccess) {
+                Toast.makeText(applicationContext, "Logout Successful", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(applicationContext, "Logout Failed", Toast.LENGTH_SHORT).show()
+                Log.e("TAG", "Logout Failed: " + apiResponse.errorData.toString())
+            }
+        }
+
+    }
 }

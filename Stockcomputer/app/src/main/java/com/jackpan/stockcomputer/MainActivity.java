@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -28,6 +29,7 @@ import com.facebook.messenger.MessengerUtils;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.gson.Gson;
 import com.jackpan.libs.mfirebaselib.MfiebaselibsClass;
 import com.jackpan.libs.mfirebaselib.MfirebaeCallback;
 import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity;
@@ -38,11 +40,16 @@ import com.jackpan.stockcomputer.Data.MyApi;
 import com.jackpan.stockcomputer.Data.NewsData;
 import com.jackpan.stockcomputer.Kotlin.BuyAndSellActivity;
 import com.jackpan.stockcomputer.Kotlin.LoginActivity;
+<<<<<<< HEAD
+=======
+import com.jackpan.stockcomputer.Kotlin.MemberCenterActivity;
+>>>>>>> 9772e3699e493202d1c21da2124e926b400aa768
 import com.jackpan.stockcomputer.Kotlin.NewDetailActivity;
 import com.jackpan.stockcomputer.Kotlin.QueryStockPriceActivity;
 import com.jackpan.stockcomputer.Kotlin.StockValueAddedRateActivity;
 import com.jackpan.stockcomputer.Kotlin.ZeroStockActivity;
 import com.jackpan.stockcomputer.Manager.FacebookManager;
+import com.jackpan.stockcomputer.Manager.LineLoginManager;
 import com.vpadn.ads.VpadnAdRequest;
 import com.vpadn.ads.VpadnAdSize;
 import com.vpadn.ads.VpadnBanner;
@@ -105,6 +112,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     @BindView(R.id.adViewContainer)
     RelativeLayout adViewContainer;
     private  com.facebook.ads.AdView mFbAdView;
+    @BindView(R.id.loginbutton)
+    Button mLoginButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -155,6 +164,22 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     }
     /**
+     * 設定 基本會員中心資料
+     */
+    private void setMemberData(String Key, String name,
+                               String photo) {
+        HashMap<String, String> memberMap = new HashMap<>();
+        memberMap.put(MemberData.KEY_ID, Key);
+        memberMap.put(MemberData.KEY_NAME, name);
+        memberMap.put(MemberData.KEY_PHOTO, photo);
+        memberMap.put(MemberData.KEY_POINT,"100");
+        memberMap.put(MemberData.KEY_MEMBERLV,MemberData.MEMBER_LV_1);
+        mfiebaselibsClass.setFireBaseDB(MemberData.KEY_URL, Key, memberMap);
+
+
+
+    }
+    /**
      * 設定 會員中心資料
      */
 
@@ -191,12 +216,55 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     @Override
     protected void onResume() {
         super.onResume();
-        FacebookManager.checkFbState(context,mFbImageView,mUserIdTextView,mUserAccountTextView);
+        int state = MySharedPrefernces.getUserLoginState(context);
+        if(state==1){
+            FacebookManager.checkFbState(context,mFbImageView,mUserIdTextView,mUserAccountTextView);
+
+        }else if(state==2){
+            LineLoginManager.checkState(context,mFbImageView,mUserIdTextView,mUserAccountTextView);
+
+        }
+        String id = MySharedPrefernces.getUserId(context);
+        String name = MySharedPrefernces.getUserName(context);
+        String photo = MySharedPrefernces.getUserPhoto(context);
+        setMemberData(id,name,photo);
+        Log.d(TAG, "onResume: "+id);
+        if(!id.equals("")){
+            mLoginButton.setText("已登入");
+        }else {
+            mLoginButton.setText("登入");
+            mFbImageView.setImageDrawable(null);
+            mUserAccountTextView.setText("");
+            mUserIdTextView.setText("");
+
+        }
+        Log.d(TAG, "onResume: "+MemberData.KEY_URL+"/"+id);
+        mfiebaselibsClass.getFirebaseDatabase(MemberData.KEY_URL+"/"+id,id);
+
+    }
+
+    @OnClick(R.id.nav_share)
+    public void shareTo(){
+        MyApi.shareTo(context);
+
     }
 
     @OnClick(R.id.loginbutton)
+<<<<<<< HEAD
     public  void setLoginActivity(){
         startActivity(LoginActivity.class);
+=======
+    public  void setLoginActivity(View v){
+        String id = MySharedPrefernces.getUserId(context);
+        if(!id.equals("")){
+                startActivity(MemberCenterActivity.class);
+        }else {
+
+            startActivity(LoginActivity.class);
+
+        }
+
+>>>>>>> 9772e3699e493202d1c21da2124e926b400aa768
 
     }
 
@@ -684,6 +752,9 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     @Override
     public void getDatabaseData(Object o) {
+        Gson gson = new Gson();
+        String s = gson.toJson(o);
+        Log.d(TAG, "firebasedata: "+s);
 
     }
 
@@ -721,6 +792,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     @Override
     public void getFireBaseDBState(boolean b, String s) {
+        Log.d(TAG, "getFireBaseDBState: "+s);
 
     }
 

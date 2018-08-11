@@ -6,10 +6,11 @@
     tools:context="com.jackpan.stockcomputer.Kotlin.MemberCenterActivity"
     tools:showIn="@layout/activity_member_center">
     <ScrollView
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
         >
         <LinearLayout
+            android:layout_marginTop="150dp"
             android:id="@+id/activity_user"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -21,7 +22,7 @@
                 android:layout_marginRight="4dp"
                 android:layout_marginTop="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="match_parent"
                 ></ImageView>
             <TextView
                 android:layout_marginTop="10dp"

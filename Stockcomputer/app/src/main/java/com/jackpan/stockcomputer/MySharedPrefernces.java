@@ -69,4 +69,16 @@ public class MySharedPrefernces {
         return sp.getString(KEY_USER_Name, "");
     }
 
+    public static final String KEY_USER_LOGIN_STATE= "userloginstate";
+    public static  void saveUserLoginState(Context context,int state){
+        SharedPreferences sp = context.getSharedPreferences(NAME, Activity.MODE_PRIVATE);
+        sp.edit().putInt(KEY_USER_LOGIN_STATE, state).apply();
+    }
+
+    public static int getUserLoginState(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(NAME, Activity.MODE_PRIVATE);
+        return sp.getInt(KEY_USER_LOGIN_STATE,0);
+    }
+
+
 }
