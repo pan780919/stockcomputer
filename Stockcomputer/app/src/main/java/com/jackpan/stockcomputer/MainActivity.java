@@ -271,6 +271,15 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         Log.d(TAG, "onResume: " + MemberData.KEY_URL);
 
     }
+
+    @OnClick(R.id.nav_sebuy)
+    public void seBuyActivity(){
+
+    }
+    @OnClick(R.id.nav_quotes)
+    public void quotesActivity(){
+
+    }
     @OnClick(R.id.nav_fgbuy)
     public void fgBuyActivit(){
         startActivity(FgBuyActivity.class);
