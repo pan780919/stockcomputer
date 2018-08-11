@@ -38,14 +38,7 @@ import com.jackpan.stockcomputer.Kotlin.BuyAndSellActivity;
 import com.jackpan.stockcomputer.Kotlin.CheckVersionActivity;
 import com.jackpan.stockcomputer.Kotlin.FgBuyActivity;
 import com.jackpan.stockcomputer.Kotlin.LoginActivity;
-<<<<<<< HEAD
 import com.jackpan.stockcomputer.Kotlin.MemberCenterActivity;
-=======
-<<<<<<< HEAD
-=======
-import com.jackpan.stockcomputer.Kotlin.MemberCenterActivity;
->>>>>>> 9772e3699e493202d1c21da2124e926b400aa768
->>>>>>> release/v1.0.6
 import com.jackpan.stockcomputer.Kotlin.NewDetailActivity;
 import com.jackpan.stockcomputer.Kotlin.QueryStockPriceActivity;
 import com.jackpan.stockcomputer.Kotlin.StockValueAddedRateActivity;
@@ -163,7 +156,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     }
 
     private void getStop() {
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 super.run();
@@ -172,9 +165,9 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                     for (Element element : doc.select("table[cellpadding=0][cellspacing=0]>tbody")) {
                         for (Element tr : element.select("tr")) {
                             for (Element element1 : tr.select("tr>tbody[class=tbGV][cellspacing=0]")) {
-                                Log.d(TAG, "element1: "+element1.text());
+                                Log.d(TAG, "element1: " + element1.text());
                             }
-                            Log.d(TAG, "run: "+tr.text());
+                            Log.d(TAG, "run: " + tr.text());
                         }
                     }
 
@@ -280,15 +273,17 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     }
 
     @OnClick(R.id.nav_sebuy)
-    public void seBuyActivity(){
+    public void seBuyActivity() {
 
     }
+
     @OnClick(R.id.nav_quotes)
-    public void quotesActivity(){
+    public void quotesActivity() {
 
     }
+
     @OnClick(R.id.nav_fgbuy)
-    public void fgBuyActivit(){
+    public void fgBuyActivit() {
         startActivity(FgBuyActivity.class);
 
     }
@@ -305,15 +300,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     }
 
     @OnClick(R.id.loginbutton)
-<<<<<<< HEAD
+
     public void setLoginActivity(View v) {
-=======
-<<<<<<< HEAD
-    public  void setLoginActivity(){
-        startActivity(LoginActivity.class);
-=======
-    public  void setLoginActivity(View v){
->>>>>>> release/v1.0.6
         String id = MySharedPrefernces.getUserId(context);
         if (!id.equals("")) {
             startActivity(MemberCenterActivity.class);
@@ -322,12 +310,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             startActivity(LoginActivity.class);
 
         }
-<<<<<<< HEAD
-=======
-
->>>>>>> 9772e3699e493202d1c21da2124e926b400aa768
-
->>>>>>> release/v1.0.6
     }
 
     @OnClick(R.id.nav_camera)
@@ -348,7 +330,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     }
 
     @OnClick(R.id.nav_gallery)
-    public void Click(){
+    public void Click() {
         if (!checkUserId(context)) {
             return;
         }
@@ -366,10 +348,12 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
         }
     }
+
     @OnClick(R.id.nav_check)
-    public void checkVersion(){
+    public void checkVersion() {
         startActivity(CheckVersionActivity.class);
     }
+
     @OnClick(R.id.nav_stock_share)
     public void shareStockActivity() {
         if (!checkUserId(context)) {
@@ -810,8 +794,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     }
 
 
-    private  void getbuy(){
-        new Thread(){
+    private void getbuy() {
+        new Thread() {
             @Override
             public void run() {
                 super.run();
@@ -819,10 +803,10 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                     Document doc = Jsoup.connect("https://tw.stock.yahoo.com/d/i/fgbuy_tse_w.html").get();
                     for (Element element : doc.select("table[border=0][width=600][cellpadding=3][cellspacing=1]")) {
                         for (Element tr : element.select("tr")) {
-                            Log.d(TAG, "run: "+tr.text());
+                            Log.d(TAG, "run: " + tr.text());
                         }
                     }
-                    
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -871,14 +855,14 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     public void getDatabaseData(Object o) {
         Gson gson = new Gson();
         String s = gson.toJson(o);
-        Log.d(TAG, "getDatabaseData: "+s);
+        Log.d(TAG, "getDatabaseData: " + s);
         memberList.add(s);
         if (memberList.size() >= 5) {
-            MySharedPrefernces.saveUserId(context,memberList.get(0));
-            MySharedPrefernces.saveUserlv(context,memberList.get(1));
-            MySharedPrefernces.saveUserName(context,memberList.get(2));
-            MySharedPrefernces.saveUserPhoto(context,memberList.get(3));
-            MySharedPrefernces.saveUserPoint(context,memberList.get(4));
+            MySharedPrefernces.saveUserId(context, memberList.get(0));
+            MySharedPrefernces.saveUserlv(context, memberList.get(1));
+            MySharedPrefernces.saveUserName(context, memberList.get(2));
+            MySharedPrefernces.saveUserPhoto(context, memberList.get(3));
+            MySharedPrefernces.saveUserPoint(context, memberList.get(4));
             memberList.clear();
         }
 
