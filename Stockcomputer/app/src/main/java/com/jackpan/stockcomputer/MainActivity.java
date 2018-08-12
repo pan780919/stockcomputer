@@ -53,6 +53,7 @@ import com.vpadn.ads.VpadnBanner;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -146,14 +147,10 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         mAdapter = new MyAdapter(newlist);
         mListview.setAdapter(mAdapter);
         setmFbAdView();
-//        test("2344");
-//        test2("2344");
-//        getNewDetil();
-//        setStockData();
-//        setWarningStock();
         getStockTime();
-        getbuy();
-        getStop();
+//        getbuy();
+//        getStop();
+        test();
     }
 
     private void getStop() {
@@ -525,26 +522,31 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //                    shareToMessengerParams);
 //        }
 //    }
-    private void test2(String number) {
+    private void test() {
         new Thread() {
             @Override
             public void run() {
                 super.run();
                 try {
-//                    Log.d(TAG, "run: "+" "+number+".htm");
-                    Document doc = Jsoup.connect("https://goodinfo.tw/StockInfo/StockDetail.asp?STOCK_ID=2344").get();
-                    Element t = doc.select("tr[align=center][height=26px][bgcolor=#e7f3ff]").get(0);
-//                    Log.d(TAG, "run: "+ t.select("td").get(0).text());
-//                    for (Element td : t.select("td")) {
-//                        Log.d(TAG, "run: "+td.text());
-//                    }
-                    Element e = doc.select("tr[align=center][height=26px][bgcolor=white]").get(0);
-//                    Log.d(TAG, "run: "+ e.select("td").get(0).text());
-//                    for (Element td : e.select("td")) {
+                    Document doc = Jsoup.connect("https://tw.stock.yahoo.com/d/i/credit.html").get();
+                    for (Element element : doc.select("table[border=0][cellspacing=7][cellpadding=2]")) {
+                        for (Element tr : element.select("tr")) {
+                            for (Element p : tr.getElementsByTag("p")) {
+//                                Log.d(TAG, "run: "+p.toString());
+                                Elements title = p.select("[src]");
+
+                                for(Element src : title){
+                                    if(src.tagName().equalsIgnoreCase("img")){
+                                        Log.d(TAG, "run: "+src.attr("abs:src"));
+                                    }
+                                }                            }
+
+
+
+
+                        }
+                    }
 //
-//                        Log.d(TAG, "run: "+td.text());
-//
-//                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
