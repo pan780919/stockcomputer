@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,10 +57,10 @@ class SeBuyActivity : BaseAppCompatActivity() {
         }
         false
     }
-    var URL_SEBUY_TSE: String = "https://tw.stock.yahoo.com/d/i/fgbuy_tse.html"
-    var URL_SEBUY_TSE_W: String = "https://tw.stock.yahoo.com/d/i/fgbuy_tse_w.html"
-    var URL_SESELL_TSE: String = "https://tw.stock.yahoo.com/d/i/fgsell_tse.html"
-    var URL_SESELL_TEST_W: String = "https://tw.stock.yahoo.com/d/i/fgsell_tse_w.html"
+    var URL_SEBUY_TSE: String = "https://tw.stock.yahoo.com/d/i/sebuy_tse.html"
+    var URL_SEBUY_TSE_W: String = "https://tw.stock.yahoo.com/d/i/sebuy_tse_w.html"
+    var URL_SESELL_TSE: String = "https://tw.stock.yahoo.com/d/i/sesell_tse.html"
+    var URL_SESELL_TEST_W: String = "https://tw.stock.yahoo.com/d/i/sesell_tse_w.html"
 
     lateinit var mAdbertView: AdView
     lateinit var mFgBuyListView: ListView
@@ -99,7 +100,7 @@ class SeBuyActivity : BaseAppCompatActivity() {
             run {
                 try {
                     val doc = Jsoup.connect(url).get()
-                    for (element in doc.select("table[border=0][width=600][cellpadding=3][cellspacing=1]")) {
+                    for (element in doc.select("table[border=0][cellpadding=3][cellspacing=1]")) {
 
 
                         for (tr in element.select("tr")) {
@@ -108,7 +109,9 @@ class SeBuyActivity : BaseAppCompatActivity() {
 
                             mSeBuyBuyData.setSeBuymessage(tr.text())
                             mSeBuyArrayList.add(mSeBuyBuyData)
+
                             runOnUiThread {
+
                                 mAdapter?.notifyDataSetChanged()
 
                                 mProgressDialog.dismiss()
