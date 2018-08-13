@@ -49,6 +49,7 @@ import com.jackpan.stockcomputer.Kotlin.NewDetailActivity;
 import com.jackpan.stockcomputer.Kotlin.QueryStockPriceActivity;
 import com.jackpan.stockcomputer.Kotlin.SeBuyActivity;
 import com.jackpan.stockcomputer.Kotlin.StockValueAddedRateActivity;
+import com.jackpan.stockcomputer.Kotlin.WorldIdxActivity;
 import com.jackpan.stockcomputer.Kotlin.ZeroStockActivity;
 import com.jackpan.stockcomputer.Manager.FacebookManager;
 import com.jackpan.stockcomputer.Manager.LineLoginManager;
@@ -335,7 +336,10 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         }
 
     }
-
+    @OnClick(R.id.nav_word)
+    public void setWorldIdxActivity(){
+        startActivity(WorldIdxActivity.class);
+    }
     @OnClick(R.id.nav_sebuy)
         public void seBuyActivity () {
             startActivity(SeBuyActivity.class);
