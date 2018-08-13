@@ -141,12 +141,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Kotlin.FgBuyActivity"
-            android:label="@string/title_activity_fg_buy"></activity>
+            android:label="@string/title_activity_fg_buy" />
+        <activity android:name=".Activity.PhoneAuthActivity"></activity>
         <activity
-            android:name=".Activity.PhoneAuthActivity"
-            >
-
-        </activity>
+            android:name=".Kotlin.SeBuyActivity"
+            android:label="@string/title_activity_se_buy"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
