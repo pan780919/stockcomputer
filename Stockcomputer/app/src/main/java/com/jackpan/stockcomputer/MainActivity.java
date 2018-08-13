@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -119,7 +120,14 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     private com.facebook.ads.AdView mFbAdView;
     @BindView(R.id.loginbutton)
     Button mLoginButton;
+    private Handler handler = new Handler();
+    private Runnable runnable = new Runnable() {
+        public void run() {
+            test4();
+            handler.postDelayed(this, 1000 * 30);// 间隔30秒
+        }
 
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -203,7 +211,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         //        getbuy();
 //        getStop();
 //
-        test3();
+        test4();
+        handler.postDelayed(runnable, 1000 * 30);
     }
 
     private void getStop() {
@@ -573,6 +582,46 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //                    shareToMessengerParams);
 //        }
 //    }
+        private void test4() {
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("11");
+        progressDialog.setMessage("22");
+        progressDialog.show();
+            new Thread() {
+                @Override
+                public void run() {
+                    super.run();
+                    try {
+                        Document doc = Jsoup.connect("https://tw.stock.yahoo.com/us/worldidx.php").get();
+                        for (Element element : doc.select("table[border=0][cellpadding=4][cellspacing=1][width=100%]")) {
+                            for (int i = 1; i < 15; i++) {
+//                                Log.d(TAG, "run: "+element.select("tr").get(i).text());
+                            }
+
+                            for (int i = 16; i < 24; i++) {
+                                Log.d(TAG, "run: "+element.select("tr").get(i).text());
+                            }
+//                            for (Element tr : element.select("tr")) {
+//                                Log.d(TAG, "run: "+tr.text());
+//                            }
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressDialog.dismiss();
+                            }
+                        });
+
+
+//
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+            }.start();
+        }
         private void test3() {
             new Thread() {
                 @Override
