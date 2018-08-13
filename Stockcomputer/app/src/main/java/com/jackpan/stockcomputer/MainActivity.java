@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,10 @@ import android.widget.TextView;
 
 import com.clickforce.ad.Listener.AdViewLinstener;
 import com.facebook.AccessToken;
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.InterstitialAd;
+import com.facebook.ads.InterstitialAdListener;
 import com.facebook.messenger.MessengerThreadParams;
 import com.facebook.messenger.MessengerUtils;
 import com.google.android.gms.ads.AdRequest;
@@ -74,6 +79,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     private ArrayList<NewsData> newlist = new ArrayList<>();
     private MyAdapter mAdapter;
     private MfiebaselibsClass mfiebaselibsClass;
+    private InterstitialAd interstitialAd;
 
     private static final int LOGINSTATE = 0;
     ArrayList<String> memberList = new ArrayList<>();
@@ -153,6 +159,51 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         getStockTime();
         getbuy();
         getStop();
+        interstitialAd = new InterstitialAd(this, "383959162037550_522507098182755");
+        interstitialAd.setAdListener(new InterstitialAdListener() {
+            @Override
+            public void onInterstitialDisplayed(Ad ad) {
+                // Interstitial ad displayed callback
+                Log.e(TAG, "Interstitial ad displayed.");
+            }
+
+            @Override
+            public void onInterstitialDismissed(Ad ad) {
+                // Interstitial dismissed callback
+                Log.e(TAG, "Interstitial ad dismissed.");
+            }
+
+            @Override
+            public void onError(Ad ad, AdError adError) {
+                // Ad error callback
+                Log.e(TAG, "Interstitial ad failed to load: " + adError.getErrorMessage());
+            }
+
+            @Override
+            public void onAdLoaded(Ad ad) {
+                // Interstitial ad is loaded and ready to be displayed
+                Log.d(TAG, "Interstitial ad is loaded and ready to be displayed!");
+                // Show the ad
+                interstitialAd.show();
+            }
+
+            @Override
+            public void onAdClicked(Ad ad) {
+                // Ad clicked callback
+                Log.d(TAG, "Interstitial ad clicked!");
+            }
+
+            @Override
+            public void onLoggingImpression(Ad ad) {
+                // Ad impression logged callback
+                Log.d(TAG, "Interstitial ad impression logged!");
+            }
+        });
+
+        // For auto play video ads, it's recommended to load the ad
+        // at least 30 seconds before it is shown
+        interstitialAd.loadAd();
+
     }
 
     private void getStop() {
@@ -267,13 +318,12 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             mUserIdTextView.setText("");
 
         }
-        Log.d(TAG, "onResume: " + MemberData.KEY_URL + "/" + id);
-        Log.d(TAG, "onResume: " + MemberData.KEY_URL);
 
     }
 
     @OnClick(R.id.nav_sebuy)
     public void seBuyActivity(){
+        startActivity();
 
     }
     @OnClick(R.id.nav_quotes)
@@ -983,4 +1033,5 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
             ButterKnife.bind(this, v);
         }
     }
+
 }

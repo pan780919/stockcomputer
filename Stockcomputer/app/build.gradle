@@ -23,7 +23,7 @@ android {
         multiDexEnabled true
 
         applicationId "com.jackpan.stockcomputer"
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 26
         versionCode 16
         versionName "1.0.15"
