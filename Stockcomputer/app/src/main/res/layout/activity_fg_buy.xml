@@ -25,7 +25,7 @@
             android:layout_marginBottom="4dp"
             android:layout_marginTop="4dp"
             ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-7019441527375550/1465129066"></com.google.android.gms.ads.AdView>
+            ads:adUnitId="ca-app-pub-7019441527375550/3182087426"></com.google.android.gms.ads.AdView>
         <ListView
             android:layout_below="@+id/adbertADView"
             android:id="@+id/fgbuylistview"
