@@ -154,8 +154,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         mListview.setAdapter(mAdapter);
         setmFbAdView();
         getStockTime();
-        getbuy();
-        getStop();
+//        getbuy();
+//        getStop();
         interstitialAd = new InterstitialAd(this, "383959162037550_522507098182755");
         interstitialAd.setAdListener(new InterstitialAdListener() {
             @Override
@@ -202,7 +202,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         interstitialAd.loadAd();
         //        getbuy();
 //        getStop();
-        test();
+//
+        test3();
     }
 
     private void getStop() {
@@ -572,6 +573,55 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //                    shareToMessengerParams);
 //        }
 //    }
+        private void test3() {
+            new Thread() {
+                @Override
+                public void run() {
+                    super.run();
+                    try {
+                        Document doc = Jsoup.connect("https://tw.stock.yahoo.com/d/i/major.html").get();
+                        for (int i = 1; i < doc.select("table[width=650][border=0][cellspacing=0][cellpadding=0][align=center]").size()-1; i++) {
+//                            Log.d(TAG, "run: "+doc.select("table[width=650][border=0][cellspacing=0][cellpadding=0][align=center]").get(i).text());
+                            for (int i1 = 1; i1 < doc.select("table[width=650][border=0][cellspacing=0][cellpadding=0][align=center]").get(i).select("tr").size(); i1++) {
+                                Log.d(TAG, "run: "+doc.select("table[width=650][border=0][cellspacing=0][cellpadding=0][align=center]").get(i).select("tr").get(i1).text());
+                            }
+
+                        }
+
+//
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+            }.start();
+        }
+    private void test2 () {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Document doc = Jsoup.connect("https://tw.stock.yahoo.com/d/i/rank.php?t=pri&e=tse").get();
+                    for (Element element : doc.select("table[border=0][cellspacing=1][cellpadding=3]")) {
+                        for (Element tr : element.select("tr")) {
+                            Log.d(TAG, "run: "+tr.text());
+
+
+                        }
+                    }
+//
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }.start();
+
+
+    }
         private void test () {
             new Thread() {
                 @Override
