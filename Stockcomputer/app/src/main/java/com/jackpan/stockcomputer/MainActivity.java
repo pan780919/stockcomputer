@@ -212,8 +212,9 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         //        getbuy();
 //        getStop();
 //
-        test4();
-        handler.postDelayed(runnable, 1000 * 30);
+//
+        test9();
+//        handler.postDelayed(runnable, 1000 * 30);
     }
 
     @Override
@@ -632,6 +633,51 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                 }
             }.start();
         }
+    private void test9() {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Document doc = Jsoup.connect("https://histock.tw/stock/broker8.aspx").get();
+                    for (Element ctname : doc.select("div.ctname>h3")) {
+                        Log.d(TAG, "run: "+ctname.text());
+                    }
+                    for (Element ul : doc.select("div.grid-body.p7.mb10")) {
+//                        Log.d(TAG, "run: "+ul.text());
+                        for (Element element : ul.select("ul")) {
+//                            Log.d(TAG, "run: "+ul.select("ul").size());
+                            for (int i = 0; i < element.select("li").size()-1; i++) {
+//                                Log.d(TAG, "run: "+element.select("li").get(i).text());
+//                                Log.d(TAG, "run: "+i+"");
+//                                Log.d(TAG, "run:"+element.select("li").get(i).text());
+                                for (Element element1 : element.select("li").get(i).select("span")) {
+                                    if(!element1.text().trim().equals("")){
+                                        Log.d(TAG, "run: "+ element1.text().trim());
+
+                                    }
+
+
+                                }
+
+                            }
+
+                        }
+
+
+                    }
+
+//
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }.start();
+    }
+
+
         private void test3() {
             new Thread() {
                 @Override
