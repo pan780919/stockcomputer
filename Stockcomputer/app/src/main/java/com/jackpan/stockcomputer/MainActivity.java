@@ -213,8 +213,9 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //        getStop();
 //
 //
-        test9();
+//        test9();
 //        handler.postDelayed(runnable, 1000 * 30);
+        test10();
     }
 
     @Override
@@ -633,6 +634,32 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                 }
             }.start();
         }
+
+    private void test10() {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Document doc = Jsoup.connect("https://fund.bot.com.tw/z/ze/zeb/zeb.djhtm").get();
+                    for (Element element : doc.select("table[border=0][cellspacing=1][cellpadding=1]")) {
+                        Log.d(TAG, "run: "+element.select("tr").size());
+                        for (int i = 1; i < element.select("tr").size(); i++) {
+                            Log.d(TAG, "run: "+element.select("tr").get(i).text());
+                        }
+                    }
+
+
+//
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }.start();
+    }
+
     private void test9() {
         new Thread() {
             @Override
