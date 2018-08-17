@@ -215,7 +215,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //
 //        test9();
 //        handler.postDelayed(runnable, 1000 * 30);
-        test10();
+//        test10();
+        setWarningStock();
     }
 
     @Override
@@ -236,7 +237,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                             for (Element element1 : tr.select("tr>tbody[class=tbGV][cellspacing=0]")) {
                                 Log.d(TAG, "element1: " + element1.text());
                             }
-                            Log.d(TAG, "run: " + tr.text());
                         }
                     }
 
@@ -795,14 +795,24 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                 public void run() {
                     super.run();
                     try {
-                        Document doc = Jsoup.connect("http://jow.win168.com.tw/Z/ZE/ZEW/ZEW.djhtm").get();
-                        for (int i = 2; i < doc.select("table[class=t01]>tbody>tr").size(); i++) {
-                            for (Element script : doc.select("table[class=t01]>tbody>tr").get(i).getElementsByTag("script")) {
-                                MyApi.stockStringReplace(script.html().toString());
-                            }
+                        String url = "http://www.twse.com.tw/announcement/punish?response=html&startDate=20180801&endDate=20180817&stockNo=&sortKind=&querytype=&selectType=&proceType=&remarkType=";
+                        String ur2 = "http://www.twse.com.tw/announcement/notice?response=html&startDate=20180801&endDate=20180817&stockNo=&sortKind=DATE&querytype=1&selectType=";
+                        Document doc = Jsoup.connect(url).get();
+                        Log.d(TAG, "run: "+doc.getElementsByTag("h2").text());
+                        for (Element tr : doc.select("tr")) {
+//                            Log.d(TAG, "run: "+tr.text());
+                            for (Element td : tr.select("td")) {
+                                Log.d(TAG, "run: "+td.text());
 
+                            }
                         }
-                    } catch (IOException e) {
+//                        Document doc = Jsoup.connect("http://jow.win168.com.tw/Z/ZE/ZEW/ZEW.djhtm").get();
+//                        for (int i = 2; i < doc.select("table[class=t01]>tbody>tr").size(); i++) {
+//                            for (Element script : doc.select("table[class=t01]>tbody>tr").get(i).getElementsByTag("script")) {
+//                                MyApi.stockStringReplace(script.html().toString());
+//                            }
+//                        }
+                        } catch (IOException e) {
                         e.printStackTrace();
                     }
 
