@@ -216,7 +216,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //        test9();
 //        handler.postDelayed(runnable, 1000 * 30);
 //        test10();
-        setWarningStock();
+//        setWarningStock();
+        test11();
     }
 
     @Override
@@ -634,6 +635,42 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                 }
             }.start();
         }
+
+    private void test11() {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Document doc = Jsoup.connect("https://tw.stock.yahoo.com/d/s/major_2368.html").get();
+                    for (Element element : doc.select("table[border=0][cellspacing=0][cellpadding=0][align=center]")) {
+                        for (Element element1 : element.select("table[border=0][width=100%][cellpadding=2][height=23]")) {
+                            Log.d(TAG, "run: "+element1.text());
+                        }
+//                        for (Element element2 : element.select("table[width=100%][border=0][cellpadding=3][cellspacing=1]")) {
+//                            Log.d(TAG, "run: "+element2.text());
+////                            for (Element td : element2.select("td")) {
+////                                Log.d(TAG, "run: "+td.text());
+////                            }
+//                        }
+//
+                        for (int i = 0; i < element.select("table[width=100%][border=0][cellpadding=3][cellspacing=1]").size(); i++) {
+                            for (Element tr : element.select("table[width=100%][border=0][cellpadding=3][cellspacing=1]").get(i).select("tr")) {
+                                Log.d(TAG, "run: "+tr.text());
+                            }
+                        }
+                    }
+
+
+//
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }.start();
+    }
 
     private void test10() {
         new Thread() {
