@@ -42,6 +42,7 @@ import com.jackpan.stockcomputer.Data.MyApi;
 import com.jackpan.stockcomputer.Data.NewsData;
 import com.jackpan.stockcomputer.Kotlin.BuyAndSellActivity;
 import com.jackpan.stockcomputer.Kotlin.CheckVersionActivity;
+import com.jackpan.stockcomputer.Kotlin.DividendActivity;
 import com.jackpan.stockcomputer.Kotlin.FgBuyActivity;
 import com.jackpan.stockcomputer.Kotlin.LoginActivity;
 import com.jackpan.stockcomputer.Kotlin.MemberCenterActivity;
@@ -129,6 +130,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         }
 
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -338,234 +340,241 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         }
 
     }
+
     @OnClick(R.id.nav_word)
-    public void setWorldIdxActivity(){
+    public void setWorldIdxActivity() {
         startActivity(WorldIdxActivity.class);
     }
+
     @OnClick(R.id.nav_sebuy)
-        public void seBuyActivity () {
-            startActivity(SeBuyActivity.class);
+    public void seBuyActivity() {
+        startActivity(SeBuyActivity.class);
+
+    }
+
+    @OnClick(R.id.nav_quotes)
+    public void quotesActivity() {
+
+    }
+
+    @OnClick(R.id.nav_fgbuy)
+    public void fgBuyActivit() {
+        startActivity(FgBuyActivity.class);
+
+    }
+
+    @OnClick(R.id.fbImg)
+    public void mRewardedVideoAdClick() {
+
+    }
+
+    @OnClick(R.id.nav_share)
+    public void shareTo() {
+        MyApi.shareTo(context);
+
+    }
+
+    @OnClick(R.id.loginbutton)
+
+    public void setLoginActivity(View v) {
+        String id = MySharedPrefernces.getUserId(context);
+        if (!id.equals("")) {
+            startActivity(MemberCenterActivity.class);
+        } else {
+
+            startActivity(LoginActivity.class);
 
         }
+    }
 
-        @OnClick(R.id.nav_quotes)
-        public void quotesActivity () {
+    @OnClick(R.id.nav_camera)
+    public void setBuyAndSellActivity() {
+        if (!checkUserId(context)) {
+            return;
+        }
+        startActivity(BuyAndSellActivity.class);
+    }
 
+    @OnClick(R.id.nav_stockprice)
+    public void setStockPiceActiviy() {
+        if (!checkUserId(context)) {
+            return;
+        }
+        startActivity(QueryStockPriceActivity.class);
+
+    }
+
+    @OnClick(R.id.nav_gallery)
+    public void Click() {
+        if (!checkUserId(context)) {
+            return;
         }
 
-        @OnClick(R.id.nav_fgbuy)
-        public void fgBuyActivit () {
-            startActivity(FgBuyActivity.class);
+        startActivity(new Intent(this, ProfitAndLossActvity.class));
+    }
+
+    @OnClick(R.id.nav_member)
+    public void toMemberCenter() {
+        String id = MySharedPrefernces.getUserId(context);
+        if (!id.equals("")) {
+            startActivity(MemberCenterActivity.class);
+        } else {
+            startActivity(LoginActivity.class);
 
         }
+    }
 
-        @OnClick(R.id.fbImg)
-        public void mRewardedVideoAdClick () {
+    @OnClick(R.id.nav_check)
+    public void checkVersion() {
+        startActivity(CheckVersionActivity.class);
+    }
 
+    @OnClick(R.id.nav_stock_share)
+    public void shareStockActivity() {
+        if (!checkUserId(context)) {
+            return;
         }
+        startActivity(ShareStockNumberActivity.class);
+    }
 
-        @OnClick(R.id.nav_share)
-        public void shareTo () {
-            MyApi.shareTo(context);
+    @OnClick(R.id.nav_manage)
+    public void PayActivity() {
+        startActivity(new Intent(this, InAppBillingActivity.class));
+    }
 
+    @OnClick(R.id.nav_calculate)
+    public void calculateActivity() {
+        if (!checkUserId(context)) {
+            return;
         }
+        startActivity(CalculateActivity.class);
+    }
 
-        @OnClick(R.id.loginbutton)
+    @OnClick(R.id.nav_dividend)
+    public void DividendActivity() {
+        startActivity(DividendActivity.class);
+    }
 
-        public void setLoginActivity (View v){
-            String id = MySharedPrefernces.getUserId(context);
-            if (!id.equals("")) {
-                startActivity(MemberCenterActivity.class);
-            } else {
-
-                startActivity(LoginActivity.class);
-
-            }
-        }
-
-        @OnClick(R.id.nav_camera)
-        public void setBuyAndSellActivity () {
-            if (!checkUserId(context)) {
-                return;
-            }
-            startActivity(BuyAndSellActivity.class);
-        }
-
-        @OnClick(R.id.nav_stockprice)
-        public void setStockPiceActiviy () {
-            if (!checkUserId(context)) {
-                return;
-            }
-            startActivity(QueryStockPriceActivity.class);
-
-        }
-
-        @OnClick(R.id.nav_gallery)
-        public void Click () {
-            if (!checkUserId(context)) {
-                return;
-            }
-
-            startActivity(new Intent(this, ProfitAndLossActvity.class));
-        }
-
-        @OnClick(R.id.nav_member)
-        public void toMemberCenter () {
-            String id = MySharedPrefernces.getUserId(context);
-            if (!id.equals("")) {
-                startActivity(MemberCenterActivity.class);
-            } else {
-                startActivity(LoginActivity.class);
-
-            }
-        }
-
-        @OnClick(R.id.nav_check)
-        public void checkVersion () {
-            startActivity(CheckVersionActivity.class);
-        }
-
-        @OnClick(R.id.nav_stock_share)
-        public void shareStockActivity () {
-            if (!checkUserId(context)) {
-                return;
-            }
-            startActivity(ShareStockNumberActivity.class);
-        }
-
-        @OnClick(R.id.nav_manage)
-        public void PayActivity () {
-            startActivity(new Intent(this, InAppBillingActivity.class));
-        }
-
-        @OnClick(R.id.nav_calculate)
-        public void calculateActivity () {
-            if (!checkUserId(context)) {
-                return;
-            }
-            startActivity(CalculateActivity.class);
-        }
-
-        //    @OnClick(R.id.messenger_send_button)
+    //    @OnClick(R.id.messenger_send_button)
 //    public void sendMessageButton() {
 //        onMessengerButtonClicked();
 //
 //    }
-        @OnClick(R.id.nav_price)
-        public void setStockPriceActivity () {
-            if (!checkUserId(context)) {
-                return;
-            }
-            startActivity(StockValueAddedRateActivity.class);
+    @OnClick(R.id.nav_price)
+    public void setStockPriceActivity() {
+        if (!checkUserId(context)) {
+            return;
         }
+        startActivity(StockValueAddedRateActivity.class);
+    }
 
-        @OnClick(R.id.zerostock)
-        public void zeroStockActivity () {
-            if (!checkUserId(context)) {
-                return;
-            }
-            startActivity(ZeroStockActivity.class);
+    @OnClick(R.id.zerostock)
+    public void zeroStockActivity() {
+        if (!checkUserId(context)) {
+            return;
         }
+        startActivity(ZeroStockActivity.class);
+    }
 
-        @OnClick(R.id.rightbutton)
-        public void nextPageButton () {
-            if (nextPage.size() >= 2) {
-                setNewsData(nextPage.get(1), true);
-            } else {
-                setNewsData(nextPage.get(0), true);
-
-            }
-        }
-
-        @OnClick(R.id.liftbutton)
-        public void returnButton () {
-            if (nextPage.size() >= 2) {
-                setNewsData(nextPage.get(1), false);
-            } else {
-                showToast("已經是最後一頁！！");
-                return;
-
-            }
-        }
-
-        @OnItemClick(R.id.listView)
-        public void listViewOnItemClick ( int i){
-            Bundle b = new Bundle();
-            b.putString("url", newlist.get(i).getNewsDetail());
-            startActivity(NewDetailActivity.class, b);
-
+    @OnClick(R.id.rightbutton)
+    public void nextPageButton() {
+        if (nextPage.size() >= 2) {
+            setNewsData(nextPage.get(1), true);
+        } else {
+            setNewsData(nextPage.get(0), true);
 
         }
+    }
 
+    @OnClick(R.id.liftbutton)
+    public void returnButton() {
+        if (nextPage.size() >= 2) {
+            setNewsData(nextPage.get(1), false);
+        } else {
+            showToast("已經是最後一頁！！");
+            return;
 
-        @Override
-        public void onBackPressed () {
-            if (drawer.isDrawerOpen(GravityCompat.START)) {
-                drawer.closeDrawer(GravityCompat.START);
-            } else {
-                super.onBackPressed();
-            }
         }
+    }
 
-        private void setVponBanner () {
-            //get your layout view for Vpon banner
-            //create VpadnBanner instance
-            vponBanner = new VpadnBanner(this, bannerId, VpadnAdSize.SMART_BANNER, "TW");
-            VpadnAdRequest adRequest2 = new VpadnAdRequest();
-            //set auto refresh to get banner
-            adRequest2.setEnableAutoRefresh(true);
-            //load vpon banner
-            vponBanner.loadAd(adRequest2);
-            //add vpon banner to your layout view
-            adBannerLayout.addView(vponBanner);
+    @OnItemClick(R.id.listView)
+    public void listViewOnItemClick(int i) {
+        Bundle b = new Bundle();
+        b.putString("url", newlist.get(i).getNewsDetail());
+        startActivity(NewDetailActivity.class, b);
+
+
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
+    }
 
-        private void setAdmobBanner () {
-            AdRequest adRequest = new AdRequest.Builder().build();
-            mAdView.loadAd(adRequest);
-        }
+    private void setVponBanner() {
+        //get your layout view for Vpon banner
+        //create VpadnBanner instance
+        vponBanner = new VpadnBanner(this, bannerId, VpadnAdSize.SMART_BANNER, "TW");
+        VpadnAdRequest adRequest2 = new VpadnAdRequest();
+        //set auto refresh to get banner
+        adRequest2.setEnableAutoRefresh(true);
+        //load vpon banner
+        vponBanner.loadAd(adRequest2);
+        //add vpon banner to your layout view
+        adBannerLayout.addView(vponBanner);
+    }
 
-        private void setPageAdView () {
-            AdRequest adRequest = new AdRequest.Builder().build();
-            mPageAdView.loadAd(adRequest);
-        }
+    private void setAdmobBanner() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+    }
 
-        private void setAdbertBanner () {
+    private void setPageAdView() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mPageAdView.loadAd(adRequest);
+    }
 
-            AdRequest adRequest = new AdRequest.Builder().build();
-            adbertView.loadAd(adRequest);
+    private void setAdbertBanner() {
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adbertView.loadAd(adRequest);
 //        adbertView.setMode(AdbertOrientation.NORMAL);
 //        adbertView.setExpandVideo(ExpandVideoPosition.BOTTOM);
 //        adbertView.setFullScreen(false);
 //        adbertView.setBannerSize(AdSize.BANNER);
 //        adbertView.setAPPID("20170619000001", "90cebe8ef120c8bb6ac2ce529dcb99af");
 //        adbertView.start();
-        }
+    }
 
-        private void setClickForce () {
+    private void setClickForce() {
 
 
-            clickforceAd.getAd(6120, 320, 50, 0.8, 30);
+        clickforceAd.getAd(6120, 320, 50, 0.8, 30);
 
-            //Ad Load Callback
-            clickforceAd.setOnAdViewLoaded(new AdViewLinstener() {
-                @Override
-                public void OnAdViewLoadFail() {
-                    Log.d(TAG, "請求廣告失敗");
-                }
+        //Ad Load Callback
+        clickforceAd.setOnAdViewLoaded(new AdViewLinstener() {
+            @Override
+            public void OnAdViewLoadFail() {
+                Log.d(TAG, "請求廣告失敗");
+            }
 
-                @Override
-                public void OnAdViewLoadSuccess() {
-                    //顯示banner廣告
-                    clickforceAd.show();
-                }
-            });
+            @Override
+            public void OnAdViewLoadSuccess() {
+                //顯示banner廣告
+                clickforceAd.show();
+            }
+        });
 
-            clickforceAd.outputDebugInfo = true;
+        clickforceAd.outputDebugInfo = true;
 
-        }
+    }
 
-        //
+    //
 //    private void onMessengerButtonClicked() {
 //        // The URI can reference a file://, content://, or android.resource. Here we use
 //        // android.resource for sample purposes.
@@ -594,46 +603,47 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //                    shareToMessengerParams);
 //        }
 //    }
-        private void test4() {
-            ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("11");
-            progressDialog.setMessage("22");
-            progressDialog.show();
-            new Thread() {
-                @Override
-                public void run() {
-                    super.run();
-                    try {
-                        Document doc = Jsoup.connect("https://tw.stock.yahoo.com/us/worldidx.php").get();
-                        for (Element element : doc.select("table[border=0][cellpadding=4][cellspacing=1][width=100%]")) {
-                            for (int i = 1; i < 15; i++) {
+    private void test4() {
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("11");
+        progressDialog.setMessage("22");
+        progressDialog.show();
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Document doc = Jsoup.connect("https://tw.stock.yahoo.com/us/worldidx.php").get();
+                    for (Element element : doc.select("table[border=0][cellpadding=4][cellspacing=1][width=100%]")) {
+                        for (int i = 1; i < 15; i++) {
 //                                Log.d(TAG, "run: "+element.select("tr").get(i).text());
-                            }
+                        }
 
-                            for (int i = 16; i < 24; i++) {
-                                Log.d(TAG, "run: " + element.select("tr").get(i).text());
-                            }
+                        for (int i = 16; i < 24; i++) {
+                            Log.d(TAG, "run: " + element.select("tr").get(i).text());
+                        }
 //                            for (Element tr : element.select("tr")) {
 //                                Log.d(TAG, "run: "+tr.text());
 //                            }
+                    }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressDialog.dismiss();
                         }
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                progressDialog.dismiss();
-                            }
-                        });
+                    });
 
 
 //
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            }.start();
-        }
+
+
+            }
+        }.start();
+    }
+
     private void test11() {
         new Thread() {
             @Override
@@ -643,7 +653,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                     Document doc = Jsoup.connect("https://tw.stock.yahoo.com/d/s/major_2368.html").get();
                     for (Element element : doc.select("table[border=0][cellspacing=0][cellpadding=0][align=center]")) {
                         for (Element element1 : element.select("table[border=0][width=100%][cellpadding=2][height=23]")) {
-                            Log.d(TAG, "run: "+element1.text());
+                            Log.d(TAG, "run: " + element1.text());
                         }
 //                        for (Element element2 : element.select("table[width=100%][border=0][cellpadding=3][cellspacing=1]")) {
 //                            Log.d(TAG, "run: "+element2.text());
@@ -654,7 +664,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //
                         for (int i = 0; i < element.select("table[width=100%][border=0][cellpadding=3][cellspacing=1]").size(); i++) {
                             for (Element tr : element.select("table[width=100%][border=0][cellpadding=3][cellspacing=1]").get(i).select("tr")) {
-                                Log.d(TAG, "run: "+tr.text());
+                                Log.d(TAG, "run: " + tr.text());
                             }
                         }
                     }
@@ -678,9 +688,9 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                 try {
                     Document doc = Jsoup.connect("https://fund.bot.com.tw/z/ze/zeb/zeb.djhtm").get();
                     for (Element element : doc.select("table[border=0][cellspacing=1][cellpadding=1]")) {
-                        Log.d(TAG, "run: "+element.select("tr").size());
+                        Log.d(TAG, "run: " + element.select("tr").size());
                         for (int i = 1; i < element.select("tr").size(); i++) {
-                            Log.d(TAG, "run: "+element.select("tr").get(i).text());
+                            Log.d(TAG, "run: " + element.select("tr").get(i).text());
                         }
                     }
 
@@ -703,19 +713,19 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                 try {
                     Document doc = Jsoup.connect("https://histock.tw/stock/broker8.aspx").get();
                     for (Element ctname : doc.select("div.ctname>h3")) {
-                        Log.d(TAG, "run: "+ctname.text());
+                        Log.d(TAG, "run: " + ctname.text());
                     }
                     for (Element ul : doc.select("div.grid-body.p7.mb10")) {
 //                        Log.d(TAG, "run: "+ul.text());
                         for (Element element : ul.select("ul")) {
 //                            Log.d(TAG, "run: "+ul.select("ul").size());
-                            for (int i = 0; i < element.select("li").size()-1; i++) {
+                            for (int i = 0; i < element.select("li").size() - 1; i++) {
 //                                Log.d(TAG, "run: "+element.select("li").get(i).text());
 //                                Log.d(TAG, "run: "+i+"");
 //                                Log.d(TAG, "run:"+element.select("li").get(i).text());
                                 for (Element element1 : element.select("li").get(i).select("span")) {
-                                    if(!element1.text().trim().equals("")){
-                                        Log.d(TAG, "run: "+ element1.text().trim());
+                                    if (!element1.text().trim().equals("")) {
+                                        Log.d(TAG, "run: " + element1.text().trim());
 
                                     }
 
@@ -740,31 +750,32 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     }
 
 
-        private void test3() {
-            new Thread() {
-                @Override
-                public void run() {
-                    super.run();
-                    try {
-                        Document doc = Jsoup.connect("https://tw.stock.yahoo.com/d/i/major.html").get();
-                        for (int i = 1; i < doc.select("table[width=650][border=0][cellspacing=0][cellpadding=0][align=center]").size()-1; i++) {
+    private void test3() {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Document doc = Jsoup.connect("https://tw.stock.yahoo.com/d/i/major.html").get();
+                    for (int i = 1; i < doc.select("table[width=650][border=0][cellspacing=0][cellpadding=0][align=center]").size() - 1; i++) {
 //                            Log.d(TAG, "run: "+doc.select("table[width=650][border=0][cellspacing=0][cellpadding=0][align=center]").get(i).text());
-                            for (int i1 = 1; i1 < doc.select("table[width=650][border=0][cellspacing=0][cellpadding=0][align=center]").get(i).select("tr").size(); i1++) {
-                                Log.d(TAG, "run: "+doc.select("table[width=650][border=0][cellspacing=0][cellpadding=0][align=center]").get(i).select("tr").get(i1).text());
-                            }
-
+                        for (int i1 = 1; i1 < doc.select("table[width=650][border=0][cellspacing=0][cellpadding=0][align=center]").get(i).select("tr").size(); i1++) {
+                            Log.d(TAG, "run: " + doc.select("table[width=650][border=0][cellspacing=0][cellpadding=0][align=center]").get(i).select("tr").get(i1).text());
                         }
 
-//
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     }
 
-
+//
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            }.start();
-        }
-    private void test2 () {
+
+
+            }
+        }.start();
+    }
+
+    private void test2() {
         new Thread() {
             @Override
             public void run() {
@@ -773,7 +784,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                     Document doc = Jsoup.connect("https://tw.stock.yahoo.com/d/i/rank.php?t=pri&e=tse").get();
                     for (Element element : doc.select("table[border=0][cellspacing=1][cellpadding=3]")) {
                         for (Element tr : element.select("tr")) {
-                            Log.d(TAG, "run: "+tr.text());
+                            Log.d(TAG, "run: " + tr.text());
 
 
                         }
@@ -789,160 +800,161 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
 
     }
-        private void test () {
-            new Thread() {
-                @Override
-                public void run() {
-                    super.run();
-                    try {
-                        Document doc = Jsoup.connect("https://tw.stock.yahoo.com/d/i/credit.html").get();
-                        for (Element element : doc.select("table[border=0][cellspacing=7][cellpadding=2]")) {
-                            for (Element tr : element.select("tr")) {
-                                for (Element p : tr.getElementsByTag("p")) {
-//                                Log.d(TAG, "run: "+p.toString());
-                                    Elements title = p.select("[src]");
 
-                                    for (Element src : title) {
-                                        if (src.tagName().equalsIgnoreCase("img")) {
-                                            Log.d(TAG, "run: " + src.attr("abs:src"));
-                                        }
+    private void test() {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Document doc = Jsoup.connect("https://tw.stock.yahoo.com/d/i/credit.html").get();
+                    for (Element element : doc.select("table[border=0][cellspacing=7][cellpadding=2]")) {
+                        for (Element tr : element.select("tr")) {
+                            for (Element p : tr.getElementsByTag("p")) {
+//                                Log.d(TAG, "run: "+p.toString());
+                                Elements title = p.select("[src]");
+
+                                for (Element src : title) {
+                                    if (src.tagName().equalsIgnoreCase("img")) {
+                                        Log.d(TAG, "run: " + src.attr("abs:src"));
                                     }
                                 }
-
-
                             }
+
+
                         }
-//
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     }
-
-
+//
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            }.start();
 
 
-        }
+            }
+        }.start();
 
-        private void setWarningStock () {
-            new Thread() {
-                @Override
-                public void run() {
-                    super.run();
-                    try {
-                        String url = "http://www.twse.com.tw/announcement/punish?response=html&startDate=20180801&endDate=20180817&stockNo=&sortKind=&querytype=&selectType=&proceType=&remarkType=";
-                        String ur2 = "http://www.twse.com.tw/announcement/notice?response=html&startDate=20180801&endDate=20180817&stockNo=&sortKind=DATE&querytype=1&selectType=";
-                        Document doc = Jsoup.connect(url).get();
-                        Log.d(TAG, "run: "+doc.getElementsByTag("h2").text());
-                        for (Element tr : doc.select("tr")) {
+
+    }
+
+    private void setWarningStock() {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    String url = "http://www.twse.com.tw/announcement/punish?response=html&startDate=20180801&endDate=20180817&stockNo=&sortKind=&querytype=&selectType=&proceType=&remarkType=";
+                    String ur2 = "http://www.twse.com.tw/announcement/notice?response=html&startDate=20180801&endDate=20180817&stockNo=&sortKind=DATE&querytype=1&selectType=";
+                    Document doc = Jsoup.connect(url).get();
+                    Log.d(TAG, "run: " + doc.getElementsByTag("h2").text());
+                    for (Element tr : doc.select("tr")) {
 //                            Log.d(TAG, "run: "+tr.text());
-                            for (Element td : tr.select("td")) {
-                                Log.d(TAG, "run: "+td.text());
+                        for (Element td : tr.select("td")) {
+                            Log.d(TAG, "run: " + td.text());
 
-                            }
                         }
+                    }
 //                        Document doc = Jsoup.connect("http://jow.win168.com.tw/Z/ZE/ZEW/ZEW.djhtm").get();
 //                        for (int i = 2; i < doc.select("table[class=t01]>tbody>tr").size(); i++) {
 //                            for (Element script : doc.select("table[class=t01]>tbody>tr").get(i).getElementsByTag("script")) {
 //                                MyApi.stockStringReplace(script.html().toString());
 //                            }
 //                        }
-                        } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            }.start();
 
 
-        }
+            }
+        }.start();
 
-        private void getStockTime () {
-            new Thread() {
-                @Override
-                public void run() {
-                    super.run();
-                    try {
-                        Document doc = Jsoup.connect("https://tw.stock.yahoo.com/").get();
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                mStockTimeText.setText(doc.select("td[width=270][class=ssbody]").text());
 
-                            }
-                        });
+    }
 
-                    } catch (Exception e) {
-                        Log.d(TAG, Log.getStackTraceString(e));
-                    }
+    private void getStockTime() {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Document doc = Jsoup.connect("https://tw.stock.yahoo.com/").get();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mStockTimeText.setText(doc.select("td[width=270][class=ssbody]").text());
+
+                        }
+                    });
+
+                } catch (Exception e) {
+                    Log.d(TAG, Log.getStackTraceString(e));
                 }
-            }.start();
-        }
+            }
+        }.start();
+    }
 
-        private void setStockData () {
-            new Thread() {
-                @Override
-                public void run() {
-                    super.run();
-                    try {
-                        Document doc = Jsoup.connect("http://www.tse.com.tw/exchangeReport/STOCK_DAY?response=html&date=20180128&stockNo=3019").get();
+    private void setStockData() {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Document doc = Jsoup.connect("http://www.tse.com.tw/exchangeReport/STOCK_DAY?response=html&date=20180128&stockNo=3019").get();
 //                    for (Element element : doc.select("table>tbody>tr")) {
 //                        Log.d(TAG, "run: "+element.text());
 //
 //
 //                    }
-                        Log.d(TAG, "run: " + doc.select("table>tbody>tr").size());
-                        for (int i = 0; i < 1; i++) {
+                    Log.d(TAG, "run: " + doc.select("table>tbody>tr").size());
+                    for (int i = 0; i < 1; i++) {
 //                        for (int i1 = 0; i1 < doc.select("table>tbody>tr").get(i).select("td").size(); i1++) {
 //                            Log.d(TAG, "run: "+doc.select("table>tbody>tr").get(i).select("td").get(i));
 //                        }
-                            for (Element td : doc.select("table>tbody>tr").get(0).select("td")) {
-                                Log.d(TAG, "run: " + td.text());
-                            }
-
+                        for (Element td : doc.select("table>tbody>tr").get(0).select("td")) {
+                            Log.d(TAG, "run: " + td.text());
                         }
 
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     }
 
-
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            }.start();
-
-        }
-
-        private void setNewsData () {
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.show();
-
-            new Thread() {
-                @Override
-                public void run() {
-                    super.run();
-                    try {
-
-                        Document doc = Jsoup.connect("https://tw.stock.yahoo.com/news_list/url/d/e/N3.html?q=&pg=1").get();
-                        for (Element mtext : doc.getElementsByClass("mtext")) {
-                            nextPage.add(mtext.attr("onClick").toString());
-                        }
-                        if (!nextPage.get(0).equals("")) {
 
 
-                            for (Element table : doc.select("table#newListContainer")) {
+            }
+        }.start();
 
-                                for (Element tbody : table.select("tbody")) {
+    }
+
+    private void setNewsData() {
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.show();
+
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+
+                    Document doc = Jsoup.connect("https://tw.stock.yahoo.com/news_list/url/d/e/N3.html?q=&pg=1").get();
+                    for (Element mtext : doc.getElementsByClass("mtext")) {
+                        nextPage.add(mtext.attr("onClick").toString());
+                    }
+                    if (!nextPage.get(0).equals("")) {
 
 
-                                    for (Element tr : tbody.select("tr")) {
+                        for (Element table : doc.select("table#newListContainer")) {
 
-                                        for (Element element : tr.select("td[valign=top]>a.mbody")) {
-                                            NewsData n = new NewsData();
-                                            n.setNewsTitle(element.text());
-                                            n.setNewsDetail(element.getElementsByTag("a").attr("href").toString());
-                                            newlist.add(n);
-                                        }
+                            for (Element tbody : table.select("tbody")) {
+
+
+                                for (Element tr : tbody.select("tr")) {
+
+                                    for (Element element : tr.select("td[valign=top]>a.mbody")) {
+                                        NewsData n = new NewsData();
+                                        n.setNewsTitle(element.text());
+                                        n.setNewsDetail(element.getElementsByTag("a").attr("href").toString());
+                                        newlist.add(n);
+                                    }
 //                                        NewsData n = new NewsData();
 //
 //                                        n.setNewsTitle(element.text());
@@ -955,6 +967,92 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //                                    }
 
 
+                                    if (newlist.size() >= 10) {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+
+                                                mAdapter.notifyDataSetChanged();
+
+                                                mProgressDialog.dismiss();
+
+                                            }
+                                        });
+
+                                        return;
+                                    }
+                                }
+
+
+                            }
+
+                        }
+
+
+                    }
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.d(TAG, "run: " + e.getMessage());
+                }
+
+
+            }
+        }.start();
+    }
+
+    String next;
+    String ntx;
+
+    private void setNewsData(String s, boolean isNextPage) {
+
+        newlist.clear();
+
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+
+                    if (nextPage.size() >= 2) {
+                        if (isNextPage == true) {
+                            next = nextPage.get(1).replace("location=", "");
+                            ntx = next.replace("\'", "");
+                        } else {
+                            next = nextPage.get(0).replace("location=", "");
+                            ntx = next.replace("\'", "");
+                        }
+
+
+                    } else {
+                        next = nextPage.get(0).replace("location=", "");
+                        ntx = next.replace("\'", "");
+                    }
+
+                    Log.d(TAG, "run: " + "https://tw.stock.yahoo.com/news_list/url/d/e/N3.html" + ntx + "");
+
+                    Document doc = Jsoup.connect("https://tw.stock.yahoo.com/news_list/url/d/e/N3.html" + ntx + "").get();
+
+                    nextPage.clear();
+                    for (Element mtext : doc.getElementsByClass("mtext")) {
+                        nextPage.add(mtext.attr("onClick").toString());
+
+
+                    }
+
+                    if (!nextPage.get(0).equals("")) {
+                        for (Element table : doc.select("table#newListContainer")) {
+
+                            for (Element tbody : table.select("tbody")) {
+                                for (Element tr : tbody.select("tr")) {
+                                    Log.d(TAG, "run: " + tr.select("td[valign=top]>a.mbody").size());
+                                    for (int i = 0; i < tr.select("td[valign=top]>a.mbody").size(); i++) {
+                                        NewsData mNewsData = new NewsData();
+                                        mNewsData.setNewsTitle(tr.select("td[valign=top]>a.mbody").get(i).text());
+                                        mNewsData.setNewsDetail(tr.select("td[valign=top]>a.mbody").get(i).getElementsByTag("a").attr("href").toString());
+
+                                        newlist.add(mNewsData);
                                         if (newlist.size() >= 10) {
                                             runOnUiThread(new Runnable() {
                                                 @Override
@@ -962,7 +1060,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
                                                     mAdapter.notifyDataSetChanged();
 
-                                                    mProgressDialog.dismiss();
 
                                                 }
                                             });
@@ -973,300 +1070,215 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
 
                                 }
-
                             }
-
-
                         }
 
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Log.d(TAG, "run: " + e.getMessage());
                     }
 
-
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.d(TAG, "run: " + e.getMessage());
                 }
-            }.start();
-        }
-
-        String next;
-        String ntx;
-
-        private void setNewsData (String s,boolean isNextPage){
-
-            newlist.clear();
-
-            new Thread() {
-                @Override
-                public void run() {
-                    super.run();
-                    try {
-
-                        if (nextPage.size() >= 2) {
-                            if (isNextPage == true) {
-                                next = nextPage.get(1).replace("location=", "");
-                                ntx = next.replace("\'", "");
-                            } else {
-                                next = nextPage.get(0).replace("location=", "");
-                                ntx = next.replace("\'", "");
-                            }
 
 
-                        } else {
-                            next = nextPage.get(0).replace("location=", "");
-                            ntx = next.replace("\'", "");
+            }
+        }.start();
+    }
+
+
+    private void getbuy() {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Document doc = Jsoup.connect("https://tw.stock.yahoo.com/d/i/fgbuy_tse_w.html").get();
+                    for (Element element : doc.select("table[border=0][width=600][cellpadding=3][cellspacing=1]")) {
+                        for (Element tr : element.select("tr")) {
+                            Log.d(TAG, "run: " + tr.text());
                         }
-
-                        Log.d(TAG, "run: " + "https://tw.stock.yahoo.com/news_list/url/d/e/N3.html" + ntx + "");
-
-                        Document doc = Jsoup.connect("https://tw.stock.yahoo.com/news_list/url/d/e/N3.html" + ntx + "").get();
-
-                        nextPage.clear();
-                        for (Element mtext : doc.getElementsByClass("mtext")) {
-                            nextPage.add(mtext.attr("onClick").toString());
-
-
-                        }
-
-                        if (!nextPage.get(0).equals("")) {
-                            for (Element table : doc.select("table#newListContainer")) {
-
-                                for (Element tbody : table.select("tbody")) {
-                                    for (Element tr : tbody.select("tr")) {
-                                        Log.d(TAG, "run: " + tr.select("td[valign=top]>a.mbody").size());
-                                        for (int i = 0; i < tr.select("td[valign=top]>a.mbody").size(); i++) {
-                                            NewsData mNewsData = new NewsData();
-                                            mNewsData.setNewsTitle(tr.select("td[valign=top]>a.mbody").get(i).text());
-                                            mNewsData.setNewsDetail(tr.select("td[valign=top]>a.mbody").get(i).getElementsByTag("a").attr("href").toString());
-
-                                            newlist.add(mNewsData);
-                                            if (newlist.size() >= 10) {
-                                                runOnUiThread(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-
-                                                        mAdapter.notifyDataSetChanged();
-
-
-                                                    }
-                                                });
-
-                                                return;
-                                            }
-                                        }
-
-
-                                    }
-                                }
-                            }
-
-                        }
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Log.d(TAG, "run: " + e.getMessage());
                     }
 
-
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            }.start();
-        }
 
+            }
+        }.start();
+    }
 
-        private void getbuy () {
-            new Thread() {
-                @Override
-                public void run() {
-                    super.run();
-                    try {
-                        Document doc = Jsoup.connect("https://tw.stock.yahoo.com/d/i/fgbuy_tse_w.html").get();
-                        for (Element element : doc.select("table[border=0][width=600][cellpadding=3][cellspacing=1]")) {
-                            for (Element tr : element.select("tr")) {
-                                Log.d(TAG, "run: " + tr.text());
-                            }
-                        }
+    private void getNewDetil(String s, NewsData d) {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
 
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            }.start();
-        }
-
-        private void getNewDetil (String s, NewsData d){
-            new Thread() {
-                @Override
-                public void run() {
-                    super.run();
-                    try {
-
-                        Document doc = Jsoup.connect(s).get();
-                        for (Element element : doc.select("table[class=yui-text-left yui-table-wfix ynwsart]>tbody>tr>td>span")) {
+                    Document doc = Jsoup.connect(s).get();
+                    for (Element element : doc.select("table[class=yui-text-left yui-table-wfix ynwsart]>tbody>tr>td>span")) {
 //                        Log.d(TAG, "getNewDetil: "+element.text());
-                        }
-                        for (Element element : doc.select("p")) {
+                    }
+                    for (Element element : doc.select("p")) {
 //                        Log.d(TAG, "getNewDetil: "+element.toString());
 //                        Log.d(TAG, "getNewDetil: "+element.text());
-                            if (!element.text().equals("")) {
+                        if (!element.text().equals("")) {
 //                            newlist.add(mNewsData.setNewsDetail(element.text()));
-                            }
-
-
                         }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+
+
                     }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            }.start();
+            }
+        }.start();
 
+    }
+
+
+    private void updateWithToken(AccessToken currentAccessToken) {
+
+        if (currentAccessToken != null) {
+        } else {
+        }
+    }
+
+    @Override
+    public void getDatabaseData(Object o) {
+        Gson gson = new Gson();
+        String s = gson.toJson(o);
+        Log.d(TAG, "getDatabaseData: " + s);
+        memberList.add(s);
+        if (memberList.size() >= 5) {
+            MySharedPrefernces.saveUserId(context, memberList.get(0));
+            MySharedPrefernces.saveUserlv(context, memberList.get(1));
+            MySharedPrefernces.saveUserName(context, memberList.get(2));
+            MySharedPrefernces.saveUserPhoto(context, memberList.get(3));
+            MySharedPrefernces.saveUserPoint(context, memberList.get(4));
+            memberList.clear();
         }
 
+    }
 
-        private void updateWithToken (AccessToken currentAccessToken){
+    @Override
+    public void getDeleteState(boolean b, String s, Object o) {
 
-            if (currentAccessToken != null) {
+    }
+
+    @Override
+    public void createUserState(boolean b) {
+
+    }
+
+    @Override
+    public void useLognState(boolean b) {
+        Log.d(TAG, "useLognState: " + b);
+
+    }
+
+    @Override
+    public void getuseLoginId(String s) {
+        Log.d(TAG, "getuseLoginId: " + s);
+
+    }
+
+    @Override
+    public void getuserLoginEmail(String s) {
+
+    }
+
+    @Override
+    public void resetPassWordState(boolean b) {
+
+    }
+
+    @Override
+    public void getFireBaseDBState(boolean b, String s) {
+        Log.d(TAG, "getFireBaseDBState: " + s);
+
+    }
+
+    @Override
+    public void getFirebaseStorageState(boolean b) {
+
+    }
+
+    @Override
+    public void getFirebaseStorageType(String s, String s1) {
+
+    }
+
+    @Override
+    public void getsSndPasswordResetEmailState(boolean b) {
+
+    }
+
+    @Override
+    public void getUpdateUserName(boolean b) {
+
+    }
+
+    @Override
+    public void getUserLogoutState(boolean b) {
+
+    }
+
+    public class MyAdapter extends BaseAdapter {
+        private ArrayList<NewsData> mDatas;
+
+        public MyAdapter(ArrayList<NewsData> datas) {
+            mDatas = datas;
+        }
+
+        public void updateData(ArrayList<NewsData> datas) {
+            mDatas = datas;
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public int getCount() {
+            return mDatas.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return mDatas.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder viewHolder;
+            NewsData data = mDatas.get(position);
+            if (convertView != null) {
+                viewHolder = (ViewHolder) convertView.getTag();
             } else {
+                convertView = LayoutInflater.from(MainActivity.this).inflate(
+                        R.layout.layout_homepage, null);
+                viewHolder = new ViewHolder(convertView);
+                convertView.setTag(viewHolder);
             }
+            viewHolder.mTitleTextView.setText(data.getNewsTitle() + "");
+            viewHolder.mDetailTextView.setText("(詳全文...)");
+
+            return convertView;
         }
 
-        @Override
-        public void getDatabaseData (Object o){
-            Gson gson = new Gson();
-            String s = gson.toJson(o);
-            Log.d(TAG, "getDatabaseData: " + s);
-            memberList.add(s);
-            if (memberList.size() >= 5) {
-                MySharedPrefernces.saveUserId(context, memberList.get(0));
-                MySharedPrefernces.saveUserlv(context, memberList.get(1));
-                MySharedPrefernces.saveUserName(context, memberList.get(2));
-                MySharedPrefernces.saveUserPhoto(context, memberList.get(3));
-                MySharedPrefernces.saveUserPoint(context, memberList.get(4));
-                memberList.clear();
-            }
+    }
 
+    static class ViewHolder {
+        @BindView(R.id.title)
+        TextView mTitleTextView;
+        @BindView(R.id.detail)
+        TextView mDetailTextView;
+
+        public ViewHolder(View v) {
+            ButterKnife.bind(this, v);
         }
-
-        @Override
-        public void getDeleteState ( boolean b, String s, Object o){
-
-        }
-
-        @Override
-        public void createUserState ( boolean b){
-
-        }
-
-        @Override
-        public void useLognState ( boolean b){
-            Log.d(TAG, "useLognState: " + b);
-
-        }
-
-        @Override
-        public void getuseLoginId (String s){
-            Log.d(TAG, "getuseLoginId: " + s);
-
-        }
-
-        @Override
-        public void getuserLoginEmail (String s){
-
-        }
-
-        @Override
-        public void resetPassWordState ( boolean b){
-
-        }
-
-        @Override
-        public void getFireBaseDBState ( boolean b, String s){
-            Log.d(TAG, "getFireBaseDBState: " + s);
-
-        }
-
-        @Override
-        public void getFirebaseStorageState ( boolean b){
-
-        }
-
-        @Override
-        public void getFirebaseStorageType (String s, String s1){
-
-        }
-
-        @Override
-        public void getsSndPasswordResetEmailState ( boolean b){
-
-        }
-
-        @Override
-        public void getUpdateUserName ( boolean b){
-
-        }
-
-        @Override
-        public void getUserLogoutState ( boolean b){
-
-        }
-
-        public class MyAdapter extends BaseAdapter {
-            private ArrayList<NewsData> mDatas;
-
-            public MyAdapter(ArrayList<NewsData> datas) {
-                mDatas = datas;
-            }
-
-            public void updateData(ArrayList<NewsData> datas) {
-                mDatas = datas;
-                notifyDataSetChanged();
-            }
-
-            @Override
-            public int getCount() {
-                return mDatas.size();
-            }
-
-            @Override
-            public Object getItem(int position) {
-                return mDatas.get(position);
-            }
-
-            @Override
-            public long getItemId(int position) {
-                return position;
-            }
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                ViewHolder viewHolder;
-                NewsData data = mDatas.get(position);
-                if (convertView != null) {
-                    viewHolder = (ViewHolder) convertView.getTag();
-                } else {
-                    convertView = LayoutInflater.from(MainActivity.this).inflate(
-                            R.layout.layout_homepage, null);
-                    viewHolder = new ViewHolder(convertView);
-                    convertView.setTag(viewHolder);
-                }
-                viewHolder.mTitleTextView.setText(data.getNewsTitle() + "");
-                viewHolder.mDetailTextView.setText("(詳全文...)");
-
-                return convertView;
-            }
-
-        }
-
-        static class ViewHolder {
-            @BindView(R.id.title)
-            TextView mTitleTextView;
-            @BindView(R.id.detail)
-            TextView mDetailTextView;
-
-            public ViewHolder(View v) {
-                ButterKnife.bind(this, v);
-            }
-        }
+    }
 
 }
