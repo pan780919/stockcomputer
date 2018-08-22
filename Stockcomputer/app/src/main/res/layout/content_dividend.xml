@@ -48,6 +48,7 @@
                         android:textSize="20dp"
                         ></TextView>
                     <EditText
+                        android:id="@+id/input_stock_price"
                         android:paddingLeft="14dp"
                         android:layout_marginTop="12dp"
                         android:layout_width="match_parent"
@@ -71,6 +72,8 @@
                         android:textSize="20dp"
                         ></TextView>
                     <EditText
+                        android:id="@+id/input_stock_now_price"
+
                         android:layout_marginTop="12dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -93,6 +96,7 @@
                         android:textSize="20dp"
                         ></TextView>
                     <EditText
+                        android:id="@+id/input_stock_amoumt"
                         android:layout_marginTop="12dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -150,6 +154,7 @@
                         android:textSize="20dp"
                         ></TextView>
                     <EditText
+                        android:id="@+id/input_money_price"
                         android:layout_marginTop="12dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -172,6 +177,8 @@
                         android:textSize="20dp"
                         ></TextView>
                     <EditText
+                        android:id="@+id/input_money_now_price"
+
                         android:layout_marginTop="12dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -194,6 +201,8 @@
                         android:textSize="20dp"
                         ></TextView>
                     <EditText
+                        android:id="@+id/input_money_amoumt"
+
                         android:layout_marginTop="12dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
