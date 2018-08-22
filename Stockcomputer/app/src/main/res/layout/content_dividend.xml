@@ -121,13 +121,22 @@
             android:layout_weight="1"
             >
             <TextView
+                android:id="@+id/stocktitle"
                 android:textSize="24dp"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="股票股利計算"
                 ></TextView>
-
+            <Button
+                android:id="@+id/stockbutton"
+                android:layout_marginLeft="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="計算"
+                android:layout_marginRight="30dp"
+                ></Button>
         </RelativeLayout>
     </LinearLayout>
 
