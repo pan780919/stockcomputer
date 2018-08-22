@@ -12,26 +12,39 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
-        <LinearLayout
+        <RelativeLayout
             android:layout_above="@+id/adView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_weight="1"
             >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="現金股利計算"
+                android:textSize="24dp"
+                android:gravity="center"
+                ></TextView>
 
 
-        </LinearLayout>
-        <LinearLayout
+        </RelativeLayout>
+        <RelativeLayout
             android:layout_above="@+id/adView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_weight="1"
             >
+            <TextView
+                android:textSize="24dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="股票股利計算"
+                ></TextView>
 
-
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
 
