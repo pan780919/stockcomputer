@@ -48,10 +48,11 @@
                         android:textSize="20dp"
                         ></TextView>
                     <EditText
+                        android:paddingLeft="14dp"
                         android:layout_marginTop="12dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="1111"
+                        android:hint="輸入股利"
                         ></EditText>
 
                 </LinearLayout>
@@ -73,7 +74,7 @@
                         android:layout_marginTop="12dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="1111"
+                        android:hint="輸入面額"
                         ></EditText>
 
                 </LinearLayout>
@@ -95,7 +96,7 @@
                         android:layout_marginTop="12dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="1111"
+                        android:hint="輸入股數"
                         ></EditText>
 
                 </LinearLayout>
