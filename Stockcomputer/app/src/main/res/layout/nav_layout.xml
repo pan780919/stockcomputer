@@ -157,6 +157,50 @@
 
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/nav_dividend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:src="@drawable/ic_menu_share"></ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="配股配息計算"></TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/nav_exemption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:src="@drawable/ic_menu_share"></ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="除權息計算"></TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/nav_word"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

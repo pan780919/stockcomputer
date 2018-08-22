@@ -217,7 +217,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //        handler.postDelayed(runnable, 1000 * 30);
 //        test10();
 //        setWarningStock();
-        test11();
     }
 
     @Override
@@ -596,10 +595,10 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //        }
 //    }
         private void test4() {
-        ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("11");
-        progressDialog.setMessage("22");
-        progressDialog.show();
+            ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("11");
+            progressDialog.setMessage("22");
+            progressDialog.show();
             new Thread() {
                 @Override
                 public void run() {
@@ -612,7 +611,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                             }
 
                             for (int i = 16; i < 24; i++) {
-                                Log.d(TAG, "run: "+element.select("tr").get(i).text());
+                                Log.d(TAG, "run: " + element.select("tr").get(i).text());
                             }
 //                            for (Element tr : element.select("tr")) {
 //                                Log.d(TAG, "run: "+tr.text());
@@ -635,7 +634,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                 }
             }.start();
         }
-
     private void test11() {
         new Thread() {
             @Override
