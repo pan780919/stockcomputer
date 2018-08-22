@@ -35,27 +35,68 @@
                 android:orientation="horizontal"
                 >
                 <LinearLayout
+                    android:orientation="vertical"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     >
-
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="111"
+                        android:textSize="20dp"
+                        ></TextView>
+                    <EditText
+                        android:layout_marginTop="12dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="1111"
+                        ></EditText>
 
                 </LinearLayout>
                 <LinearLayout
+                    android:orientation="vertical"
+
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     >
-
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="111"
+                        android:textSize="20dp"
+                        ></TextView>
+                    <EditText
+                        android:layout_marginTop="12dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="1111"
+                        ></EditText>
 
                 </LinearLayout>
                 <LinearLayout
+                    android:orientation="vertical"
+
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     >
-
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="111"
+                        android:textSize="20dp"
+                        ></TextView>
+                    <EditText
+                        android:layout_marginTop="12dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="1111"
+                        ></EditText>
 
                 </LinearLayout>
 
