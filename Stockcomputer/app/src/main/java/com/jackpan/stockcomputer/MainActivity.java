@@ -219,6 +219,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //        handler.postDelayed(runnable, 1000 * 30);
 //        test10();
 //        setWarningStock();
+        getStockSelect();
     }
 
     @Override
@@ -869,6 +870,30 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
 
     }
+
+    private void getStockSelect() {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Document doc = Jsoup.connect("https://tw.stock.yahoo.com/h/getclass.php#table7").get();
+                    Log.d(TAG, "run: "+doc.select("table[border=0][cols=2][cellspacing=0][cellpadding=7]").size());
+                    for (Element tr : doc.select("table[border=0][cols=2][cellspacing=0][cellpadding=7]").get(3).select("tr")) {
+                        for (Element td : tr.select("td")) {
+                            Log.d(TAG, "run: "+td.text());
+                            String url = td.select("a").attr("href");
+                            Log.d(TAG, "run: "+url);
+                        }
+                    }
+
+                } catch (Exception e) {
+                    Log.d(TAG, Log.getStackTraceString(e));
+                }
+            }
+        }.start();
+    }
+
 
     private void getStockTime() {
         new Thread() {
