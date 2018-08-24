@@ -166,6 +166,10 @@
         <activity
             android:name=".Kotlin.ConceptActivity"
             android:label="@string/title_activity_concept"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Kotlin.ConceptDetailActivity"
+            android:label="@string/title_activity_concept_detail"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

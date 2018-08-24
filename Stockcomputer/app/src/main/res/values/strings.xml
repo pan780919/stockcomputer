@@ -142,4 +142,5 @@
     <string name="title_activity_world_idx">WorldIdxActivity</string>
     <string name="title_activity_dividend">DividendActivity</string>
     <string name="title_activity_concept">ConceptActivity</string>
+    <string name="title_activity_concept_detail">ConceptDetailActivity</string>
 </resources>

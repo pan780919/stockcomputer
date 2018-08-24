@@ -1,9 +1,8 @@
 package com.jackpan.stockcomputer.Kotlin
 
+import android.app.ProgressDialog
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,8 +13,6 @@ import android.widget.TextView
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.jackpan.stockcomputer.Data.ConceptData
-import com.jackpan.stockcomputer.Data.FgBuyData
-import com.jackpan.stockcomputer.Data.NewsData
 import com.jackpan.stockcomputer.R
 import org.jsoup.Jsoup
 
@@ -26,6 +23,7 @@ class ConceptActivity : AppCompatActivity() {
 
     var dataList :ArrayList<ConceptData> =ArrayList()
     lateinit var mListView: ListView
+    val mUrlString :String = "https://tw.stock.yahoo.com/";
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_concept)
@@ -38,6 +36,8 @@ class ConceptActivity : AppCompatActivity() {
         getList()
         mListView.setOnItemClickListener { parent, view, position, id ->
             Log.d("mListView",mMyAdapter.mAllData?.get(position)?.url)
+
+            Log.d("mListView",mUrlString+mMyAdapter.mAllData?.get(position)?.url)
             Log.d("mListView",mMyAdapter.mAllData?.get(position)?.title)
 
         }
@@ -46,7 +46,9 @@ class ConceptActivity : AppCompatActivity() {
 
 
     fun getList(){
-
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("讀取中")
+        progressDialog.show()
         Thread{
 
             run {
@@ -72,6 +74,7 @@ class ConceptActivity : AppCompatActivity() {
 
                         runOnUiThread(Runnable {
                             mMyAdapter.notifyDataSetChanged()
+                            progressDialog.dismiss()
 
                         })
 
