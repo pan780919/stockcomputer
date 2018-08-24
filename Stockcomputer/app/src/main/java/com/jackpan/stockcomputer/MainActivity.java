@@ -220,7 +220,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //        handler.postDelayed(runnable, 1000 * 30);
 //        test10();
 //        setWarningStock();
-//        getStockSelect();
+        getStockSelect();
         getStockSelectDetail();
     }
 
