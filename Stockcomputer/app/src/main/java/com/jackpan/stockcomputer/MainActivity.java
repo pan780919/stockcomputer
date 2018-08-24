@@ -506,6 +506,10 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
 
     }
+    @OnClick(R.id.nav_concept)
+        public void setConceptActivity(){
+
+    }
 
 
     @Override

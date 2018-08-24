@@ -162,6 +162,10 @@
         <activity
             android:name=".Kotlin.DividendActivity"
             android:label="@string/title_activity_dividend"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Kotlin.ConceptActivity"
+            android:label="@string/title_activity_concept"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
