@@ -42,6 +42,7 @@ import com.jackpan.stockcomputer.Data.MyApi;
 import com.jackpan.stockcomputer.Data.NewsData;
 import com.jackpan.stockcomputer.Kotlin.BuyAndSellActivity;
 import com.jackpan.stockcomputer.Kotlin.CheckVersionActivity;
+import com.jackpan.stockcomputer.Kotlin.ConceptActivity;
 import com.jackpan.stockcomputer.Kotlin.DividendActivity;
 import com.jackpan.stockcomputer.Kotlin.FgBuyActivity;
 import com.jackpan.stockcomputer.Kotlin.LoginActivity;
@@ -508,7 +509,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     }
     @OnClick(R.id.nav_concept)
         public void setConceptActivity(){
-
+            startActivity(ConceptActivity.class);
     }
 
 
