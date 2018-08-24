@@ -220,7 +220,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //        handler.postDelayed(runnable, 1000 * 30);
 //        test10();
 //        setWarningStock();
-        getStockSelect();
+//        getStockSelect();
+        getStockSelectDetail();
     }
 
     @Override
@@ -891,6 +892,34 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                             Log.d(TAG, "run: "+url);
                         }
                     }
+
+                } catch (Exception e) {
+                    Log.d(TAG, Log.getStackTraceString(e));
+                }
+            }
+        }.start();
+    }
+    private void getStockSelectDetail() {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Document doc = Jsoup.connect("https://tw.stock.yahoo.com/s/list2.php?c=%AAo%B9q%A8%AE&rr=0.35693600%201535090033").get();
+                    for (int i = 0; i < doc.select("table[border=1][cellspacing=0][cellpadding=2]").size(); i++) {
+                       Elements element =  doc.select("table[border=1][cellspacing=0][cellpadding=2]");
+                        for (Element tr : element.select("tr")) {
+                            Log.d(TAG, "run: "+tr.text());
+//                            for (Element td : tr.select("td")) {
+//                                if(!td.text().equals("")){
+//                                Log.d(TAG, "run: "+td.text());
+//
+//                                }
+//                            }
+                        }
+
+                    }
+
 
                 } catch (Exception e) {
                     Log.d(TAG, Log.getStackTraceString(e));
