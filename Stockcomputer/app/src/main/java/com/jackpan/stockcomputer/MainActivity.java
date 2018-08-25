@@ -1206,7 +1206,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     public void getDatabaseData(Object o) {
         Gson gson = new Gson();
         String s = gson.toJson(o);
-        Log.d(TAG, "getDatabaseData: " + s);
         memberList.add(s);
         if (memberList.size() >= 5) {
             MySharedPrefernces.saveUserId(context, memberList.get(0));
@@ -1231,13 +1230,11 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     @Override
     public void useLognState(boolean b) {
-        Log.d(TAG, "useLognState: " + b);
 
     }
 
     @Override
     public void getuseLoginId(String s) {
-        Log.d(TAG, "getuseLoginId: " + s);
 
     }
 
@@ -1253,7 +1250,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     @Override
     public void getFireBaseDBState(boolean b, String s) {
-        Log.d(TAG, "getFireBaseDBState: " + s);
 
     }
 
