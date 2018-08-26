@@ -25,7 +25,7 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 >
-                <LinearLayout
+                <RelativeLayout
                     android:layout_marginLeft="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -33,12 +33,15 @@
                     android:orientation="vertical"
                     >
                     <TextView
+                        android:layout_centerInParent="true"
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="股票代號"
                         android:textSize="16dp"
                         ></TextView>
                     <TextView
+                        android:layout_centerInParent="true"
                         android:id="@+id/stocknumbertext"
                         android:layout_marginTop="45dp"
                         android:layout_width="match_parent"
@@ -46,9 +49,11 @@
                         android:text="107/02/01"
                         android:textSize="16dp"
                         ></TextView>
-                </LinearLayout>
+                </RelativeLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
+
                     android:layout_marginLeft="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -72,6 +77,8 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
+
                     android:layout_marginLeft="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -95,6 +102,8 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
+
                     android:layout_marginLeft="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -118,6 +127,8 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
+
                     android:layout_marginLeft="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -141,6 +152,8 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
+
                     android:layout_marginLeft="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -164,6 +177,8 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
+
                     android:layout_marginLeft="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -187,6 +202,8 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
+
                     android:layout_marginLeft="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -210,6 +227,8 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:visibility="gone"
+
                     android:layout_marginLeft="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -234,6 +253,8 @@
 
 
                 <LinearLayout
+                    android:visibility="gone"
+
                     android:layout_marginLeft="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -241,6 +262,7 @@
                     android:orientation="vertical"
                     >
                     <TextView
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="最高"
@@ -258,6 +280,8 @@
 
 
                 <LinearLayout
+                    android:visibility="gone"
+
                     android:layout_marginLeft="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

@@ -1,6 +1,7 @@
 package com.jackpan.stockcomputer.Kotlin
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -23,7 +24,7 @@ class ConceptActivity : AppCompatActivity() {
 
     var dataList :ArrayList<ConceptData> =ArrayList()
     lateinit var mListView: ListView
-    val mUrlString :String = "https://tw.stock.yahoo.com/";
+    val mUrlString :String = "https://tw.stock.yahoo.com/"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_concept)
@@ -36,9 +37,18 @@ class ConceptActivity : AppCompatActivity() {
         getList()
         mListView.setOnItemClickListener { parent, view, position, id ->
             Log.d("mListView",mMyAdapter.mAllData?.get(position)?.url)
-
             Log.d("mListView",mUrlString+mMyAdapter.mAllData?.get(position)?.url)
             Log.d("mListView",mMyAdapter.mAllData?.get(position)?.title)
+            val mUrl :String = mUrlString+mMyAdapter.mAllData?.get(position)?.url
+            val mTitle:String = mMyAdapter.mAllData?.get(position)?.title.toString()
+            val  mIntent  = Intent()
+            val  mBundle = Bundle()
+            mBundle.putString("title",mTitle)
+            mBundle.putString("url",mUrl)
+            mIntent.putExtras(mBundle)
+            mIntent.setClass(this,ConceptDetailActivity::class.java)
+            startActivity(mIntent)
+
 
         }
 
@@ -112,7 +122,6 @@ class ConceptActivity : AppCompatActivity() {
                         R.layout.layout_concept_item, null)
             var mTitleTextView: TextView = convertView!!.findViewById(R.id.title)
             mTitleTextView.text = data.title
-            Log.d("getView",data.title)
 
             return convertView
         }

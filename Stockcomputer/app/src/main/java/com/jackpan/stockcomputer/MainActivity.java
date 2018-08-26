@@ -10,7 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -910,12 +909,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                        Elements element =  doc.select("table[border=1][cellspacing=0][cellpadding=2]");
                         for (Element tr : element.select("tr")) {
                             Log.d(TAG, "run: "+tr.text());
-//                            for (Element td : tr.select("td")) {
-//                                if(!td.text().equals("")){
-//                                Log.d(TAG, "run: "+td.text());
-//
-//                                }
-//                            }
                         }
 
                     }
