@@ -1,5 +1,6 @@
 package com.jackpan.stockcomputer.Kotlin
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -36,10 +37,14 @@ class ConceptDetailActivity : AppCompatActivity() {
     fun getData(){
        val mtitle :String =  intent.getStringExtra("title")
        val mUrl :String  =  intent.getStringExtra("url")
+        title = mtitle
         getDetail(mUrl)
 
     }
     fun getDetail(url:String){
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("讀取中")
+        progressDialog.show()
         Thread(){
             run {
                 try {
@@ -50,6 +55,7 @@ class ConceptDetailActivity : AppCompatActivity() {
                             dataList.add(tr.text())
                             runOnUiThread(Runnable {
                                 mMyAdapter.notifyDataSetChanged()
+                                progressDialog.dismiss()
 
                             })
                         }
