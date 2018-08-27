@@ -43,4 +43,12 @@ class DividendActivity : AppCompatActivity() {
         mMoneybutton = findViewById(R.id.moneybutton)
         mStockbutton = findViewById(R.id.stockbutton)
     }
+
+    fun  calStock(){
+
+    }
+
+    fun  calMoney(){
+
+    }
 }
