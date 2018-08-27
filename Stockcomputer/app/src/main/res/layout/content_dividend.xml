@@ -133,77 +133,54 @@
                 android:layout_height="wrap_content"
                 android:text="股票股利計算"
                 ></TextView>
+
             <LinearLayout
-                android:layout_below="@+id/stocktitle"
-                android:layout_above="@+id/stockbutton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                >
+                android:layout_above="@+id/stockbutton"
+                android:layout_below="@+id/stocktitle"
+                android:orientation="horizontal">
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    >
-                    <TextView
-                        android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:textSize="20dp"
-                        ></TextView>
-                    <EditText
-                        android:id="@+id/input_money_price"
-                        android:layout_marginTop="12dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint=""
-                        ></EditText>
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                </LinearLayout>
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    >
                     <TextView
-                        android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text=""
-                        android:textSize="20dp"
-                        ></TextView>
+                        android:gravity="center"
+                        android:text="該年度發放額度"
+                        android:textSize="20dp"></TextView>
+
                     <EditText
                         android:id="@+id/input_money_now_price"
-                        android:layout_marginTop="12dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint=""
-                        ></EditText>
+                        android:layout_marginTop="12dp"
+                        android:hint="輸入額度"></EditText>
 
                 </LinearLayout>
+
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    >
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
                     <TextView
-                        android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text=""
-                        android:textSize="20dp"
-                        ></TextView>
+                        android:gravity="center"
+                        android:text="持有股數"
+                        android:textSize="20dp"></TextView>
+
                     <EditText
                         android:id="@+id/input_money_amoumt"
-                        android:layout_marginTop="12dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint=""
-                        ></EditText>
+                        android:layout_marginTop="12dp"
+                        android:hint="輸入股數"></EditText>
 
                 </LinearLayout>
 
