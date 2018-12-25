@@ -28,6 +28,16 @@
             ads:adUnitId="ca-app-pub-7019441527375550/1465129066">
 
         </com.google.android.gms.ads.AdView>
+        <TextView
+            android:id="@+id/title"
+            android:layout_below="@+id/adbertADView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="20dp"
+            android:layout_centerInParent="true"
+
+            ></TextView>
         <ImageView
             android:layout_marginRight="12dp"
             android:id="@+id/updatabtn"

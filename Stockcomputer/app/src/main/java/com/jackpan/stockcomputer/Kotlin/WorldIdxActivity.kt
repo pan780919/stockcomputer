@@ -2,42 +2,115 @@ package com.jackpan.stockcomputer.Kotlin
 
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.ListView
-import android.widget.TextView
+import android.widget.*
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity
 import com.jackpan.stockcomputer.R
+import kotlinx.android.synthetic.main.activity_fg_buy.*
 
 import kotlinx.android.synthetic.main.activity_world_idx.*
 import org.jsoup.Jsoup
 import java.io.IOException
 
-class WorldIdxActivity : BaseAppCompatActivity() {
+class WorldIdxActivity : BaseAppCompatActivity(), View.OnClickListener {
+    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when (item.itemId) {
+            R.id.world_1 -> {
+                state=0
+                getList(Asian_int)
+
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.world_2 -> {
+                state = 1
+                getList(US_int)
+
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.world_3 -> {
+                state = 2
+                getList(Europe_int)
+
+                return@OnNavigationItemSelectedListener true
+            }
+        }
+        false
+    }
+    override fun onClick(v: View?) {
+        when(v!!.id){
+            R.id.updatabtn ->{
+                when(state){
+                    0 ->{
+                        getList(Asian_int)
+                    }
+                    1 ->{
+                        getList(US_int)
+
+                    }
+                  2 ->{
+                      getList(Europe_int)
+
+                  }
+                }
+
+            }
+        }
+    }
+    val Asian_int = 0
+    val US_int = 1
+    val Europe_int = 2
+    var state =0
     lateinit var mMyAdapter : MyAdapter
     var dataList :ArrayList<String> =ArrayList()
     lateinit var mListView: ListView
+    lateinit var mTitleTextView: TextView
+    lateinit var mUpdateButton: ImageView
+    lateinit var mAdView : AdView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_world_idx)
         initLayout()
     }
     fun initLayout(){
+        mAdView = findViewById(R.id.adbertADView)
+        var adRequset = AdRequest.Builder().build()
+        mAdView.loadAd(adRequset)
+        mUpdateButton = findViewById(R.id.updatabtn)
+        mTitleTextView = findViewById(R.id.title)
         mListView = findViewById(R.id.fgbuylistview)
         mMyAdapter = MyAdapter(dataList)
         mListView.adapter = mMyAdapter
+        mUpdateButton.setOnClickListener(this)
+        worldIdx_navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
     }
 
     override fun onResume() {
         super.onResume()
-        getList()
-    }
-    fun getList() {
+        when(state){
+            0 ->{
+                getList(Asian_int)
+            }
+            1 ->{
+                getList(US_int)
+
+            }
+            2 ->{
+                getList(Europe_int)
+
+            }
+        }    }
+    fun getList(int: Int) {
+        dataList.clear()
         val progressDialog = ProgressDialog(this)
         progressDialog.setMessage("讀取中")
         progressDialog.show()
@@ -47,21 +120,44 @@ class WorldIdxActivity : BaseAppCompatActivity() {
                 try {
                     val doc = Jsoup.connect("https://tw.stock.yahoo.com/us/worldidx.php").get()
                     for (element in doc.select("table[border=0][cellpadding=4][cellspacing=1][width=100%]")) {
-                        for (i in 3..14) {
-                            dataList.add(element.select("tr").get(i).text())
-                            runOnUiThread(Runnable {
-                                mMyAdapter.notifyDataSetChanged()
-                                progressDialog.dismiss()
+                        when(int){
+                           0 ->{
+                                for (i in 3..14) {
+                                    for (element in element.select("tr>td")) {
+                                        Log.d("Jack",element.attr("color"))
 
-                            })
-                        }
 
-                        for (i in 16..23) {
-                            //                            Log.d(TAG, "worldidx: " + element.select("tr").get(i).text());
+                                    }
+                                    dataList.add(element.select("tr").get(i).text())
+                                    runOnUiThread(Runnable {
+                                        mTitleTextView.text = element.select("tr").get(1).text()
+                                        mMyAdapter.notifyDataSetChanged()
+                                        progressDialog.dismiss()
+
+                                    })
+                                }
+                            }
+                           1 ->{
+                                for (i in 16..23) {
+                                    dataList.add(element.select("tr").get(i).text())
+                                    runOnUiThread(Runnable {
+                                        mTitleTextView.text = element.select("tr").get(1).text()
+                                        mMyAdapter.notifyDataSetChanged()
+                                        progressDialog.dismiss()
+
+                                    })                                }
+                            }
+                           2 ->{
+                                for (i in 27..29) {
+                                    dataList.add(element.select("tr").get(i).text())
+                                    runOnUiThread(Runnable {
+                                        mTitleTextView.text = element.select("tr").get(1).text()
+                                        mMyAdapter.notifyDataSetChanged()
+                                        progressDialog.dismiss()
+
+                                    })                                }
+                            }
                         }
-                        //                            for (Element tr : element.select("tr")) {
-                        //                                Log.d(TAG, "run: "+tr.text());
-                        //                            }
                     }
                 } catch (e: IOException) {
                     e.printStackTrace()
