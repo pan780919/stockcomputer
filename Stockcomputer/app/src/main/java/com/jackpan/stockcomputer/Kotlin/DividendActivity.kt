@@ -37,8 +37,7 @@ class DividendActivity : AppCompatActivity() {
     fun initLayout(){
         mInput_stock_price = findViewById(R.id.input_stock_price)
         mInput_stock_now_price = findViewById(R.id.input_stock_now_price)
-        mInput_stock_amoumt = findViewById(R.id.input_money_amoumt)
-        mInput_money_now_price = findViewById(R.id.input_money_price)
+        mInput_money_now_price = findViewById(R.id.input_money_now_price)
         mInput_money_amoumt = findViewById(R.id.input_money_amoumt)
         mMoneybutton = findViewById(R.id.moneybutton)
         mStockbutton = findViewById(R.id.stockbutton)
