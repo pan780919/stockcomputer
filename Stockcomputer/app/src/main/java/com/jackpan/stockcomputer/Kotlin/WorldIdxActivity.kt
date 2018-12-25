@@ -1,5 +1,6 @@
 package com.jackpan.stockcomputer.Kotlin
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ListView
 import android.widget.TextView
 import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity
 import com.jackpan.stockcomputer.R
@@ -19,21 +21,39 @@ import java.io.IOException
 class WorldIdxActivity : BaseAppCompatActivity() {
     lateinit var mMyAdapter : MyAdapter
     var dataList :ArrayList<String> =ArrayList()
-
+    lateinit var mListView: ListView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_world_idx)
-
+        initLayout()
+    }
+    fun initLayout(){
+        mListView = findViewById(R.id.fgbuylistview)
+        mMyAdapter = MyAdapter(dataList)
+        mListView.adapter = mMyAdapter
     }
 
+    override fun onResume() {
+        super.onResume()
+        getList()
+    }
     fun getList() {
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("讀取中")
+        progressDialog.show()
         object : Thread() {
             override fun run() {
                 super.run()
                 try {
                     val doc = Jsoup.connect("https://tw.stock.yahoo.com/us/worldidx.php").get()
                     for (element in doc.select("table[border=0][cellpadding=4][cellspacing=1][width=100%]")) {
-                        for (i in 1..14) {
+                        for (i in 3..14) {
+                            dataList.add(element.select("tr").get(i).text())
+                            runOnUiThread(Runnable {
+                                mMyAdapter.notifyDataSetChanged()
+                                progressDialog.dismiss()
+
+                            })
                         }
 
                         for (i in 16..23) {
