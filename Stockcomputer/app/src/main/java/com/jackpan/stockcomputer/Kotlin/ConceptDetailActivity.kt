@@ -102,26 +102,7 @@ class ConceptDetailActivity : AppCompatActivity() {
                 convertView = LayoutInflater.from(this@ConceptDetailActivity).inflate(
                         R.layout.layout_conceptdetail, null)
 
-
             var mNumberView: TextView = convertView!!.findViewById(R.id.stocknumbertext)
-//            var mTimeView: TextView = convertView!!.findViewById(R.id.timetext)
-//
-//            var mMoneyView: TextView = convertView!!.findViewById(R.id.moneytext)
-//            var mBuyView: TextView = convertView!!.findViewById(R.id.buytext)
-//
-//            var mSellView: TextView = convertView!!.findViewById(R.id.selltext)
-//
-//            var mHigtlowView: TextView = convertView!!.findViewById(R.id.higtlowtext)
-//
-//            var mAmounttextView: TextView = convertView!!.findViewById(R.id.amounttext)
-//
-//            var mYestdaytextView: TextView = convertView!!.findViewById(R.id.yestdaytext)
-//
-//            var mOpenView: TextView = convertView!!.findViewById(R.id.opentext)
-//
-//            var mHighttextView: TextView = convertView!!.findViewById(R.id.highttext)
-//
-//            var mLowtextView: TextView = convertView!!.findViewById(R.id.lowtext)
             mNumberView.text = data
 
 

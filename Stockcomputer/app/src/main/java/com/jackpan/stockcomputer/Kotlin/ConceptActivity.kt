@@ -36,9 +36,6 @@ class ConceptActivity : AppCompatActivity() {
         mListView.adapter = mMyAdapter
         getList()
         mListView.setOnItemClickListener { parent, view, position, id ->
-            Log.d("mListView",mMyAdapter.mAllData?.get(position)?.url)
-            Log.d("mListView",mUrlString+mMyAdapter.mAllData?.get(position)?.url)
-            Log.d("mListView",mMyAdapter.mAllData?.get(position)?.title)
             val mUrl :String = mUrlString+mMyAdapter.mAllData?.get(position)?.url
             val mTitle:String = mMyAdapter.mAllData?.get(position)?.title.toString()
             val  mIntent  = Intent()
@@ -67,15 +64,12 @@ class ConceptActivity : AppCompatActivity() {
 
                     val doc = Jsoup.connect("https://tw.stock.yahoo.com/h/getclass.php#table7").get()
                     for (tr in doc.select("table[border=0][cols=2][cellspacing=0][cellpadding=7]").get(3).select("tr")) {
-                        Log.d("getList",tr.text())
                         var mConceptData = ConceptData()
 
                         for (td in tr.select("td")) {
-                            Log.d("getList",td.text())
                             mConceptData.setTitle(td.text())
 
                             val url = td.select("a").attr("href")
-                            Log.d("getList",url)
 
                             mConceptData.setUrl(url)
 

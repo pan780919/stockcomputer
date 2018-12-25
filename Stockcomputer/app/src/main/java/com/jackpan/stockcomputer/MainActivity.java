@@ -216,7 +216,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //
 //
 //        test9();
-//        handler.postDelayed(runnable, 1000 * 30);
+        handler.postDelayed(runnable, 1000 * 30);
 //        test10();
 //        setWarningStock();
         getStockSelect();
@@ -622,11 +622,11 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                     Document doc = Jsoup.connect("https://tw.stock.yahoo.com/us/worldidx.php").get();
                     for (Element element : doc.select("table[border=0][cellpadding=4][cellspacing=1][width=100%]")) {
                         for (int i = 1; i < 15; i++) {
-//                                Log.d(TAG, "run: "+element.select("tr").get(i).text());
+                                Log.d(TAG, "worldidx: "+element.select("tr").get(i).text());
                         }
 
                         for (int i = 16; i < 24; i++) {
-                            Log.d(TAG, "run: " + element.select("tr").get(i).text());
+//                            Log.d(TAG, "worldidx: " + element.select("tr").get(i).text());
                         }
 //                            for (Element tr : element.select("tr")) {
 //                                Log.d(TAG, "run: "+tr.text());
