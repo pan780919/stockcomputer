@@ -13,6 +13,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity
 import com.jackpan.stockcomputer.R
+import com.jackpan.stockcomputer.util.StockPriceCheck
 import kotlinx.android.synthetic.main.activity_quotes.*
 import org.jsoup.Jsoup
 import java.io.IOException
@@ -22,24 +23,30 @@ class QuotesActivity : BaseAppCompatActivity() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.quotes_1 -> {
+                getList(rank_tse)
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.quotes_2 -> {
+                getList(rank_up)
 
                 return@OnNavigationItemSelectedListener true
             }
             R.id.quotes_3 -> {
+                getList(rank_down)
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.quotes_4 -> {
+                getList(rank_pdis)
+
                 return@OnNavigationItemSelectedListener true
             }
             R.id.quotes_5-> {
+                getList(rank_pdi)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.quotes_6 -> {
-                return@OnNavigationItemSelectedListener true
-            }
+
         }
         false
     }
@@ -48,19 +55,20 @@ class QuotesActivity : BaseAppCompatActivity() {
     val rank_down = "https://tw.stock.yahoo.com/d/i/rank.php?t=down&e=tse"
     val rank_pdis = "https://tw.stock.yahoo.com/d/i/rank.php?t=pdis&e=tse"
     val rank_pdi = "https://tw.stock.yahoo.com/d/i/rank.php?t=pri&e=tse"
-    val rank_amt = "https://tw.stock.yahoo.com/d/i/rank.php?t=amt&e=tse"
     lateinit var mListView: ListView
     lateinit var mAdView:AdView
     var mArrayList :ArrayList<String> =ArrayList()
     lateinit var mMyAdapter : MyAdapter
-
+    var mapInt = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quotes)
+        initlayout()
     }
 
     override fun onResume() {
         super.onResume()
+        getList(rank_tse)
 
     }
     fun initlayout(){
@@ -81,7 +89,7 @@ class QuotesActivity : BaseAppCompatActivity() {
             override fun run() {
                 super.run()
                 try {
-                    val doc = Jsoup.connect("https://tw.stock.yahoo.com/d/i/rank.php?t=pri&e=tse").get()
+                    val doc = Jsoup.connect(s).get()
                     for (element in doc.select("table[border=0][cellspacing=1][cellpadding=3]")) {
                         for (tr in element.select("tr")) {
                             mArrayList.add(tr.text())
@@ -124,23 +132,13 @@ class QuotesActivity : BaseAppCompatActivity() {
             var convertView = convertView
             val data = mAllData!![position]
 
-            var mString = data.split(" ")
             if (convertView == null)
                 convertView = LayoutInflater.from(this@QuotesActivity).inflate(
                         R.layout.layout_conceptdetail, null)
 
             var mNumberView: TextView = convertView!!.findViewById(R.id.stocknumbertext)
             mNumberView.text = data
-            for (s in mString) {
-                if (s.contains("%")){
-                    if (s.contains("-")){
-                        mNumberView.setTextColor(Color.GREEN)
-                    }else if(s.contains("+")){
-                        mNumberView.setTextColor(Color.RED)
-
-                    }
-                }
-            }
+            StockPriceCheck.check(data,mNumberView)
 
             return convertView
         }

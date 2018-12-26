@@ -25,8 +25,4 @@
         android:id="@+id/quotes_5"
         android:icon="@drawable/ic_menu_camera"
         android:title="單日成交價排行" />
-    <item
-        android:id="@+id/quotes_6"
-        android:icon="@drawable/ic_menu_camera"
-        android:title="單日成交值排行" />
 </menu>

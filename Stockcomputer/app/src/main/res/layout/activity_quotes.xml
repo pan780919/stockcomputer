@@ -30,11 +30,12 @@
             android:id="@+id/listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/adbertADView"
+            android:layout_below="@+id/ADView"
             android:layout_marginBottom="8dp"></ListView>
 
 
     </RelativeLayout>
+
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/qu_navigation"
@@ -47,5 +48,4 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/navigation_qu" />
-
 </android.support.constraint.ConstraintLayout>
