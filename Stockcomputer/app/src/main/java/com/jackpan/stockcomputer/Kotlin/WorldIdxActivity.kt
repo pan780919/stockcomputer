@@ -1,6 +1,7 @@
 package com.jackpan.stockcomputer.Kotlin
 
 import android.app.ProgressDialog
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.Snackbar
@@ -109,6 +110,7 @@ class WorldIdxActivity : BaseAppCompatActivity(), View.OnClickListener {
 
             }
         }    }
+
     fun getList(int: Int) {
         dataList.clear()
         val progressDialog = ProgressDialog(this)
@@ -123,11 +125,6 @@ class WorldIdxActivity : BaseAppCompatActivity(), View.OnClickListener {
                         when(int){
                            0 ->{
                                 for (i in 3..14) {
-                                    for (element in element.select("tr>td")) {
-                                        Log.d("Jack",element.attr("color"))
-
-
-                                    }
                                     dataList.add(element.select("tr").get(i).text())
                                     runOnUiThread(Runnable {
                                         mTitleTextView.text = element.select("tr").get(1).text()
@@ -138,7 +135,7 @@ class WorldIdxActivity : BaseAppCompatActivity(), View.OnClickListener {
                                 }
                             }
                            1 ->{
-                                for (i in 16..23) {
+                                for (i in 18..23) {
                                     dataList.add(element.select("tr").get(i).text())
                                     runOnUiThread(Runnable {
                                         mTitleTextView.text = element.select("tr").get(1).text()
@@ -188,15 +185,25 @@ class WorldIdxActivity : BaseAppCompatActivity(), View.OnClickListener {
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
             var convertView = convertView
-            Log.d(javaClass.simpleName,mAllData!![0])
             val data = mAllData!![position]
+
+            var mString = data.split(" ")
             if (convertView == null)
                 convertView = LayoutInflater.from(this@WorldIdxActivity).inflate(
                         R.layout.layout_conceptdetail, null)
 
             var mNumberView: TextView = convertView!!.findViewById(R.id.stocknumbertext)
             mNumberView.text = data
+            for (s in mString) {
+                if (s.contains("%")){
+                    if (s.contains("-")){
+                        mNumberView.setTextColor(Color.GREEN)
+                    }else if(s.contains("+")){
+                        mNumberView.setTextColor(Color.RED)
 
+                    }
+                }
+            }
 
             return convertView
         }
