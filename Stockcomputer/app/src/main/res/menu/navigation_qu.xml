@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/quotes_1"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="單日熱門股進出" />
+
+    <item
+        android:id="@+id/quotes_2"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="單日漲幅排行" />
+
+    <item
+        android:id="@+id/quotes_3"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="單日跌幅排行" />
+
+
+    <item
+        android:id="@+id/quotes_4"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="當沖指標排行" />
+    <item
+        android:id="@+id/quotes_5"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="單日成交價排行" />
+    <item
+        android:id="@+id/quotes_6"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="單日成交值排行" />
+</menu>
