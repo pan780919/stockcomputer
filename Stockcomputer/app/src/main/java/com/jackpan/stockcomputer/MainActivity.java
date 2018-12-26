@@ -289,7 +289,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
         String name = MySharedPrefernces.getUserName(context);
         String photo = MySharedPrefernces.getUserPhoto(context);
         setMemberData(id, name, photo);
-        Log.d(TAG, "onResume: " + id);
         if (!id.equals("")) {
             mLoginButton.setText("已登入");
             mfiebaselibsClass.getFirebaseDatabase(MemberData.KEY_URL + "/" + id, id);
@@ -340,7 +339,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     @OnClick(R.id.loginbutton)
     public  void setLoginActivity(View v){
-
         String id = MySharedPrefernces.getUserId(context);
         if (!id.equals("")) {
             startActivity(MemberCenterActivity.class);
