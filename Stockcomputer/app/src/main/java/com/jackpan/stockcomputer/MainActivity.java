@@ -182,7 +182,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //        setWarningStock();
 //        getStockSelect();
 //        getStockSelectDetail();
-        test2();
     }
 
     @Override
