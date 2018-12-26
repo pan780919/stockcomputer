@@ -4,19 +4,17 @@ import android.app.ProgressDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.BaseAdapter
+import android.widget.ImageView
+import android.widget.ListView
+import android.widget.TextView
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity
 import com.jackpan.stockcomputer.R
-import kotlinx.android.synthetic.main.activity_fg_buy.*
-
 import kotlinx.android.synthetic.main.activity_world_idx.*
 import org.jsoup.Jsoup
 import java.io.IOException
