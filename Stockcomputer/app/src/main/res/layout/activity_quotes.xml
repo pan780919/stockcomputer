@@ -9,13 +9,13 @@
     tools:context="com.jackpan.stockcomputer.Kotlin.FgBuyActivity">
 
     <RelativeLayout
-        android:layout_marginBottom="54dp"
-        android:layout_above="@+id/sebuy_navigation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/sebuy_navigation"
+        android:layout_marginBottom="54dp"
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.gms.ads.AdView
             android:id="@+id/adbertADView"
@@ -28,34 +28,13 @@
             ads:adUnitId="ca-app-pub-7019441527375550/1465129066">
 
         </com.google.android.gms.ads.AdView>
-        <TextView
-            android:id="@+id/title"
-            android:layout_below="@+id/adbertADView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="20dp"
-            android:layout_centerInParent="true"
 
-            ></TextView>
-        <ImageView
-            android:layout_marginRight="12dp"
-            android:id="@+id/updatabtn"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/adbertADView"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/updateicon"
-            ></ImageView>
         <ListView
-
-            android:layout_below="@+id/updatabtn"
             android:id="@+id/fgbuylistview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="8dp"
-            ></ListView>
-
+            android:layout_below="@+id/adbertADView"
+            android:layout_marginBottom="8dp"></ListView>
 
 
     </RelativeLayout>
