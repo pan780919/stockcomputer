@@ -377,8 +377,20 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
     }
 
     @OnClick(R.id.loginbutton)
+<<<<<<< HEAD
 
     public void setLoginActivity(View v) {
+=======
+<<<<<<< HEAD
+    public void setLoginActivity(View v) {
+=======
+<<<<<<< HEAD
+    public  void setLoginActivity(){
+        startActivity(LoginActivity.class);
+=======
+    public  void setLoginActivity(View v){
+>>>>>>> release/v1.0.6
+>>>>>>> 6eb27376c1325d404497ce939f1a9bf37075bb8c
         String id = MySharedPrefernces.getUserId(context);
         if (!id.equals("")) {
             startActivity(MemberCenterActivity.class);
