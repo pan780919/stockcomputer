@@ -1,18 +1,24 @@
 package com.jackpan.stockcomputer.Kotlin
+import android.app.ProgressDialog
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
-import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.BaseAdapter
 import android.widget.ListView
+import android.widget.TextView
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity
 import com.jackpan.stockcomputer.R
 import kotlinx.android.synthetic.main.activity_quotes.*
-import kotlinx.android.synthetic.main.activity_world_idx.*
 import org.jsoup.Jsoup
 import java.io.IOException
 
 class QuotesActivity : BaseAppCompatActivity() {
+
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.quotes_1 -> {
@@ -45,6 +51,9 @@ class QuotesActivity : BaseAppCompatActivity() {
     val rank_amt = "https://tw.stock.yahoo.com/d/i/rank.php?t=amt&e=tse"
     lateinit var mListView: ListView
     lateinit var mAdView:AdView
+    var mArrayList :ArrayList<String> =ArrayList()
+    lateinit var mMyAdapter : MyAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quotes)
@@ -56,12 +65,18 @@ class QuotesActivity : BaseAppCompatActivity() {
     }
     fun initlayout(){
         mListView = findViewById(R.id.listview)
+        mMyAdapter = MyAdapter(mArrayList)
+        mListView.adapter = mMyAdapter
         mAdView = findViewById(R.id.ADView)
         var adRequset = AdRequest.Builder().build()
         mAdView.loadAd(adRequset)
         qu_navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }
     fun getList(s:String){
+        mArrayList.clear()
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("讀取中")
+        progressDialog.show()
         object : Thread() {
             override fun run() {
                 super.run()
@@ -69,6 +84,11 @@ class QuotesActivity : BaseAppCompatActivity() {
                     val doc = Jsoup.connect("https://tw.stock.yahoo.com/d/i/rank.php?t=pri&e=tse").get()
                     for (element in doc.select("table[border=0][cellspacing=1][cellpadding=3]")) {
                         for (tr in element.select("tr")) {
+                            mArrayList.add(tr.text())
+                            runOnUiThread {
+                                mMyAdapter.notifyDataSetChanged()
+                                progressDialog.dismiss()
+                            }
                         }
                     }
                     //
@@ -79,6 +99,51 @@ class QuotesActivity : BaseAppCompatActivity() {
 
             }
         }.start()
+
+    }
+
+    inner class MyAdapter(var mAllData: ArrayList<String>?) : BaseAdapter() {
+        fun updateData(datas: ArrayList<String>) {
+            mAllData = datas
+            notifyDataSetChanged()
+        }
+
+        override fun getCount(): Int {
+            return mAllData!!.size
+        }
+
+        override fun getItem(position: Int): Any {
+            return mAllData!![position]
+        }
+
+        override fun getItemId(position: Int): Long {
+            return position.toLong()
+        }
+
+        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+            var convertView = convertView
+            val data = mAllData!![position]
+
+            var mString = data.split(" ")
+            if (convertView == null)
+                convertView = LayoutInflater.from(this@QuotesActivity).inflate(
+                        R.layout.layout_conceptdetail, null)
+
+            var mNumberView: TextView = convertView!!.findViewById(R.id.stocknumbertext)
+            mNumberView.text = data
+            for (s in mString) {
+                if (s.contains("%")){
+                    if (s.contains("-")){
+                        mNumberView.setTextColor(Color.GREEN)
+                    }else if(s.contains("+")){
+                        mNumberView.setTextColor(Color.RED)
+
+                    }
+                }
+            }
+
+            return convertView
+        }
 
     }
 }
