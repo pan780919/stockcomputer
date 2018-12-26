@@ -27,6 +27,7 @@
             ></com.facebook.login.widget.LoginButton>
 
         <Button
+            android:visibility="gone"
             android:id="@+id/phonebutton"
             android:layout_marginTop="12dp"
             android:layout_centerInParent="true"

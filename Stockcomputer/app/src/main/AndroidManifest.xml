@@ -170,7 +170,8 @@
         <activity
             android:name=".Kotlin.ConceptDetailActivity"
             android:label="@string/title_activity_concept_detail"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Kotlin.QuotesActivity"></activity>
     </application>
 
 </manifest>

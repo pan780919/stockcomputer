@@ -15,6 +15,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.jackpan.stockcomputer.Activity.BaseAppCompatActivity
 import com.jackpan.stockcomputer.R
+import com.jackpan.stockcomputer.util.StockPriceCheck
 import kotlinx.android.synthetic.main.activity_world_idx.*
 import org.jsoup.Jsoup
 import java.io.IOException
@@ -136,7 +137,7 @@ class WorldIdxActivity : BaseAppCompatActivity(), View.OnClickListener {
                                 for (i in 18..23) {
                                     dataList.add(element.select("tr").get(i).text())
                                     runOnUiThread(Runnable {
-                                        mTitleTextView.text = element.select("tr").get(1).text()
+                                        mTitleTextView.text = element.select("tr").get(16).text()
                                         mMyAdapter.notifyDataSetChanged()
                                         progressDialog.dismiss()
 
@@ -146,7 +147,7 @@ class WorldIdxActivity : BaseAppCompatActivity(), View.OnClickListener {
                                 for (i in 27..29) {
                                     dataList.add(element.select("tr").get(i).text())
                                     runOnUiThread(Runnable {
-                                        mTitleTextView.text = element.select("tr").get(1).text()
+                                        mTitleTextView.text = element.select("tr").get(25).text()
                                         mMyAdapter.notifyDataSetChanged()
                                         progressDialog.dismiss()
 
@@ -184,24 +185,14 @@ class WorldIdxActivity : BaseAppCompatActivity(), View.OnClickListener {
         override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
             var convertView = convertView
             val data = mAllData!![position]
-
-            var mString = data.split(" ")
             if (convertView == null)
                 convertView = LayoutInflater.from(this@WorldIdxActivity).inflate(
                         R.layout.layout_conceptdetail, null)
 
             var mNumberView: TextView = convertView!!.findViewById(R.id.stocknumbertext)
             mNumberView.text = data
-            for (s in mString) {
-                if (s.contains("%")){
-                    if (s.contains("-")){
-                        mNumberView.setTextColor(Color.GREEN)
-                    }else if(s.contains("+")){
-                        mNumberView.setTextColor(Color.RED)
+            StockPriceCheck.check(data,mNumberView)
 
-                    }
-                }
-            }
 
             return convertView
         }
