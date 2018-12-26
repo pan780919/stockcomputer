@@ -48,6 +48,7 @@ import com.jackpan.stockcomputer.Kotlin.LoginActivity;
 import com.jackpan.stockcomputer.Kotlin.MemberCenterActivity;
 import com.jackpan.stockcomputer.Kotlin.NewDetailActivity;
 import com.jackpan.stockcomputer.Kotlin.QueryStockPriceActivity;
+import com.jackpan.stockcomputer.Kotlin.QuotesActivity;
 import com.jackpan.stockcomputer.Kotlin.SeBuyActivity;
 import com.jackpan.stockcomputer.Kotlin.StockValueAddedRateActivity;
 import com.jackpan.stockcomputer.Kotlin.WorldIdxActivity;
@@ -168,46 +169,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //        getbuy();
 //        getStop();
         interstitialAd = new InterstitialAd(this, "383959162037550_522507098182755");
-        interstitialAd.setAdListener(new InterstitialAdListener() {
-            @Override
-            public void onInterstitialDisplayed(Ad ad) {
-                // Interstitial ad displayed callback
-                Log.e(TAG, "Interstitial ad displayed.");
-            }
-
-            @Override
-            public void onInterstitialDismissed(Ad ad) {
-                // Interstitial dismissed callback
-                Log.e(TAG, "Interstitial ad dismissed.");
-            }
-
-            @Override
-            public void onError(Ad ad, AdError adError) {
-                // Ad error callback
-                Log.e(TAG, "Interstitial ad failed to load: " + adError.getErrorMessage());
-            }
-
-            @Override
-            public void onAdLoaded(Ad ad) {
-                // Interstitial ad is loaded and ready to be displayed
-                Log.d(TAG, "Interstitial ad is loaded and ready to be displayed!");
-                // Show the ad
-                interstitialAd.show();
-            }
-
-            @Override
-            public void onAdClicked(Ad ad) {
-                // Ad clicked callback
-                Log.d(TAG, "Interstitial ad clicked!");
-            }
-
-            @Override
-            public void onLoggingImpression(Ad ad) {
-                // Ad impression logged callback
-                Log.d(TAG, "Interstitial ad impression logged!");
-            }
-        });
-
         // For auto play video ads, it's recommended to load the ad
         // at least 30 seconds before it is shown
         interstitialAd.loadAd();
@@ -219,8 +180,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //        handler.postDelayed(runnable, 1000 * 30);
 //        test10();
 //        setWarningStock();
-        getStockSelect();
-        getStockSelectDetail();
+//        getStockSelect();
+//        getStockSelectDetail();
     }
 
     @Override
@@ -356,6 +317,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     @OnClick(R.id.nav_quotes)
     public void quotesActivity() {
+        startActivity(QuotesActivity.class);
 
     }
 
@@ -378,6 +340,10 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
     @OnClick(R.id.loginbutton)
     public  void setLoginActivity(View v){
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
         String id = MySharedPrefernces.getUserId(context);
         if (!id.equals("")) {
             startActivity(MemberCenterActivity.class);
@@ -769,8 +735,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                         }
 
                     }
-
-//
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

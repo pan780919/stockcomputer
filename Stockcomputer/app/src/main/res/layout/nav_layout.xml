@@ -136,6 +136,7 @@
 
             </LinearLayout>
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/nav_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -157,6 +158,8 @@
 
             </LinearLayout>
             <LinearLayout
+                android:visibility="gone"
+
                 android:id="@+id/nav_dividend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -179,6 +182,8 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
+
                 android:id="@+id/nav_exemption"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -242,6 +247,8 @@
 
             </LinearLayout>
             <LinearLayout
+                android:visibility="gone"
+
                 android:id="@+id/nav_credit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
