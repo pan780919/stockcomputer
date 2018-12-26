@@ -14,6 +14,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.jackpan.stockcomputer.Data.ConceptData
 import com.jackpan.stockcomputer.R
+import com.jackpan.stockcomputer.util.StockPriceCheck
 import org.jsoup.Jsoup
 
 class ConceptDetailActivity : AppCompatActivity() {
@@ -104,6 +105,7 @@ class ConceptDetailActivity : AppCompatActivity() {
 
             var mNumberView: TextView = convertView!!.findViewById(R.id.stocknumbertext)
             mNumberView.text = data
+            StockPriceCheck.check(data,mNumberView)
 
 
             return convertView
