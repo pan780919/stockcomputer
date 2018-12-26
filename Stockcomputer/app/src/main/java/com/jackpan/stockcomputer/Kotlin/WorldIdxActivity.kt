@@ -136,7 +136,7 @@ class WorldIdxActivity : BaseAppCompatActivity(), View.OnClickListener {
                                 for (i in 18..23) {
                                     dataList.add(element.select("tr").get(i).text())
                                     runOnUiThread(Runnable {
-                                        mTitleTextView.text = element.select("tr").get(1).text()
+                                        mTitleTextView.text = element.select("tr").get(16).text()
                                         mMyAdapter.notifyDataSetChanged()
                                         progressDialog.dismiss()
 
@@ -146,7 +146,7 @@ class WorldIdxActivity : BaseAppCompatActivity(), View.OnClickListener {
                                 for (i in 27..29) {
                                     dataList.add(element.select("tr").get(i).text())
                                     runOnUiThread(Runnable {
-                                        mTitleTextView.text = element.select("tr").get(1).text()
+                                        mTitleTextView.text = element.select("tr").get(25).text()
                                         mMyAdapter.notifyDataSetChanged()
                                         progressDialog.dismiss()
 
