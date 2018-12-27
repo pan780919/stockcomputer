@@ -127,12 +127,6 @@ class LoginActivity : BaseAppCompatActivity() {
             LineApiResponseCode.SUCCESS -> {
 
                 val transitionIntent = Intent(this, PostLoginActivity::class.java)
-//                transitionIntent.putExtra("line_profile", result.lineProfile)
-//                transitionIntent.putExtra("line_credential", result.lineCredential)
-//                startActivity(transitionIntent)
-                Log.d("msg", result.lineProfile?.userId)
-//                Log.d("msg", result.lineProfile?.pictureUrl.toString())
-//                Log.d("msg", result.lineProfile?.displayName)
                 MySharedPrefernces.saveUserLoginState(this,2)
                 MySharedPrefernces.saveUserId(this,result.lineProfile?.userId)
                 MySharedPrefernces.saveUserName(this, result.lineProfile?.displayName)
@@ -145,8 +139,7 @@ class LoginActivity : BaseAppCompatActivity() {
             LineApiResponseCode.CANCEL -> Log.e("ERROR", "LINE Login Canceled by user!!")
 
             else -> {
-                Log.e("ERROR", "Login FAILED!")
-                Log.e("ERROR", result.errorData.toString())
+
             }
         }
 
@@ -176,7 +169,6 @@ class LoginActivity : BaseAppCompatActivity() {
                 Toast.makeText(applicationContext, "Logout Successful", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(applicationContext, "Logout Failed", Toast.LENGTH_SHORT).show()
-                Log.e("TAG", "Logout Failed: " + apiResponse.errorData.toString())
             }
         }
 

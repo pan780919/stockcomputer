@@ -22,10 +22,7 @@ import android.widget.TextView;
 
 import com.clickforce.ad.Listener.AdViewLinstener;
 import com.facebook.AccessToken;
-import com.facebook.ads.Ad;
-import com.facebook.ads.AdError;
 import com.facebook.ads.InterstitialAd;
-import com.facebook.ads.InterstitialAdListener;
 import com.facebook.messenger.MessengerThreadParams;
 import com.facebook.messenger.MessengerUtils;
 import com.google.android.gms.ads.AdRequest;
