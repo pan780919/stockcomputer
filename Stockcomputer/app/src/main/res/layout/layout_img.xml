@@ -8,7 +8,7 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/img"
         android:layout_width="540dp"
-        android:layout_height="220dp"
+        android:layout_height="200dp"
         ></ImageView>
 
 </RelativeLayout>
