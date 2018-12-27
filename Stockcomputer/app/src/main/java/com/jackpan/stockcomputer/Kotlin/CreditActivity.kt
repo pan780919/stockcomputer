@@ -18,11 +18,15 @@ class CreditActivity : Activity() {
     var dataList :ArrayList<String> =ArrayList()
     lateinit var mLayout: LinearLayout
     lateinit var mImgLayout: LinearLayout
+    lateinit var mLayout_1: LinearLayout
+    lateinit var mImgLayout_2: LinearLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_credit)
         mLayout = findViewById(R.id.layout_1)
         mImgLayout = findViewById(R.id.layout_2)
+        mLayout_1 = findViewById(R.id.layout_3)
+        mImgLayout_2 = findViewById(R.id.layout_4)
         getList()
     }
 
@@ -32,7 +36,7 @@ class CreditActivity : Activity() {
                 super.run()
                 try {
                     val doc = Jsoup.connect("https://tw.stock.yahoo.com/d/i/credit.html").get()
-                    for (i in 1 until doc.select("table[border=0][cellspacing=1][cellpadding=3]").size) {
+                    for (i in 0 until doc.select("table[border=0][cellspacing=1][cellpadding=3]").size) {
 
                         for (a in 1 until doc.select("table[border=0][cellspacing=1][cellpadding=3]").get(i).select("tr").size - 3) {
                             runOnUiThread {
@@ -40,6 +44,19 @@ class CreditActivity : Activity() {
 
                             }
                         }
+
+
+                    }
+                    for (i in 1 until doc.select("table[border=0][cellspacing=1][cellpadding=3]").size) {
+
+                        for (a in 1 until doc.select("table[border=0][cellspacing=1][cellpadding=3]").get(i).select("tr").size - 3) {
+                            runOnUiThread {
+                                addTextView(doc.select("table[border=0][cellspacing=1][cellpadding=3]").select("tr").get(a).text(),mLayout_1)
+
+                            }
+                        }
+
+
                     }
                     for (element in doc.select("table[border=0][cellspacing=7][cellpadding=2]")) {
                         for (tr in element.select("tr")) {
@@ -60,6 +77,10 @@ class CreditActivity : Activity() {
                     runOnUiThread {
                         for (i in 0..1){
                             addImg(dataList.get(i),mImgLayout)
+                        }
+                        for (i in 2..3){
+                            addImg(dataList.get(i),mImgLayout_2)
+
                         }
                     }
                 } catch (e: IOException) {

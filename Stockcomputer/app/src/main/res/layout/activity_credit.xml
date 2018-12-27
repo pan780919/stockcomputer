@@ -30,12 +30,14 @@
                 >
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/layout_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 >
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/layout_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
