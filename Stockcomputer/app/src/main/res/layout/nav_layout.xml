@@ -380,11 +380,6 @@
                     android:text="報明牌專區"></TextView>
 
             </LinearLayout>
-
-            <!--<com.adbert.AdbertLoopADView-->
-                <!--android:id="@+id/adbertADView"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"></com.adbert.AdbertLoopADView>-->
             <com.google.android.gms.ads.AdView
                 android:id="@+id/adbertADView"
                 android:layout_width="wrap_content"
