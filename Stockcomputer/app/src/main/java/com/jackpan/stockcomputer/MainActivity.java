@@ -180,7 +180,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //        setWarningStock();
 //        getStockSelect();
 //        getStockSelectDetail();
-        test();
+//        test();
     }
 
     @Override
@@ -768,9 +768,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                     Document doc = Jsoup.connect("https://tw.stock.yahoo.com/d/i/credit.html").get();
 
                     for (Element element : doc.select("table[border=0][cellspacing=1][cellpadding=3]")) {
-                        Log.d(TAG, "run: " + element.select("tr").size());
                         for (int i =1; i < element.select("tr").size()-3; i++) {
-                            Log.d(TAG, "run: " + element.select("tr").get(i).text());
                         }
                     }
                     for (Element element : doc.select("table[border=0][cellspacing=7][cellpadding=2]")) {
@@ -780,6 +778,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
                                 for (Element src : title) {
                                     if (src.tagName().equalsIgnoreCase("img")) {
+
                                     }
                                 }
                             }
@@ -961,17 +960,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                                         n.setNewsDetail(element.getElementsByTag("a").attr("href").toString());
                                         newlist.add(n);
                                     }
-//                                        NewsData n = new NewsData();
-//
-//                                        n.setNewsTitle(element.text());
-//                                        newlist.add(n);
-//
-//                                    for (Element td : tr.select("td[valign=top]>span.mbody")) {
-//                                        Log.d(TAG, "b: "+td.text());
-//                                        n.setNewsDetail(td.text());
-//
-//                                    }
-
 
                                     if (newlist.size() >= 10) {
                                         runOnUiThread(new Runnable() {
@@ -1000,7 +988,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.d(TAG, "run: " + e.getMessage());
                 }
 
 
@@ -1036,8 +1023,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                         ntx = next.replace("\'", "");
                     }
 
-                    Log.d(TAG, "run: " + "https://tw.stock.yahoo.com/news_list/url/d/e/N3.html" + ntx + "");
-
                     Document doc = Jsoup.connect("https://tw.stock.yahoo.com/news_list/url/d/e/N3.html" + ntx + "").get();
 
                     nextPage.clear();
@@ -1052,7 +1037,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
                             for (Element tbody : table.select("tbody")) {
                                 for (Element tr : tbody.select("tr")) {
-                                    Log.d(TAG, "run: " + tr.select("td[valign=top]>a.mbody").size());
                                     for (int i = 0; i < tr.select("td[valign=top]>a.mbody").size(); i++) {
                                         NewsData mNewsData = new NewsData();
                                         mNewsData.setNewsTitle(tr.select("td[valign=top]>a.mbody").get(i).text());
@@ -1083,7 +1067,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.d(TAG, "run: " + e.getMessage());
                 }
 
 
