@@ -65,7 +65,6 @@ dependencies {
     compile files('libs/jsoup-1.11.2.jar')
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     compile files('libs/adbert-sdk-320n.jar')
-    compile files('libs/vpadn-sdk-obf470-81217102-1712181548-f6c5e3e.jar')
     compile 'com.android.support:appcompat-v7:26.0.0'
     compile 'com.android.support:design:26.0.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -110,6 +109,8 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.android.support:customtabs:26.0.0'
     compile(name: 'line-sdk-4.0.6', ext: 'aar')
+    compile(name: 'vpadn-sdk-obf481-81018102-1810181459-79f72c0', ext: 'aar')
+
     implementation 'com.jakewharton:butterknife:8.8.1'
     kapt "com.jakewharton:butterknife-compiler:8.8.1"
     implementation files('libs/admob-adapter-1.0.0-1505261651-830485e.jar')
