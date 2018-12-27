@@ -597,9 +597,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                         }
                     });
 
-
-//
-                } catch (IOException e) {
+                    } catch (IOException e) {
                     e.printStackTrace();
                 }
 
@@ -633,9 +631,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                         }
                     }
 
-
-//
-                } catch (IOException e) {
+                    } catch (IOException e) {
                     e.printStackTrace();
                 }
 
@@ -658,8 +654,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                         }
                     }
 
-
-//
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -703,7 +697,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
                     }
 
-//
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -751,7 +744,6 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
                         }
                     }
-//
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -787,11 +779,8 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                                     }
                                 }
                             }
-
-
                         }
                     }
-//
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
