@@ -179,6 +179,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 //        setWarningStock();
 //        getStockSelect();
 //        getStockSelectDetail();
+        test();
     }
 
     @Override
@@ -769,15 +770,20 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
                 super.run();
                 try {
                     Document doc = Jsoup.connect("https://tw.stock.yahoo.com/d/i/credit.html").get();
+
+                    for (Element element : doc.select("table[border=0][cellspacing=1][cellpadding=3]")) {
+                        Log.d(TAG, "run: " + element.select("tr").size());
+                        for (int i =1; i < element.select("tr").size()-1; i++) {
+                            Log.d(TAG, "run: " + element.select("tr").get(i).text());
+                        }
+                    }
                     for (Element element : doc.select("table[border=0][cellspacing=7][cellpadding=2]")) {
                         for (Element tr : element.select("tr")) {
                             for (Element p : tr.getElementsByTag("p")) {
-//                                Log.d(TAG, "run: "+p.toString());
                                 Elements title = p.select("[src]");
 
                                 for (Element src : title) {
                                     if (src.tagName().equalsIgnoreCase("img")) {
-                                        Log.d(TAG, "run: " + src.attr("abs:src"));
                                     }
                                 }
                             }
