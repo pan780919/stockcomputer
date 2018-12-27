@@ -765,7 +765,7 @@ public class MainActivity extends BaseAppCompatActivity implements MfirebaeCallb
 
                     for (Element element : doc.select("table[border=0][cellspacing=1][cellpadding=3]")) {
                         Log.d(TAG, "run: " + element.select("tr").size());
-                        for (int i =1; i < element.select("tr").size()-1; i++) {
+                        for (int i =1; i < element.select("tr").size()-3; i++) {
                             Log.d(TAG, "run: " + element.select("tr").get(i).text());
                         }
                     }
