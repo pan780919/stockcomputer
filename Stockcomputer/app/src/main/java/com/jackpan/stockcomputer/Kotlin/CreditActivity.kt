@@ -1,8 +1,6 @@
 package com.jackpan.stockcomputer.Kotlin
-
 import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import com.jackpan.stockcomputer.R
 import org.jsoup.Jsoup
 import java.io.IOException
@@ -104,7 +102,7 @@ class CreditActivity : Activity() {
     fun addImg(s: String, layout: LinearLayout) {
         var view: View = LayoutInflater.from(this@CreditActivity).inflate(R.layout.layout_img, layout, false)
         val mImageView: ImageView = view.findViewById(R.id.img)
-        Picasso.get().load(s).into(mImageView);
+        Picasso.get().load(s).into(mImageView)
 
         layout.addView(view)
     }
